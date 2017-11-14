@@ -1,0 +1,70 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Wijmo Demo</h3>
+        <wj-flex-grid [itemsSource]="data">
+          <wj-flex-grid-column [header]="'Country'" [binding]="'country'" [width]="'*'"></wj-flex-grid-column>
+          <wj-flex-grid-column [header]="'Date'" [binding]="'date'"></wj-flex-grid-column>
+          <wj-flex-grid-column [header]="'Revenue'" [binding]="'amount'" [format]="'n0'"></wj-flex-grid-column>
+          <wj-flex-grid-column [header]="'Active'" [binding]="'active'"></wj-flex-grid-column>
+        </wj-flex-grid>
+      </div>
+      <div class="col-md-6">
+        <h3>Wijmo Editing</h3>
+        <wj-flex-grid [itemsSource]="data">
+          <wj-flex-grid-column [header]="'ID'" [binding]="'id'" [isReadOnly]="true" [width]="50"></wj-flex-grid-column>
+          <wj-flex-grid-column [header]="'Country'" [binding]="'country'" [width]="'*'"></wj-flex-grid-column>
+          <wj-flex-grid-column [header]="'Date'" [binding]="'date'"></wj-flex-grid-column>
+          <wj-flex-grid-column [header]="'Revenue'" [binding]="'amount'" [format]="'n0'"></wj-flex-grid-column>
+          <wj-flex-grid-column [header]="'Active'" [binding]="'active'"></wj-flex-grid-column>
+        </wj-flex-grid>
+      </div>
+      <div class="col-md-6">
+        <h3>Wijmo Paging</h3>
+        <wj-flex-grid [itemsSource]="cvPaging" style="height:auto">
+        </wj-flex-grid>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default" (click)="cvPaging.moveToFirstPage()" [disabled]="cvPaging.pageIndex <= 0">
+            <span class="glyphicon glyphicon-fast-backward"></span>
+          </button>
+          <button type="button" class="btn btn-default" (click)="cvPaging.moveToPreviousPage()" [disabled]="cvPaging.pageIndex <= 0">
+            <span class="glyphicon glyphicon-step-backward"></span>
+          </button>
+          <button type="button" class="btn btn-default" disabled style="width:100px">
+            {{cvPaging.pageIndex + 1 | number}​} / {​{cvPaging.pageCount | number}​}
+          </button>
+          <button type="button" class="btn btn-default" (click)="cvPaging.moveToNextPage()" [disabled]="cvPaging.pageIndex >= cvPaging.pageCount - 1">
+            <span class="glyphicon glyphicon-step-forward"></span>
+          </button>
+          <button type="button" class="btn btn-default" (click)="cvPaging.moveToLastPage()" [disabled]="cvPaging.pageIndex >= cvPaging.pageCount - 1">
+            <span class="glyphicon glyphicon-fast-forward"></span>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h3>Wijmo Master Detail</h3>
+        <wj-flex-grid [itemsSource]="data" [isReadOnly]="true">
+          <wj-flex-grid-column [header]="'Country'" [binding]="'country'" [width]="'*'"></wj-flex-grid-column>
+          <wj-flex-grid-column [header]="'Date'" [binding]="'date'"></wj-flex-grid-column>
+        </wj-flex-grid>
+      </div>
+      <!-- <div class="col-md-6">
+        <wj-flex-grid [(itemsSource)]="cvGroup">
+          <wj-flex-grid-column [header]="'Country'" [binding]="'country'" [width]="'*'"></wj-flex-grid-column>
+          <wj-flex-grid-column [header]="'Date'" [binding]="'date'"></wj-flex-grid-column>
+          <wj-flex-grid-column [header]="'Revenue'" [binding]="'amount'" [format]="'n0'" [aggregate]="'Sum'"></wj-flex-grid-column>
+        </wj-flex-grid>
+        <wj-menu [(value)]="groupBy" [header]="'Group by'">
+          <wj-menu-item [value]="''">(no grouping)</wj-menu-item>
+          <wj-menu-item [value]="'country'">Country</wj-menu-item>
+          <wj-menu-item [value]="'amount'">Revenue</wj-menu-item>
+          <wj-menu-item [value]="'date'">Date</wj-menu-item>
+          <wj-menu-item [value]="'country,date'">Country and Date</wj-menu-item>
+          <wj-menu-item [value]="'country,amount'">Country and Revenue</wj-menu-item>
+          <wj-menu-item [value]="'country,date,amount'">Country, Date, and Revenue</wj-menu-item>
+        </wj-menu>
+      </div> -->
+    </div>
+  </div>
+</div>

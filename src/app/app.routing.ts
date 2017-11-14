@@ -19,6 +19,13 @@ export const AppRoutes: Routes = [
   }, {
     path: '',
     component: AdminLayoutComponent,
+    children: [{
+      path: 'accounts',
+      loadChildren: './accounts/accounts.module#AccountsModule'
+    }]
+  }, {
+    path: '',
+    component: AdminLayoutComponent,
     children: [
       {
         path: '',

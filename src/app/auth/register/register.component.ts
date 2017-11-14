@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
     }
     
     onSubmit() {
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/accounts');
     }
     
     onSlide(value) {
