@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 
-import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
-import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
+import { AdminLayoutComponent } from './creative/layouts/admin/admin-layout.component';
+import { AuthLayoutComponent } from './creative/layouts/auth/auth-layout.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 export const AppRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'pages/login',
+    redirectTo: 'auth/login',
     pathMatch: 'full'
   }, {
     path: '',
@@ -22,34 +22,34 @@ export const AppRoutes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: './dashboard/dashboard.module#DashboardModule'
+        loadChildren: './creative/dashboard/dashboard.module#DashboardModule'
       }, {
         path: 'components',
-        loadChildren: './components/components.module#ComponentsModule'
+        loadChildren: './creative/components/components.module#ComponentsModule'
       }, {
         path: 'forms',
-        loadChildren: './forms/forms.module#Forms'
+        loadChildren: './creative/forms/forms.module#Forms'
       }, {
         path: 'tables',
-        loadChildren: './tables/tables.module#TablesModule'
+        loadChildren: './creative/tables/tables.module#TablesModule'
       }, {
         path: 'maps',
-        loadChildren: './maps/maps.module#MapsModule'
+        loadChildren: './creative/maps/maps.module#MapsModule'
       }, {
         path: 'widgets',
-        loadChildren: './widgets/widgets.module#WidgetsModule'
+        loadChildren: './creative/widgets/widgets.module#WidgetsModule'
       }, {
         path: 'charts',
-        loadChildren: './charts/charts.module#ChartsModule'
+        loadChildren: './creative/charts/charts.module#ChartsModule'
       }, {
         path: 'calendar',
-        loadChildren: './calendar/calendar.module#CalendarModule'
+        loadChildren: './creative/calendar/calendar.module#CalendarModule'
       }, {
         path: '',
-        loadChildren: './userpage/user.module#UserModule'
+        loadChildren: './creative/userpage/user.module#UserModule'
       }, {
         path: '',
-        loadChildren: './timeline/timeline.module#TimelineModule'
+        loadChildren: './creative/timeline/timeline.module#TimelineModule'
       }
     ]
   }, {
@@ -57,7 +57,7 @@ export const AppRoutes: Routes = [
     component: AuthLayoutComponent,
     children: [{
       path: 'pages',
-      loadChildren: './pages/pages.module#PagesModule'
+      loadChildren: './creative/pages/pages.module#PagesModule'
     }]
   }
 ];

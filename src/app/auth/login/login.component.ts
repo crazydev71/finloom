@@ -52,6 +52,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSlide(value) {
-    this.isLogin = value;
+    this.router.navigateByUrl('/auth/register');
   }
 }

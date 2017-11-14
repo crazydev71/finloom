@@ -42,11 +42,11 @@ import {
 import { AppComponent } from './app.component';
 import { AuthGuard } from './_guards/auth.guard';
 
-import { SidebarModule } from './sidebar/sidebar.module';
-import { FooterModule } from './shared/footer/footer.module';
-import { NavbarModule} from './shared/navbar/navbar.module';
-import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
-import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
+import { SidebarModule } from './creative/sidebar/sidebar.module';
+import { FooterModule } from './creative/shared/footer/footer.module';
+import { NavbarModule} from './creative/shared/navbar/navbar.module';
+import { AdminLayoutComponent } from './creative/layouts/admin/admin-layout.component';
+import { AuthLayoutComponent } from './creative/layouts/auth/auth-layout.component';
 
 import { AppRoutes } from './app.routing';
 

@@ -1,0 +1,13 @@
+﻿/*
+    *
+    * Wijmo Library 5.20172.359
+    * http://wijmo.com/
+    *
+    * Copyright(c) GrapeCity, Inc.  All rights reserved.
+    *
+    * Licensed under the GrapeCity Commercial License.
+    * sales@wijmo.com
+    * wijmo.com/products/wijmo-5/license/
+    *
+    */
+var __extends=this&&this.__extends||function(){var n=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(n,t){n.__proto__=t}||function(n,t){for(var i in t)t.hasOwnProperty(i)&&(n[i]=t[i])};return function(t,i){function r(){this.constructor=t}n(t,i);t.prototype=i===null?Object.create(i):(r.prototype=i.prototype,new r)}}();define(["require","exports","wijmo/wijmo.chart.animation","@angular/core","@angular/core","@angular/core","@angular/common","wijmo/wijmo.angular2.directiveBase"],function(n,t,i,r,u,f,e,o){"use strict";var s,c,h;Object.defineProperty(t,"__esModule",{value:!0});t.wjFlexChartAnimationMeta={selector:'wj-flex-chart-animation',template:"",inputs:['wjProperty','animationMode','easing','duration','axisAnimation',],outputs:['initialized',],providers:[]};s=function(n){function t(t,i,r){var u=n.call(this,r)||this,f;return u.isInitialized=!1,f=u._wjBehaviour=o.WjDirectiveBehavior.attach(u,t,i,r),u.created(),u}return __extends(t,n),t.prototype.created=function(){},t.prototype.ngOnInit=function(){this._wjBehaviour.ngOnInit()},t.prototype.ngAfterViewInit=function(){this._wjBehaviour.ngAfterViewInit()},t.prototype.ngOnDestroy=function(){this._wjBehaviour.ngOnDestroy()},t}(i.ChartAnimation);s.meta={outputs:t.wjFlexChartAnimationMeta.outputs};s.decorators=[{type:r.Component,args:[{selector:t.wjFlexChartAnimationMeta.selector,template:t.wjFlexChartAnimationMeta.template,inputs:t.wjFlexChartAnimationMeta.inputs,outputs:t.wjFlexChartAnimationMeta.outputs,providers:[{provide:'WjComponent',useExisting:u.forwardRef(function(){return s})}].concat(t.wjFlexChartAnimationMeta.providers)},]},];s.ctorParameters=function(){return[{type:u.ElementRef,decorators:[{type:f.Inject,args:[u.ElementRef,]},]},{type:u.Injector,decorators:[{type:f.Inject,args:[u.Injector,]},]},{type:undefined,decorators:[{type:f.Inject,args:['WjComponent',]},{type:f.SkipSelf},{type:u.Optional},]},]};t.WjFlexChartAnimation=s;c=[s];h=function(){function n(){}return n}();h.decorators=[{type:r.NgModule,args:[{imports:[o.WjDirectiveBaseModule,e.CommonModule],declarations:c.slice(),exports:c.slice()},]},];h.ctorParameters=function(){return[]};t.WjChartAnimationModule=h})
