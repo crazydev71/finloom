@@ -28,7 +28,7 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Running Finloom for development
 
 1. Run `npm run build` or `ng build --watch` to build project and watch changes.
-2. Run `npm start` for a server. Navigate to `http://localhost:3000/`.
+2. Run `npm start` for a server. Navigate to `http://localhost:3200/`.
 
 ## Further help
 
