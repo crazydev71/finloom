@@ -27,6 +27,24 @@ export const ROUTES: RouteInfo[] = [
     title: 'Accounts',
     type: 'link',
     icontype: 'dashboard'
+  },
+  {
+    path: '/creative',
+    title: 'Creative',
+    type: 'sub',
+    icontype: 'dashboard',
+    collapse: 'creative',
+    children: [
+      { path: 'dashboard', title: 'Dashboard', ab: 'B' },
+      { path: 'components', title: 'components', ab: 'GS' },
+      { path: 'forms', title: 'forms', ab: 'P' },
+      { path: 'tables', title: 'tables', ab: 'SA' },
+      { path: 'maps', title: 'maps', ab: 'N' },
+      { path: 'widgets', title: 'widgets', ab: 'I' },
+      { path: 'charts', title: 'charts', ab: 'T' },
+      { path: 'calendar', title: 'calendar', ab: 'T' },
+      { path: 'pages', title: 'pages', ab: 'T' }
+    ]
   }/*, {
     path: '/dashboard',
     title: 'Dashboard',
