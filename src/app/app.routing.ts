@@ -10,10 +10,10 @@ export const AppRoutes: Routes = [
     redirectTo: 'auth/login',
     pathMatch: 'full'
   }, {
-    path: '',
+    path: 'auth',
     component: AuthLayoutComponent,
     children: [{
-      path: 'auth',
+      path: '',
       loadChildren: './auth/auth.module#AuthModule'
     }]
   }, {
@@ -24,7 +24,7 @@ export const AppRoutes: Routes = [
       loadChildren: './accounts/accounts.module#AccountsModule'
     }]
   }, {
-    path: '',
+    path: 'creative',
     component: AdminLayoutComponent,
     children: [
       {
