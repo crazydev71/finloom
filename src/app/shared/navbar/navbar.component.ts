@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
 
     @ViewChild('app-navbar-cmp') button: any;
 
-    constructor(location: Location, private renderer: Renderer, private element: ElementRef) {
+    constructor(location: Location, private renderer: Renderer, private element: ElementRef, private router: Router) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
@@ -92,6 +92,9 @@ export class NavbarComponent implements OnInit {
                 clearInterval(simulateWindowResize);
             }, 1000);
         });
+    }
+    logout () {
+        this.router.navigateByUrl('/auth/login');
     }
     isMobileMenu() {
         if ($(window).width() < 991) {
