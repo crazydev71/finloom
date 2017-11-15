@@ -24,6 +24,7 @@
           "../node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
           "./assets/sass/material-dashboard.scss",
           "./assets/css/demo.css",
+          "./assets/css/common.css",
           "./assets/styles/wijmo.min.css"
       ],
       "scripts": [
