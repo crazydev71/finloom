@@ -19,7 +19,9 @@ import { TradesRoutes } from './trades.routing';
         WjGridModule,
         MyDatePickerModule
     ],
-    declarations: [TradesComponent]
+    declarations: [
+        TradesComponent
+    ]
 })
 
 export class TradesModule { }

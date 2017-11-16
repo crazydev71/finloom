@@ -41,6 +41,7 @@ export class TradesComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+
     }
 
     ngAfterViewInit() {

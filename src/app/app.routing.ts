@@ -32,6 +32,7 @@ export const AppRoutes: Routes = [
       loadChildren: './deals/deals.module#DealsModule'
     }]
   },
+
   {
     path: '',
     component: AdminLayoutComponent,
