@@ -1,13 +1,23 @@
 {
-  "dev": {
-    "driver": "mysql",
-    "database": "finloom",
-    "user": "root",
-    "password": ""
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "finloom03",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "finloom_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   },
   "production": {
-    "driver": "mysql",
-    "database": "finloom",
-    "user": "root"
+    "username": "root",
+    "password": "",
+    "database": "finloom_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   }
 }
