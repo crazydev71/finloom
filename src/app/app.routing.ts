@@ -25,6 +25,22 @@ export const AppRoutes: Routes = [
     }]
   },
   {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [{
+      path: 'deals',
+      loadChildren: './deals/deals.module#DealsModule'
+    }]
+  },
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [{
+      path: 'dealDetails/:id',
+      loadChildren: './dealDetails/dealDetails.module#DealDetailsModule'
+    }]
+  },
+  {
       path: '',
       component: AdminLayoutComponent,
       children: [{
