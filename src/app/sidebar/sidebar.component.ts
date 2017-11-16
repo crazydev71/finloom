@@ -35,6 +35,12 @@ export const ROUTES: RouteInfo[] = [
     icontype: 'contacts'
   },
   {
+    path: '/deals',
+    title: 'Deals',
+    type: 'link',
+    icontype: 'dashboard'
+  },
+  {
     path: '/creative',
     title: 'Creative',
     type: 'sub',
