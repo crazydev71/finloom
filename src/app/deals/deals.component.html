@@ -1,0 +1,28 @@
+<div class="main-content">
+    <div class="container-fluid">        
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-text" data-background-color="orange">
+                        <h4 class="card-title">{{listName}}</h4>
+                        <!-- <p class="category">New employees on 15th September, 2016</p> -->
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table class="table">
+                            <thead class="text-warning">
+                                <tr>
+                                    <th *ngFor="let cell of tableData.headerRow">{{ cell }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr (click)="openDetails(row[0])" *ngFor="let row of tableData.dataRows">
+                                    <td *ngFor="let cell of row">{{cell}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
