@@ -26,6 +26,18 @@ export const ROUTES: RouteInfo[] = [
     path: '/accounts',
     title: 'Accounts',
     type: 'link',
+    icontype: 'people'
+  },
+  {
+    path: '/contacts',
+    title: 'Contacts',
+    type: 'link',
+    icontype: 'contacts'
+  },
+  {
+    path: '/deals',
+    title: 'Deals',
+    type: 'link',
     icontype: 'dashboard'
   },
   {
@@ -45,7 +57,8 @@ export const ROUTES: RouteInfo[] = [
       { path: 'calendar', title: 'calendar', ab: 'T' },
       { path: 'pages', title: 'pages', ab: 'T' }
     ]
-  }/*, {
+  }
+  /*, {
     path: '/dashboard',
     title: 'Dashboard',
     type: 'link',

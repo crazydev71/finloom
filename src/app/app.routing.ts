@@ -24,6 +24,31 @@ export const AppRoutes: Routes = [
       loadChildren: './accounts/accounts.module#AccountsModule'
     }]
   }, {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [{
+      path: 'contacts',
+      loadChildren: './contacts/contacts.module#ContactsModule'
+    }]
+  },{
+  },
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [{
+      path: 'deals',
+      loadChildren: './deals/deals.module#DealsModule'
+    }]
+  },
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [{
+      path: 'dealDetails/:id',
+      loadChildren: './dealDetails/dealDetails.module#DealDetailsModule'
+    }]
+  },
+   {
     path: 'creative',
     component: AdminLayoutComponent,
     children: [
