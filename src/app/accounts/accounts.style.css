@@ -7,6 +7,9 @@
 .account-edit {
   text-align: right;
 }
+.account-list i {
+  margin-right: 10px;
+}
 .dropdown-menu {
   width: 100%;
 }

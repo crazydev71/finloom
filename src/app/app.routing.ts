@@ -24,6 +24,13 @@ export const AppRoutes: Routes = [
       loadChildren: './accounts/accounts.module#AccountsModule'
     }]
   }, {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [{
+      path: 'contacts',
+      loadChildren: './contacts/contacts.module#ContactsModule'
+    }]
+  },{
     path: 'creative',
     component: AdminLayoutComponent,
     children: [

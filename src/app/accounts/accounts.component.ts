@@ -36,12 +36,12 @@ export class AccountsComponent implements OnInit, AfterViewInit {
     {
       title: 'No Grouping',
       value: '',
-      checked: 'true'
+      checked: 'false'
     },
     {
       title: 'By MA and by LOB and by SA',
       value: 'MA,LOB,SA',
-      checked: 'false'
+      checked: 'true'
     },
     
   ]
@@ -54,7 +54,9 @@ export class AccountsComponent implements OnInit, AfterViewInit {
   public choose_account(name: string): void {
     this.account_name = name;
   }
-
+  public choose_account_list(name: string): void {
+    this.account_name = "Account list / " + name;
+  }
   public ngOnInit() {
     this.data = this.getData();
     this.view = new wjcCore.CollectionView(this.data, {
@@ -75,6 +77,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       headersVisibility: 'Row'
     });
 
+    this.group_By('MA,LOB,SA');
   }
 
   ngAfterViewInit() {
@@ -107,6 +110,4 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       this.view.groupDescriptions.push(gd);
     }
   }
-
-
 }
