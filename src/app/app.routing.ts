@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
-import { AdminLayoutComponent } from './creative/layouts/admin/admin-layout.component';
-import { AuthLayoutComponent } from './creative/layouts/auth/auth-layout.component';
+import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
+import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 export const AppRoutes: Routes = [
@@ -10,10 +10,10 @@ export const AppRoutes: Routes = [
     redirectTo: 'auth/login',
     pathMatch: 'full'
   }, {
-    path: '',
+    path: 'auth',
     component: AuthLayoutComponent,
     children: [{
-      path: 'auth',
+      path: '',
       loadChildren: './auth/auth.module#AuthModule'
     }]
   }, {
@@ -25,6 +25,31 @@ export const AppRoutes: Routes = [
     }]
   }, {
     path: '',
+    component: AdminLayoutComponent,
+    children: [{
+      path: 'contacts',
+      loadChildren: './contacts/contacts.module#ContactsModule'
+    }]
+  },{
+  },
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [{
+      path: 'deals',
+      loadChildren: './deals/deals.module#DealsModule'
+    }]
+  },
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [{
+      path: 'dealDetails/:id',
+      loadChildren: './dealDetails/dealDetails.module#DealDetailsModule'
+    }]
+  },
+   {
+    path: 'creative',
     component: AdminLayoutComponent,
     children: [
       {
