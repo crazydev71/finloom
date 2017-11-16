@@ -41,7 +41,7 @@ export const AppRoutes: Routes = [
     path: 'dealDetails',
     component: AdminLayoutComponent,
     children: [{
-      path: '/:id',
+      path: ':id',
       loadChildren: './dealDetails/dealDetails.module#DealDetailsModule'
     }]
   }/*,
