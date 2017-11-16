@@ -23,7 +23,15 @@ export const AppRoutes: Routes = [
       path: 'accounts',
       loadChildren: './accounts/accounts.module#AccountsModule'
     }]
-  }, {
+  },
+  {
+      path: '',
+      component: AdminLayoutComponent,
+      children: [{
+          path: 'trades',
+          loadChildren: './trades/trades.module#TradesModule'
+      }]
+  },{
     path: 'creative',
     component: AdminLayoutComponent,
     children: [

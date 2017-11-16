@@ -5,47 +5,52 @@ declare const $: any;
 
 //Metadata
 export interface RouteInfo {
-  path: string;
-  title: string;
-  type: string;
-  icontype: string;
-  collapse?: string;
-  children?: ChildrenItems[];
+    path: string;
+    title: string;
+    type: string;
+    icontype: string;
+    collapse?: string;
+    children?: ChildrenItems[];
 }
 
 export interface ChildrenItems {
-  path: string;
-  title: string;
-  ab: string;
-  type?: string;
+    path: string;
+    title: string;
+    ab: string;
+    type?: string;
 }
 
 //Menu Items
 export const ROUTES: RouteInfo[] = [
-  {
-    path: '/accounts',
-    title: 'Accounts',
-    type: 'link',
-    icontype: 'dashboard'
-  },
-  {
-    path: '/creative',
-    title: 'Creative',
-    type: 'sub',
-    icontype: 'dashboard',
-    collapse: 'creative',
-    children: [
-      { path: 'dashboard', title: 'Dashboard', ab: 'B' },
-      { path: 'components', title: 'components', ab: 'GS' },
-      { path: 'forms', title: 'forms', ab: 'P' },
-      { path: 'tables', title: 'tables', ab: 'SA' },
-      { path: 'maps', title: 'maps', ab: 'N' },
-      { path: 'widgets', title: 'widgets', ab: 'I' },
-      { path: 'charts', title: 'charts', ab: 'T' },
-      { path: 'calendar', title: 'calendar', ab: 'T' },
-      { path: 'pages', title: 'pages', ab: 'T' }
-    ]
-  }/*, {
+    {
+        path: '/accounts',
+        title: 'Accounts',
+        type: 'link',
+        icontype: 'dashboard'
+    }, {
+        path: '/trades',
+        title: 'Trades',
+        type: 'link',
+        icontype: 'dashboard'
+    },
+    {
+        path: '/creative',
+        title: 'Creative',
+        type: 'sub',
+        icontype: 'dashboard',
+        collapse: 'creative',
+        children: [
+            { path: 'dashboard', title: 'Dashboard', ab: 'B' },
+            { path: 'components', title: 'components', ab: 'GS' },
+            { path: 'forms', title: 'forms', ab: 'P' },
+            { path: 'tables', title: 'tables', ab: 'SA' },
+            { path: 'maps', title: 'maps', ab: 'N' },
+            { path: 'widgets', title: 'widgets', ab: 'I' },
+            { path: 'charts', title: 'charts', ab: 'T' },
+            { path: 'calendar', title: 'calendar', ab: 'T' },
+            { path: 'pages', title: 'pages', ab: 'T' }
+        ]
+    }/*, {
     path: '/dashboard',
     title: 'Dashboard',
     type: 'link',
@@ -133,34 +138,34 @@ export const ROUTES: RouteInfo[] = [
   }*/
 ];
 @Component({
-  selector: 'app-sidebar-cmp',
-  templateUrl: 'sidebar.component.html',
+    selector: 'app-sidebar-cmp',
+    templateUrl: 'sidebar.component.html',
 })
 
 export class SidebarComponent implements OnInit {
-  public menuItems: any[];
+    public menuItems: any[];
 
-  isMobileMenu() {
-    if ($(window).width() > 991) {
-      return false;
-    }
-    return true;
-  };
+    isMobileMenu() {
+        if ($(window).width() > 991) {
+            return false;
+        }
+        return true;
+    };
 
-  ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
-  }
-  updatePS(): void {
-    if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
-      const elemSidebar = <HTMLElement>document.querySelector('.sidebar .sidebar-wrapper');
-      let ps = new PerfectScrollbar(elemSidebar, { wheelSpeed: 2, suppressScrollX: true });
+    ngOnInit() {
+        this.menuItems = ROUTES.filter(menuItem => menuItem);
     }
-  }
-  isMac(): boolean {
-    let bool = false;
-    if (navigator.platform.toUpperCase().indexOf('MAC') >= 0 || navigator.platform.toUpperCase().indexOf('IPAD') >= 0) {
-      bool = true;
+    updatePS(): void {
+        if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
+            const elemSidebar = <HTMLElement>document.querySelector('.sidebar .sidebar-wrapper');
+            let ps = new PerfectScrollbar(elemSidebar, { wheelSpeed: 2, suppressScrollX: true });
+        }
     }
-    return bool;
-  }
+    isMac(): boolean {
+        let bool = false;
+        if (navigator.platform.toUpperCase().indexOf('MAC') >= 0 || navigator.platform.toUpperCase().indexOf('IPAD') >= 0) {
+            bool = true;
+        }
+        return bool;
+    }
 }

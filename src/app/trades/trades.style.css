@@ -1,0 +1,29 @@
+﻿:host /deep/ .table-button select, :host /deep/ .mydp {
+    border: 1px solid #a9a9a9 !important;
+    width: 44% !important;
+    border-radius: 4px;
+    height: 36px;
+    font-size: 15px;
+    padding: 0px 2px 0 3px;
+}
+:host /deep/ .table-button label {
+    float: left;
+    padding: 7px 13px 0 2px;
+}
+:host /deep/ .input-book {
+    margin: 10px 0 20px;
+}
+:host /deep/ .input-date {
+    margin: 10px 0 20px;
+}
+option, select {
+    color: #3C4858 !important
+}
+button.btn-xsl{padding:0; margin:0}
+
+.dropdown  .dropdown-toggle {
+  
+    padding: 6px 30px;
+    height: 34px; 
+    margin: 0;
+}
