@@ -13,75 +13,100 @@ declare const $: any;
 
 @Injectable()
 export class AccountsComponent implements OnInit, AfterViewInit {
-  data: wjcCore.CollectionView;
-  cvPaging: wjcCore.CollectionView;
-  cvGroup: wjcCore.CollectionView;
-  private _groupBy = '';
   @ViewChild('flex') flex: WjFlexGrid;
+  
+  private accounts = [
+    {name: "Browser"},
+    {name: "Create Single"},
+    {name: "Create Multiple"}
+  ];
+  
+  private account_list = [
+    {name: "List01"},
+    {name: "List02"}    
+  ];
 
+  private Master_Account = 'Master_A1,Master_A2,Master_A3,Master_A4,Master_A5,Master_A6'.split(',');
+  private Lob_Account = 'Lob_A1,Lob_A2,Lob_A3,Lob_A4,Lob_A5'.split(',');
+  private Sa_Account = 'Sa_A1,Sa_A2,Sa_A3,Sa_A4,Sa_A5'.split(',');
+
+  private account_name = "My Account";
+  
+  private group_list = [
+    {
+      title: 'No Grouping',
+      value: '',
+      checked: 'true'
+    },
+    {
+      title: 'By MA and by LOB and by SA',
+      value: 'MA,LOB,SA',
+      checked: 'false'
+    },
+    
+  ]
+  public data = [];
+  private view;
   constructor() {
-    this.data = new wjcCore.CollectionView(this.getData(10));
-    this.cvPaging = new wjcCore.CollectionView(this.getData(100));
-    this.cvPaging.pageSize = 10;
-    this.cvGroup = new wjcCore.CollectionView(this.getData(100));
+      
+  }
+
+  public choose_account(name: string): void {
+    this.account_name = name;
   }
 
   public ngOnInit() {
+    this.data = this.getData();
+    this.view = new wjcCore.CollectionView(this.data, {
+      sortDescriptions: [new wjcCore.SortDescription('sales', false)]
+    });
+    
+    // initialize item count display
+    this.view.onCollectionChanged();
+    var flex = new wjcGrid.FlexGrid('#theGrid', {
+      itemsSource: this.view,
+      selectionChanged: function(s, e) {
+        if (!flex.selection.isSingleCell) {
+          //var stats = getSelectionStats(flex);
+          console.log('aaa');
+        }
+      },
+      showAlternatingRows: false,
+      headersVisibility: 'Row'
+    });
+
   }
 
   ngAfterViewInit() {
+  
   }
 
-  getData(count: number): wjcCore.ObservableArray {
-    var countries = 'US,Germany,UK,Japan,Italy,Greece'.split(','),
-      data = new wjcCore.ObservableArray();
-    for (var i = 0; i < count; i++) {
+  public getData() {
+    var data = [];
+    for (var i = 0; i < 1000; i++) {
       data.push({
-        id: i,
-        country: countries[i % countries.length],
-        date: new Date(2014, i % 12, i % 28),
-        amount: Math.random() * 10000,
-        active: i % 4 == 0
+        MA:  this.Master_Account[i % this.Master_Account.length],
+        LOB: this.Lob_Account[i % this.Lob_Account.length],
+        SA:  this.Sa_Account[i % this.Sa_Account.length],
       });
     }
     return data;
   }
 
-  /* Grouping */
-  get groupBy(): string {
-    return this._groupBy;
-  }
-  set groupBy(value: string) {
-    if (this._groupBy != value) {
-      this._groupBy = value;
-      this._applyGroupBy();
+  public group_By(group_name: string) {
+    this.view.groupDescriptions.clear();
+    
+    // add the new groups
+		var props = group_name.split(',');
+    for (var i = 0; i < props.length; i++) {
+    	var prop = props[i];
+      
+      // group sales by value ranges
+      var gd;
+    	gd = new wjcCore.PropertyGroupDescription(prop);
+      this.view.groupDescriptions.push(gd);
     }
   }
-  private _applyGroupBy() {
-    var cv = this.cvGroup;
-    cv.beginUpdate();
-    cv.groupDescriptions.clear();
-    if (this.groupBy) {
-      var groupNames = this.groupBy.split(',');
-      for (var i = 0; i < groupNames.length; i++) {
-        var groupName = groupNames[i];
-        if (groupName == 'date') { // group dates by year
-          var groupDesc = new wjcCore.PropertyGroupDescription(groupName, function (item, prop) {
-            return item.date.getFullYear();
-          });
-          cv.groupDescriptions.push(groupDesc);
-        } else if (groupName == 'amount') { // group amounts in ranges
-          var groupDesc = new wjcCore.PropertyGroupDescription(groupName, function (item, prop) {
-            return item.amount >= 5000 ? '> 5,000' : item.amount >= 500 ? '500 to 5,000' : '< 500';
-          });
-          cv.groupDescriptions.push(groupDesc);
-        } else { // group everything else by value
-          var groupDesc = new wjcCore.PropertyGroupDescription(groupName);
-          cv.groupDescriptions.push(groupDesc);
-        }
-      }
-      cv.refresh();
-    }
-    cv.endUpdate();
-  }
+
+
 }
