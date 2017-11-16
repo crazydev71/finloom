@@ -1,70 +1,66 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-6">
-        <h3>Wijmo Demo</h3>
-        <wj-flex-grid [itemsSource]="data">
-          <wj-flex-grid-column [header]="'Country'" [binding]="'country'" [width]="'*'"></wj-flex-grid-column>
-          <wj-flex-grid-column [header]="'Date'" [binding]="'date'"></wj-flex-grid-column>
-          <wj-flex-grid-column [header]="'Revenue'" [binding]="'amount'" [format]="'n0'"></wj-flex-grid-column>
-          <wj-flex-grid-column [header]="'Active'" [binding]="'active'"></wj-flex-grid-column>
-        </wj-flex-grid>
-      </div>
-      <div class="col-md-6">
-        <h3>Wijmo Editing</h3>
-        <wj-flex-grid [itemsSource]="data">
-          <wj-flex-grid-column [header]="'ID'" [binding]="'id'" [isReadOnly]="true" [width]="50"></wj-flex-grid-column>
-          <wj-flex-grid-column [header]="'Country'" [binding]="'country'" [width]="'*'"></wj-flex-grid-column>
-          <wj-flex-grid-column [header]="'Date'" [binding]="'date'"></wj-flex-grid-column>
-          <wj-flex-grid-column [header]="'Revenue'" [binding]="'amount'" [format]="'n0'"></wj-flex-grid-column>
-          <wj-flex-grid-column [header]="'Active'" [binding]="'active'"></wj-flex-grid-column>
-        </wj-flex-grid>
-      </div>
-      <div class="col-md-6">
-        <h3>Wijmo Paging</h3>
-        <wj-flex-grid [itemsSource]="cvPaging" style="height:auto">
-        </wj-flex-grid>
-        <div class="btn-group">
-          <button type="button" class="btn btn-default" (click)="cvPaging.moveToFirstPage()" [disabled]="cvPaging.pageIndex <= 0">
-            <span class="glyphicon glyphicon-fast-backward"></span>
+      <div class="col-md-3 col-sm-3">
+        <div class="dropdown">
+          <button class="dropdown-toggle btn btn-primary btn-round btn-block" data-toggle="dropdown">{{account_name}}
+            <b class="caret"></b>
           </button>
-          <button type="button" class="btn btn-default" (click)="cvPaging.moveToPreviousPage()" [disabled]="cvPaging.pageIndex <= 0">
-            <span class="glyphicon glyphicon-step-backward"></span>
-          </button>
-          <button type="button" class="btn btn-default" disabled style="width:100px">
-            {{cvPaging.pageIndex + 1 | number}​} / {​{cvPaging.pageCount | number}​}
-          </button>
-          <button type="button" class="btn btn-default" (click)="cvPaging.moveToNextPage()" [disabled]="cvPaging.pageIndex >= cvPaging.pageCount - 1">
-            <span class="glyphicon glyphicon-step-forward"></span>
-          </button>
-          <button type="button" class="btn btn-default" (click)="cvPaging.moveToLastPage()" [disabled]="cvPaging.pageIndex >= cvPaging.pageCount - 1">
-            <span class="glyphicon glyphicon-fast-forward"></span>
-          </button>
+          <ul class="dropdown-menu dropdown-menu-left">
+            <li *ngFor="let account of accounts" (click)="choose_account(account.name)">
+              <a> {{account.name}} </a>
+            </li>
+            <li class="dropdown-header">Account list</li>
+            <li class="divider"></li>
+            <li *ngFor="let account of account_list" class="account-list" (click)="choose_account(account.name)">
+              <a> <i class="fa fa-caret-right" aria-hidden="true"></i>{{account.name}} </a>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="col-md-6">
-        <h3>Wijmo Master Detail</h3>
-        <wj-flex-grid [itemsSource]="data" [isReadOnly]="true">
-          <wj-flex-grid-column [header]="'Country'" [binding]="'country'" [width]="'*'"></wj-flex-grid-column>
-          <wj-flex-grid-column [header]="'Date'" [binding]="'date'"></wj-flex-grid-column>
-        </wj-flex-grid>
-      </div>
-      <!-- <div class="col-md-6">
-        <wj-flex-grid [(itemsSource)]="cvGroup">
-          <wj-flex-grid-column [header]="'Country'" [binding]="'country'" [width]="'*'"></wj-flex-grid-column>
-          <wj-flex-grid-column [header]="'Date'" [binding]="'date'"></wj-flex-grid-column>
-          <wj-flex-grid-column [header]="'Revenue'" [binding]="'amount'" [format]="'n0'" [aggregate]="'Sum'"></wj-flex-grid-column>
-        </wj-flex-grid>
-        <wj-menu [(value)]="groupBy" [header]="'Group by'">
-          <wj-menu-item [value]="''">(no grouping)</wj-menu-item>
-          <wj-menu-item [value]="'country'">Country</wj-menu-item>
-          <wj-menu-item [value]="'amount'">Revenue</wj-menu-item>
-          <wj-menu-item [value]="'date'">Date</wj-menu-item>
-          <wj-menu-item [value]="'country,date'">Country and Date</wj-menu-item>
-          <wj-menu-item [value]="'country,amount'">Country and Revenue</wj-menu-item>
-          <wj-menu-item [value]="'country,date,amount'">Country, Date, and Revenue</wj-menu-item>
-        </wj-menu>
-      </div> -->
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-6 col-sm-6">
+      <label *ngFor="let group of group_list">
+        <input type="radio" name="filter" value="group.value" [checked]="group.checked === 'true'" (click)="group_By(group.value)" />
+        {{group.title}}    
+      </label> 
+      <div id="theGrid">
+      </div>
+    </div>  
+    <div class="col-md-6 col-sm-6">
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+          <h3>Account Details</h3>
+        </div>
+        <div class="col-md-6 col-sm-6 account-edit">
+          <button class="btn btn-primary btn-just-icon"><i class="fa fa-edit  mr-1"></i></button>
+        </div>
+      </div>
+      <div class="row account-board">
+        <div class="col-md-7 col-sm-7 account-detail">
+          <h4 class="col-md-6 col-sm-6">AKA Name</h4>
+          <h4 class="col-md-6 col-sm-6">FinLoom</h4>
+          <h4 class="col-md-6 col-sm-6">Legal Name</h4>
+          <h4 class="col-md-6 col-sm-6">FinLoom Inc</h4>
+          <h4 class="col-md-6 col-sm-6">Short Code</h4>
+          <h4 class="col-md-6 col-sm-6">FI</h4>
+          <h4 class="col-md-6 col-sm-6">Alias</h4>
+          <h4 class="col-md-6 col-sm-6">FinLoom</h4>
+          <h4 class="col-md-6 col-sm-6">Ticker</h4>
+          <h4 class="col-md-6 col-sm-6">FINLOOM</h4>
+          <h4 class="col-md-6 col-sm-6">Email Domain</h4>
+          <h4 class="col-md-6 col-sm-6">finloom.com</h4>
+          <h4 class="col-md-12 col-sm-12">Legal Address</h4>
+          <h4 class="col-md-12 col-sm-12">Park Ave, NY, 10020</h4>
+        </div>
+        <div class="col-md-5 col-sm-5">
+          <h4 class="col-md-6 col-sm-6">Status</h4>
+          <h4 class="col-md-6 col-sm-6 account-active">Active</h4>
+        </div>
+      </div>
+
+    </div>  
+  </div>    
 </div>
