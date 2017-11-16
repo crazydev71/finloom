@@ -27,22 +27,10 @@ fs
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
-    // db[modelName].sync();
   }
 });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
-// sync with db;
-db.sync = () =>{
-  Object.keys(db)
-    .filter(keyName => {
-      return (keyName !== 'sequelize') && (keyName !== 'Sequelize') && (keyName !== 'sync');
-    })
-    .forEach(modelName => {
-      db[modelName].sync();
-    });
-}
 
 module.exports = db;

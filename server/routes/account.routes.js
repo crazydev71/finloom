@@ -1,18 +1,26 @@
 const express = require('express');
 const router = express.Router();
-const sequelize = require('../models').sequelize;
 const Account = require('../models').Account;
 
-router.get('/', (req, res) => {
-  Account.findAll().then(accounts => {
-    res.send({accounts});
-  })
-})
+/** Fetch all accounts GET request
+ * @param no params
+*/
+router.get('/', async (req, res) => {
+  var accounts = await Account.findAll();
+
+  res.json(accounts);
+});
 
 router.post('/', (req, res) => {
   var data = req.body;
-  res.send({data});
-})
+
+  var newAccount = await Account.create(data);
+  res.json(newAccount);
+});
+
+router.delete('/:id', (req, res) => {
+  res.json({})
+});
 
 module.exports = function (rootRouter) {
   rootRouter.use('/account', router)

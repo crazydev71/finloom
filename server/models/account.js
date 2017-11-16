@@ -35,6 +35,9 @@ module.exports = (sequelize, DataTypes) => {
         models['Account'].belongsToMany(models['BankType'], {
           through: models['AccountBankType'],
         });
+
+        // associations with AccountList through AccountListEntry
+        models['Account'].belongsToMany(models['AccountList'], {through: models['AccountListEntry']});
         
         // refer to industry
         models['Account'].belongsTo(models['Industry']);
