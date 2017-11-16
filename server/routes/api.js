@@ -6,4 +6,7 @@ router.get('/', (req, res) => {
   res.send('api works');
 });
 
+require('./account.routes.js')(router);
+
+
 module.exports = router;
