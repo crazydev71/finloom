@@ -1,6 +1,34 @@
 .wj-flexgrid {
-  height: 300px;
   background-color: white;
   box-shadow: 4px 4px 10px 0px rgba(50, 50, 50, 0.75);
   margin-bottom: 12px;
+  height: 64vh;
+}
+.account-edit {
+  text-align: right;
+}
+.dropdown-menu {
+  width: 100%;
+}
+.dropdown-header {
+  padding-top: 10px;
+}
+label {
+  width: 100%;
+}
+.account-detail h4 {
+  white-space: pre;
+}
+.account-detail h4:nth-child(even),
+.account-active {
+  color: slateblue;
+  font-weight: bold;
+  font-style: italic;
+}
+.account-active {
+  color: lightgreen;
+}
+.account-board {
+  margin-right: 0;
+  box-shadow: 1px 1px 5px;
 }
