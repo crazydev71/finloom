@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      
+
       aka: Sequelize.STRING,  // aka of account
       
       legalName: Sequelize.STRING,  // legal name
@@ -44,11 +44,18 @@ module.exports = {
           key: 'id'
         }
       },
-
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
     })
   },
 
   down: (queryInterface, Sequelize) => {
-      return queryInterface.dropTable('flm_accounts');
+    return queryInterface.dropTable('flm_accounts');
   }
 };

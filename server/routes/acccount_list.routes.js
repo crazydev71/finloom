@@ -1,33 +1,32 @@
 const express = require('express');
 const router = express.Router();
-const Account = require('../models').Account;
+const AccountList = require('../models').AccountList;
 
 /** 
- * @description Fetch all accounts GET request
+ * @description Fetch all accounts 
  * @method GET
- * No params
  * 
- * @returns array of Account objects
+ * @returns array of AccountList objects
  */
 router.get('/', async (req, res) => {
 
-  var accounts = await Account.findAll();
-
+  var accountLists = await AccountList.findAll();
+  
   res.json(accounts);
 });
 
-
 /** 
- * @description Fetch all accounts GET request
+ * @description Create a new account list
  * @method POST
- * 
- * @returns newly created Account object
+ *  
+ * @returns Returns a new AccountList object
  */
 router.post('/', async (req, res) => {
   var data = req.body;
 
-  var newAccount = await Account.create(data);
-  res.json(newAccount);
+  var newAccountList = await AccountList.create(data);
+
+  res.json(newAccountList);
 });
 
 router.put('/', async (req, res) => {
@@ -42,5 +41,5 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = function (rootRouter) {
-  rootRouter.use('/account', router)
+  rootRouter.use('/accountlist', router)
 }
