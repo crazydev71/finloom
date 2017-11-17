@@ -1,1 +1,158 @@
-<div>deal details</div>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-header card-header-tabs" data-background-color="rose">
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li class="active">
+                    <a href="#DealDetails" data-toggle="tab">
+                                           {{dueHeaders.DealDetails}}
+                                            <div class="ripple-container"></div>
+                                        </a>
+                  </li>
+                  <li class="">
+                    <a href="#DealDues" data-toggle="tab">
+                                            {{dueHeaders.DealDues}}
+                                            <div class="ripple-container"></div>
+                                        </a>
+                  </li>
+                  <li *ngFor="let row of facilitiesModel" class="">
+                    <a href="#fac{{row.facilityId}}" data-toggle="tab">
+                                              {{row.facilityName}}
+                                            <div class="ripple-container"></div>
+                                        </a>
+                  </li>
+
+
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-content">
+            <div class="tab-content">
+              <div class="tab-pane active" id="DealDetails">
+                <div class="col-md-6 col-sm-6 account-edit">
+                  <button class="btn btn-primary btn-just-icon"><i class="fa fa-edit  mr-1"></i></button>
+                </div>
+                <div class="row account-board">
+                  <div class="col-md-7 col-sm-7 account-detail">
+                    <h4 class="col-md-6 col-sm-6">{{dealHeaders.DealName}}</h4>
+                    <h4 class="col-md-6 col-sm-6">{{dealModel.DealName}}</h4>
+                    <h4 class="col-md-6 col-sm-6">{{dealHeaders.DealAlias}}</h4>
+                    <h4 class="col-md-6 col-sm-6">{{dealModel.DealAlias}}</h4>
+                    <h4 class="col-md-6 col-sm-6">{{dealHeaders.AgentBank}}</h4>
+                    <h4 class="col-md-6 col-sm-6">{{dealModel.AgentBank}}</h4>
+                    <h4 class="col-md-6 col-sm-6">{{dealHeaders.SyndicateBank}}</h4>
+                    <h4 class="col-md-6 col-sm-6">{{dealModel.SyndicateBank}}</h4>
+                    <h4 class="col-md-6 col-sm-6">{{dealHeaders.DealStatus}}</h4>
+                    <h4 class="col-md-6 col-sm-6">{{dealModel.DealStatus}}</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="DealDues">
+                <div class="card-content table-responsive">
+                    <div class="dealDuesGrid">
+                      </div>
+                </div>
+
+              </div>
+              <div *ngFor="let row of facilitiesModel" class="tab-pane" id="fac{{row.facilityId}}">
+                <div class="card">
+                  <div class="card-header card-header-tabs" data-background-color="rose">
+                    <div class="nav-tabs-navigation">
+                      <div class="nav-tabs-wrapper">
+
+                        <ul class="nav nav-tabs" data-tabs="tabs">
+                          <li class="active">
+                            <a href="#facDetails{{row.facilityId}}" data-toggle="tab">
+                                                           {{facilityheaders.FacilityDetails}}
+                                                            <div class="ripple-container"></div>
+                                                        </a>
+                          </li>
+                          <li class="">
+                            <a href="#facDues{{row.facilityId}}" data-toggle="tab">
+                                                             {{facilityheaders.FacilityDues}}
+                                                            <div class="ripple-container"></div>
+                                                        </a>
+                          </li>
+                          <li *ngFor="let contractRow of row.contractModel" class="">
+                            <a href="#con{{contractRow.contractId}}" data-toggle="tab">
+                                                              {{contractRow.contractName}}
+                                                            <div class="ripple-container"></div>
+                                                        </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-content">
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="facDetails{{row.facilityId}}">
+                        <div class="col-md-6 col-sm-6 account-edit">
+                          <button class="btn btn-primary btn-just-icon"><i class="fa fa-edit  mr-1"></i></button>
+                        </div>
+                        <div class="row account-board">
+                          <div class="col-md-7 col-sm-7 account-detail">
+                            <h4 class="col-md-6 col-sm-6">{{facilityheaders.FacilityName}}</h4>
+                            <h4 class="col-md-6 col-sm-6">{{row.facilityName}}</h4>
+                            <h4 class="col-md-6 col-sm-6">{{facilityheaders.FacilityAlias}}</h4>
+                            <h4 class="col-md-6 col-sm-6">{{row.facilityAlias}}</h4>
+                            <h4 class="col-md-6 col-sm-6">{{facilityheaders.CurrentCommitment}}</h4>
+                            <h4 class="col-md-6 col-sm-6">{{row.currentCommitment}}</h4>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="facDues{{row.facilityId}}">
+                        <div class="card-content table-responsive">
+                          <table class="table">
+                            <thead class="text-warning">
+                              <tr>
+                                <th>{{dueHeaders.DueType}}</th>
+                                <th>{{dueHeaders.DueAmount}}</th>
+                                <th>{{dueHeaders.DueDate}}</th>
+                                <th>{{dueHeaders.PaidAmount }}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let rowDue of row.facilityDues">
+                                <td>{{rowDue.dueType}}</td>
+                                <td>{{rowDue.dueAmount}}</td>
+                                <td>{{rowDue.dueDate}}</td>
+                                <td>{{rowDue.paidAmount}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      <div *ngFor="let contractRow of row.contractModel" class="tab-pane" id="con{{contractRow.contractId}}">
+                        <div class="col-md-6 col-sm-6 account-edit">
+                          <button class="btn btn-primary btn-just-icon"><i class="fa fa-edit  mr-1"></i></button>
+                        </div>
+                        <div class="row account-board">
+                          <div class="col-md-7 col-sm-7 account-detail">
+                            <h4 class="col-md-6 col-sm-6">{{contractHeaders.ContractName}}</h4>
+                            <h4 class="col-md-6 col-sm-6">{{contractRow.contractName}}</h4>
+                            <h4 class="col-md-6 col-sm-6">{{contractHeaders.ContractAlias}}</h4>
+                            <h4 class="col-md-6 col-sm-6">{{contractRow.contractAlias}}</h4>
+                            <h4 class="col-md-6 col-sm-6">{{contractHeaders.CurrentAmount}}</h4>
+                            <h4 class="col-md-6 col-sm-6">{{contractRow.currentAmount}}</h4>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
