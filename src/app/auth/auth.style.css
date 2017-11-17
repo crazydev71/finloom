@@ -1,0 +1,9 @@
+.nav.navbar-nav li {
+  cursor: pointer;
+}
+.login-page .card-login .btn-wd {
+  min-width: 48%;
+}
+.login-page .card-login {
+  padding-bottom: 0;
+}

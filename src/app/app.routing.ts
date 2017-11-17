@@ -17,27 +17,31 @@ export const AppRoutes: Routes = [
       loadChildren: './auth/auth.module#AuthModule'
     }]
   }, {
-    path: '',
+    path: 'accounts',
     component: AdminLayoutComponent,
     children: [{
-      path: 'accounts',
+      path: '',
       loadChildren: './accounts/accounts.module#AccountsModule'
     }]
-  },
-  {
-    path: '',
+  }, {
+    path: 'contacts',
     component: AdminLayoutComponent,
     children: [{
-      path: 'deals',
+      path: '',
+      loadChildren: './contacts/contacts.module#ContactsModule'
+    }]
+  }, {
+    path: 'deals',
+    component: AdminLayoutComponent,
+    children: [{
+      path: '',
       loadChildren: './deals/deals.module#DealsModule'
     }]
-  },
-
-  {
-    path: '',
+  }, {
+    path: 'dealDetails',
     component: AdminLayoutComponent,
     children: [{
-      path: 'dealDetails/:id',
+      path: ':id',
       loadChildren: './dealDetails/dealDetails.module#DealDetailsModule'
     }]
   },
