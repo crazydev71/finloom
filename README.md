@@ -1,6 +1,6 @@
-# MdProAngularCli
+# Common Acknowledge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.5.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.3.
 
 Run `npm install` to install all the dependencies.
 
@@ -25,10 +25,19 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 Before running the tests make sure you are serving the app via `ng serve`.
 
-## Running Finloom for development
+
+
+# Running Finloom for development
 
 1. Run `npm run build` or `ng build --watch` to build project and watch changes.
 2. Run `npm start` for a server. Navigate to `http://localhost:3200/`.
+
+## Database migration
+
+1. Run `npm install -g sequelize-cli` to use `sequelize` commands
+2. Run `sequelize db:migrate` ( Refer to [sequelize-cli doc](https://github.com/sequelize/cli#usage) )
+
+More information about sequelize model, seed, migration can be found in [http://docs.sequelizejs.com/](http://docs.sequelizejs.com/).
 
 ## Further help
 

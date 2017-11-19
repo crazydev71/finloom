@@ -6,7 +6,7 @@ declare var $: any;
 @Component({
   selector: 'app-login-cmp',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.css']
+  styleUrls: ['../auth.style.css']
 })
 
 export class LoginComponent implements OnInit {
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     setTimeout(function () {
       // after 1000 ms we add the class animated to the login/register card
       $('.card').removeClass('card-hidden');
-    }, 700);
+    }, 200);
   }
   sidebarToggle() {
     var toggleButton = this.toggleButton;

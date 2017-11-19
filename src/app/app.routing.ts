@@ -17,38 +17,35 @@ export const AppRoutes: Routes = [
       loadChildren: './auth/auth.module#AuthModule'
     }]
   }, {
-    path: '',
+    path: 'accounts',
     component: AdminLayoutComponent,
     children: [{
-      path: 'accounts',
+      path: '',
       loadChildren: './accounts/accounts.module#AccountsModule'
     }]
   }, {
-    path: '',
+    path: 'contacts',
     component: AdminLayoutComponent,
     children: [{
-      path: 'contacts',
+      path: '',
       loadChildren: './contacts/contacts.module#ContactsModule'
     }]
-  },{
-  },
-  {
-    path: '',
+  }, {
+    path: 'deals',
     component: AdminLayoutComponent,
     children: [{
-      path: 'deals',
+      path: '',
       loadChildren: './deals/deals.module#DealsModule'
     }]
-  },
-  {
-    path: '',
+  }, {
+    path: 'dealDetails',
     component: AdminLayoutComponent,
     children: [{
-      path: 'dealDetails/:id',
+      path: ':id',
       loadChildren: './dealDetails/dealDetails.module#DealDetailsModule'
     }]
-  },
-   {
+  }/*,
+  {
     path: 'creative',
     component: AdminLayoutComponent,
     children: [
@@ -91,5 +88,5 @@ export const AppRoutes: Routes = [
       path: 'pages',
       loadChildren: './creative/pages/pages.module#PagesModule'
     }]
-  }
+  }*/
 ];

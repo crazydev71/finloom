@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+declare var $: any;
+
 @Component({
     selector: 'app-register-cmp',
-    templateUrl: './register.component.html'
+    templateUrl: './register.component.html',
+    styleUrls: ['../auth.style.css']
 })
 
 export class RegisterComponent implements OnInit {
@@ -14,6 +17,10 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
+        setTimeout(function () {
+            // after 1000 ms we add the class animated to the login/register card
+            $('.card').removeClass('card-hidden');
+        }, 200);
     }
     
     onSubmit() {
