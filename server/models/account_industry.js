@@ -1,15 +1,15 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var AccountBankType = sequelize.define('AccountBankType', {
+  var AccountIndustry = sequelize.define('AccountIndustry', {
     accountId: DataTypes.INTEGER,
-    bankTypeId: DataTypes.INTEGER
+    industryId: DataTypes.INTEGER,
   }, {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
       }
     },
-    tableName: 'flm_account_bank_types'
+    tableName: 'flm_account_industries'
   });
-  return AccountBankType;
+  return AccountIndustry;
 };
