@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
 
 declare const $: any;
@@ -11,6 +12,8 @@ export interface RouteInfo {
   icontype: string;
   collapse?: string;
   children?: ChildrenItems[];
+  nextTabs?: RouteInfo[];
+  breadComb?: string[];
 }
 
 export interface ChildrenItems {
@@ -18,21 +21,151 @@ export interface ChildrenItems {
   title: string;
   ab: string;
   type?: string;
+  icontype?: string;
 }
 
 //Menu Items
 export const ROUTES: RouteInfo[] = [
   {
+    path: '/dashboard',
+    title: 'Dashboard',
+    type: '',
+    icontype: 'dashboard',
+    breadComb: ['Dashboard']
+  },
+  {
     path: '/accounts',
     title: 'Accounts',
     type: 'link',
-    icontype: 'people'
+    icontype: 'people',
+    breadComb: ['Home'],
+    nextTabs: [
+      {
+        path: '/browser',
+        title: 'Browser',
+        type: 'link',
+        icontype: 'dashboard'
+      },
+      {
+        path: '/single',
+        title: 'Create Single',
+        type: 'link',
+        icontype: 'dashboard'
+      },
+      {
+        path: '/multiple',
+        title: 'Create Multiple',
+        type: 'link',
+        icontype: 'dashboard',
+      },
+      {
+        path: '/accountlist',
+        title: 'Account List',
+        type: 'sub',
+        icontype: 'dashboard',
+        collapse: 'AccountList',
+        children: [
+          {
+            path: 'list1',
+            title: 'List1',
+            ab: '1',
+            icontype: 'dashboard'
+          },
+          {
+            path: 'list2',
+            title: 'List2',
+            ab: '2',
+            icontype: 'dashboard'
+          }
+        ]
+      },
+      {
+        path: '/list',
+        title: 'Create List',
+        type: 'link',
+        icontype: 'dashboard'
+      }
+    ]
   },
   {
     path: '/contacts',
     title: 'Contacts',
     type: 'link',
-    icontype: 'contacts'
+    icontype: 'contacts',
+    nextTabs: [
+      {
+        path: '/contact',
+        title: 'Contacts',
+        type: 'link',
+        icontype: 'contacts'
+      },
+      {
+        path: '/fqcontact',
+        title: 'Frequently contacted',
+        type: 'link',
+        icontype: 'update'
+      },
+      {
+        path: '/duplicates',
+        title: 'Duplicates',
+        type: 'link',
+        icontype: 'library_books',
+      },
+      {
+        path: '/contactlists',
+        title: 'Contact Lists',
+        type: 'sub',
+        icontype: 'keyboard_arrow_down',
+        collapse: 'contactlist',
+        children: [
+          {
+            path: 'contact1',
+            title: 'contact1',
+            ab: '1',
+            icontype: 'dashboard'
+          },
+          {
+            path: 'contact2',
+            title: 'contact2',
+            ab: '2',
+            icontype: 'dashboard'
+          }
+        ]
+      },
+      {
+        path: '/createlist',
+        title: 'Create List',
+        type: 'link',
+        icontype: 'add_circle_outline'
+      },
+      {
+        path: '/contactmore',
+        title: 'More',
+        type: 'sub',
+        icontype: 'keyboard_arrow_down',
+        collapse: 'contactmore',
+        children: [
+          {
+            path: 'sub1',
+            title: 'Sub1',
+            ab: '1',
+            icontype: 'dashboard'
+          },
+          {
+            path: 'sub2',
+            title: 'sub2',
+            ab: '2',
+            icontype: 'dashboard'
+          }
+        ]
+      },
+      {
+        path: '/setting',
+        title: 'Setting',
+        type: 'link',
+        icontype: 'settings'
+      }
+    ]
   },
   {
     path: '/deals',
@@ -57,13 +190,7 @@ export const ROUTES: RouteInfo[] = [
       { path: 'calendar', title: 'calendar', ab: 'T' },
       { path: 'pages', title: 'pages', ab: 'T' }
     ]
-  }
-  /*, {
-    path: '/dashboard',
-    title: 'Dashboard',
-    type: 'link',
-    icontype: 'dashboard'
-  }, {
+  }/*, {
     path: '/components',
     title: 'Components',
     type: 'sub',
@@ -152,7 +279,7 @@ export const ROUTES: RouteInfo[] = [
 
 export class SidebarComponent implements OnInit {
   public menuItems: any[];
-
+  constructor(private router: Router) { }
   isMobileMenu() {
     if ($(window).width() > 991) {
       return false;
@@ -161,7 +288,18 @@ export class SidebarComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+    let url = this.router.url;
+    if (url == '/dashboard')
+      this.menuItems = ROUTES;
+    else {
+      let matched = ROUTES.filter(menuItem => {
+        return menuItem.path == url;
+      });
+      this.menuItems = [];
+      for (let i = 0; i < matched.length; i ++) {
+        this.menuItems = this.menuItems.concat(matched[i].nextTabs);
+      }
+    }
   }
   updatePS(): void {
     if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {

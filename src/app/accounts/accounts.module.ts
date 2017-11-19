@@ -9,6 +9,8 @@ import { WjGridModule } from 'wijmo/wijmo.angular2.grid';
 import { AccountsComponent } from './accounts.component';
 import { AccountsRoutes } from './accounts.routing';
 
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { AccountsRoutes } from './accounts.routing';
     MaterialModule,
     WjGridModule
   ],
-  declarations: [AccountsComponent]
+  declarations: [AccountsComponent],
+  providers: []
 })
 
 export class AccountsModule { }

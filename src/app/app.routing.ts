@@ -17,6 +17,13 @@ export const AppRoutes: Routes = [
       loadChildren: './auth/auth.module#AuthModule'
     }]
   }, {
+    path: 'dashboard',
+    component: AdminLayoutComponent,
+    children: [{
+      path: '',
+      loadChildren: './dashboard/dashboard.module#DashboardModule'
+    }]
+  }, {
     path: 'accounts',
     component: AdminLayoutComponent,
     children: [{
@@ -44,8 +51,8 @@ export const AppRoutes: Routes = [
       path: ':id',
       loadChildren: './dealDetails/dealDetails.module#DealDetailsModule'
     }]
-  }/*,
-  {
+  }
+  /*{
     path: 'creative',
     component: AdminLayoutComponent,
     children: [

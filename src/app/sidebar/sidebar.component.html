@@ -134,7 +134,8 @@
           <ul class="nav">
             <li routerLinkActive="active" *ngFor="let childitem of menuitem.children">
               <a [routerLink]="[menuitem.path, childitem.path]">
-                <span class="sidebar-mini">{{childitem.ab}}</span>
+                <span *ngIf="!childitem.icontype" class="sidebar-mini">{{childitem.ab}}</span>
+                <span *ngIf="childitem.icontype" class="sidebar-mini"><i class="material-icons">{{childitem.icontype}}</i></span>
                 <span class="sidebar-normal">{{childitem.title}}</span>
               </a>
             </li>

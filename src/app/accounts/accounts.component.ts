@@ -29,13 +29,11 @@ export class AccountsComponent implements OnInit, AfterViewInit {
   private Master_Account = 'Master_A1,Master_A2,Master_A3,Master_A4,Master_A5,Master_A6'.split(',');
   private Lob_Account = 'Lob_A1,Lob_A2,Lob_A3,Lob_A4,Lob_A5'.split(',');
   private Sa_Account = 'Sa_A1,Sa_A2,Sa_A3,Sa_A4,Sa_A5'.split(',');
-
-  private account_name = "My Account";
   
-  private group_list = [
+  private group_list = [  
     {
       title: 'No Grouping',
-      value: '',
+      value: ' ',
       checked: 'false'
     },
     {
@@ -48,16 +46,10 @@ export class AccountsComponent implements OnInit, AfterViewInit {
   public data = [];
   private view;
   constructor() {
-      
+    
   }
 
-  public choose_account(name: string): void {
-    this.account_name = name;
-  }
-  public choose_account_list(name: string): void {
-    this.account_name = "Account list / " + name;
-  }
-  public ngOnInit() {
+  ngOnInit() {
     this.data = this.getData();
     this.view = new wjcCore.CollectionView(this.data, {
       sortDescriptions: [new wjcCore.SortDescription('sales', false)]
@@ -98,7 +90,6 @@ export class AccountsComponent implements OnInit, AfterViewInit {
 
   public group_By(group_name: string) {
     this.view.groupDescriptions.clear();
-    
     // add the new groups
 		var props = group_name.split(',');
     for (var i = 0; i < props.length; i++) {
@@ -106,7 +97,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       
       // group sales by value ranges
       var gd;
-    	gd = new wjcCore.PropertyGroupDescription(prop);
+      gd = new wjcCore.PropertyGroupDescription(prop);
       this.view.groupDescriptions.push(gd);
     }
   }

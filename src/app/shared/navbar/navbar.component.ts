@@ -129,14 +129,14 @@ export class NavbarComponent implements OnInit {
   };
 
   getTitle() {
-    let titlee: any = this.location.prepareExternalUrl(this.location.path());
+    let title: any = this.location.prepareExternalUrl(this.location.path());
     for (let i = 0; i < this.listTitles.length; i++) {
-      if (this.listTitles[i].type === "link" && this.listTitles[i].path === titlee) {
+      if (this.listTitles[i].type === "link" && this.listTitles[i].path === title) {
         return this.listTitles[i].title;
       } else if (this.listTitles[i].type === "sub") {
         for (let j = 0; j < this.listTitles[i].children.length; j++) {
           let subtitle = this.listTitles[i].path + '/' + this.listTitles[i].children[j].path;
-          if (subtitle === titlee) {
+          if (subtitle === title) {
             return this.listTitles[i].children[j].title;
           }
         }
