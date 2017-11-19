@@ -10,7 +10,6 @@ const Account = require('../models').Account;
  * @returns array of Account objects
  */
 router.get('/', async (req, res) => {
-
   var accounts = await Account.findAll();
 
   res.json(accounts);

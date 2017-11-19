@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var account_list = sequelize.define('AccountList', {
+  var AccountList = sequelize.define('AccountList', {
     name: DataTypes.STRING,
     createdBy: DataTypes.INTEGER
   }, {
@@ -12,5 +12,5 @@ module.exports = (sequelize, DataTypes) => {
     },
     tableName: 'flm_account_lists'
   });
-  return account_list;
+  return AccountList;
 };
