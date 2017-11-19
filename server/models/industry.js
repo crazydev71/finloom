@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
-        models['Industry'].hasMany(models['Account'])
+        models['Industry'].belongsToMany(models['Account'], {through: models['AccountIndustry']});
       }
     },
 
