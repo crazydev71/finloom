@@ -29,8 +29,6 @@ export class AccountsComponent implements OnInit, AfterViewInit {
   private Master_Account = 'Master_A1,Master_A2,Master_A3,Master_A4,Master_A5,Master_A6'.split(',');
   private Lob_Account = 'Lob_A1,Lob_A2,Lob_A3,Lob_A4,Lob_A5'.split(',');
   private Sa_Account = 'Sa_A1,Sa_A2,Sa_A3,Sa_A4,Sa_A5'.split(',');
-
-  private account_name = "My Account";
   
   private group_list = [  
     {
@@ -51,12 +49,6 @@ export class AccountsComponent implements OnInit, AfterViewInit {
     
   }
 
-  public choose_account(name: string): void {
-    this.account_name = name;
-  }
-  public choose_account_list(name: string): void {
-    this.account_name = "Account list / " + name;
-  }
   ngOnInit() {
     this.data = this.getData();
     this.view = new wjcCore.CollectionView(this.data, {
