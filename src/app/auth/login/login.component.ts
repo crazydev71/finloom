@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.router.navigateByUrl('/accounts');
+    this.router.navigateByUrl('/dashboard');
   }
 
   onSlide(value) {

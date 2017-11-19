@@ -23,6 +23,12 @@ export interface ChildrenItems {
 //Menu Items
 export const ROUTES: RouteInfo[] = [
   {
+    path: '/dashboard',
+    title: 'Dashboard',
+    type: '',
+    icontype: 'dashboard'
+  },
+  {
     path: '/accounts',
     title: 'Accounts',
     type: 'link',
@@ -57,13 +63,7 @@ export const ROUTES: RouteInfo[] = [
       { path: 'calendar', title: 'calendar', ab: 'T' },
       { path: 'pages', title: 'pages', ab: 'T' }
     ]
-  }
-  /*, {
-    path: '/dashboard',
-    title: 'Dashboard',
-    type: 'link',
-    icontype: 'dashboard'
-  }, {
+  }/*, {
     path: '/components',
     title: 'Components',
     type: 'sub',
@@ -161,7 +161,9 @@ export class SidebarComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.menuItems = ROUTES.filter(menuItem => {
+      return true;
+    });
   }
   updatePS(): void {
     if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
