@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         // associations can be defined here
       }
     },
-    table_name: 'flm_account_bank_types'
+    tableName: 'flm_account_bank_types'
   });
   return AccountBankType;
 };
