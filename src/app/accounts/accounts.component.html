@@ -17,9 +17,10 @@
           </div>            
         </div>
         <div id="theGrid">
+          <div class="no-data" [hidden]="data.accounts && data.accounts.length"><h4>No Data Available</h4></div>
         </div>
       </div>  
-      <div class="col-md-6 col-sm-6">
+      <div class="col-md-6 col-sm-6" *ngIf="selected.account">
         <div class="row">
           <div class="col-md-6 col-sm-6">
           </div>
