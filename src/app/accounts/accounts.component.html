@@ -1,66 +1,45 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-3 col-sm-3">
-        <div class="dropdown">
-          <button class="dropdown-toggle btn btn-primary btn-block" data-toggle="dropdown">{{account_name}}
-            <b class="caret"></b>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-left">
-            <li *ngFor="let account of accounts" (click)="choose_account(account.name)">
-              <a> {{account.name}} </a>
-            </li>
-            <li class="dropdown-header">Account list</li>
-            <li class="divider"></li>
-            <li *ngFor="let account of account_list" class="account-list" (click)="choose_account_list(account.name)">
-              <a> <i class="fa fa-caret-right" aria-hidden="true"></i>{{account.name}} </a>
-            </li>
-          </ul>
+      <div class="col-md-6 col-sm-6">
+        <label *ngFor="let group of group_list">
+          <input type="radio" name="filter" value="group.value" [checked]="group.checked === 'true'" (click)="group_By(group.value)" />
+          {{group.title}}    
+        </label> 
+        <div id="theGrid">
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6 col-sm-6">
-      <label *ngFor="let group of group_list">
-        <input type="radio" name="filter" value="group.value" [checked]="group.checked === 'true'" (click)="group_By(group.value)" />
-        {{group.title}}    
-      </label> 
-      <div id="theGrid">
-      </div>
-    </div>  
-    <div class="col-md-6 col-sm-6">
-      <div class="row">
-        <div class="col-md-6 col-sm-6">
-          <h3>Account Details</h3>
+      </div>  
+      <div class="col-md-6 col-sm-6">
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <h3>Account Details</h3>
+          </div>
+          <div class="col-md-6 col-sm-6 account-edit">
+            <button class="btn btn-primary btn-just-icon"><i class="fa fa-edit  mr-1"></i></button>
+          </div>
         </div>
-        <div class="col-md-6 col-sm-6 account-edit">
-          <button class="btn btn-primary btn-just-icon"><i class="fa fa-edit  mr-1"></i></button>
+        <div class="row account-board">
+          <div class="col-md-7 col-sm-7 account-detail">
+            <h4 class="col-md-6 col-sm-6">AKA Name</h4>
+            <h4 class="col-md-6 col-sm-6">FinLoom</h4>
+            <h4 class="col-md-6 col-sm-6">Legal Name</h4>
+            <h4 class="col-md-6 col-sm-6">FinLoom Inc</h4>
+            <h4 class="col-md-6 col-sm-6">Short Code</h4>
+            <h4 class="col-md-6 col-sm-6">FI</h4>
+            <h4 class="col-md-6 col-sm-6">Alias</h4>
+            <h4 class="col-md-6 col-sm-6">FinLoom</h4>
+            <h4 class="col-md-6 col-sm-6">Ticker</h4>
+            <h4 class="col-md-6 col-sm-6">FINLOOM</h4>
+            <h4 class="col-md-6 col-sm-6">Email Domain</h4>
+            <h4 class="col-md-6 col-sm-6">finloom.com</h4>
+            <h4 class="col-md-12 col-sm-12">Legal Address</h4>
+            <h4 class="col-md-12 col-sm-12">Park Ave, NY, 10020</h4>
+          </div>
+          <div class="col-md-5 col-sm-5">
+            <h4 class="col-md-6 col-sm-6">Status</h4>
+            <h4 class="col-md-6 col-sm-6 account-active">Active</h4>
+          </div>
         </div>
-      </div>
-      <div class="row account-board">
-        <div class="col-md-7 col-sm-7 account-detail">
-          <h4 class="col-md-6 col-sm-6">AKA Name</h4>
-          <h4 class="col-md-6 col-sm-6">FinLoom</h4>
-          <h4 class="col-md-6 col-sm-6">Legal Name</h4>
-          <h4 class="col-md-6 col-sm-6">FinLoom Inc</h4>
-          <h4 class="col-md-6 col-sm-6">Short Code</h4>
-          <h4 class="col-md-6 col-sm-6">FI</h4>
-          <h4 class="col-md-6 col-sm-6">Alias</h4>
-          <h4 class="col-md-6 col-sm-6">FinLoom</h4>
-          <h4 class="col-md-6 col-sm-6">Ticker</h4>
-          <h4 class="col-md-6 col-sm-6">FINLOOM</h4>
-          <h4 class="col-md-6 col-sm-6">Email Domain</h4>
-          <h4 class="col-md-6 col-sm-6">finloom.com</h4>
-          <h4 class="col-md-12 col-sm-12">Legal Address</h4>
-          <h4 class="col-md-12 col-sm-12">Park Ave, NY, 10020</h4>
-        </div>
-        <div class="col-md-5 col-sm-5">
-          <h4 class="col-md-6 col-sm-6">Status</h4>
-          <h4 class="col-md-6 col-sm-6 account-active">Active</h4>
-        </div>
-      </div>
-
-    </div>  
+      </div>  
   </div>    
 </div>

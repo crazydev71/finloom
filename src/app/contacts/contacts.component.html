@@ -1,65 +1,30 @@
 <div class="main-content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-2 col-sm-2">
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-            <button mat-raised-button class="btn btn-primary btn-block">Contacts</button>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3 col-sm-3">
+        <mat-form-field>
+          <input matInput placeholder="Search..." [ngStyle]="{'width': '300px'}">
+        </mat-form-field>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <div class="dropdown">
+          <button class="dropdown-toggle btn btn-primary btn-block" data-toggle="dropdown">{{contact_name}}
+            <b class="caret"></b>
           </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-              <mat-icon>contacts</mat-icon>
-              <span>Contacts</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>update</mat-icon>
-              <span>Frequently contacted</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>library_books</mat-icon>
-              <span>Duplicates</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>keyboard_arrow_down</mat-icon>
-              <span>Contact Lists</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>add_circle_outline</mat-icon>
-              <span>Create List</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>keyboard_arrow_down</mat-icon>
-              <span>More</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>settings</mat-icon>
-              <span>Setting</span>
-            </button>
-          </mat-menu>
+          <ul class="dropdown-menu dropdown-menu-left">
+            <li *ngFor="let contact of contacts" (click)="choose_contact(contact.name)">
+              <a> {{contact.name}} </a>
+            </li>
+          </ul>
         </div>
-        <div class="col-md-3 col-sm-3">
-          <mat-form-field>
-            <input matInput placeholder="Search...">          
-          </mat-form-field>            
-        </div>
-        <div class="col-md-3 col-sm-3">
-            <div class="dropdown">
-              <button class="dropdown-toggle btn btn-primary btn-block" data-toggle="dropdown">{{contact_name}}
-                <b class="caret"></b>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-left">
-                <li *ngFor="let contact of contacts" (click)="choose_contact(contact.name)">
-                  <a> {{contact.name}} </a>
-                </li>
-              </ul>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-4">
-          <button class="btn btn-success btn-block">New Contact
-          </button>
-        </div>        
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <button class="btn btn-success btn-block">New Contact</button>
+      </div>
     </div>
     <div class="row">
       <div id="theGrid">
       </div>
     </div>
-</div>          
+  </div>
+</div>

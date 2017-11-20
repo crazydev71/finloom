@@ -9,13 +9,13 @@
                     <div class="card-content">
                         <h4 class="card-title">Add Trade</h4>
                         <div class="content table-responsive">
-                            <wj-flex-grid #flex1 [itemsSource]="newTradeData">
+                            <wj-flex-grid #flex1 [itemsSource]="newTradeData" (cellEditEnded)="cellEditEnded(grid, $event)">
                                 <wj-flex-grid-column [header]="'Deal Code'" [binding]="'ShortCode'"></wj-flex-grid-column>
                                 <wj-flex-grid-column [header]="'Facility Code'" [binding]="'FacilityCode'"></wj-flex-grid-column>
                                 <wj-flex-grid-column [header]="'Amount'" [binding]="'Amount'" [format]="'n0'"></wj-flex-grid-column>
                                 <wj-flex-grid-column [header]="'Currency'" [binding]="'Currency'"></wj-flex-grid-column>
                                 <wj-flex-grid-column [header]="'Price'" [binding]="'Price'" [format]="'n0'"></wj-flex-grid-column>
-                                <wj-flex-grid-column [header]="'Trade Date'" [binding]="'TradeDate'" format="MM-dd-yyyy"></wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Trade Date'" [binding]="'TradeDate'" [isReadOnly]="true" format="MM-dd-yyyy"></wj-flex-grid-column>
                                 <wj-flex-grid-column [header]="'Sales Comp (in %)'" [binding]="'SalesCom'" [format]="'n0'"></wj-flex-grid-column>
                                 <wj-flex-grid-column [header]="'Book'">
                                     <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
@@ -32,6 +32,7 @@
                                 <wj-flex-grid-column [header]="'Action'" [isReadOnly]="true">
                                     <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
                                         <button class="btn btn-success btn-sm" (click)="saveNewTrade(item)">Save</button>
+                                        <button class="btn btn-default btn-sm" (click)="clearNewTrade()">Clear</button>
                                     </template>
                                 </wj-flex-grid-column>
                             </wj-flex-grid>
@@ -76,11 +77,14 @@
                                     </mat-form-field>
                                 </div>
                                 <div class="input-date col-sm-3">
-                                    <button class="btn btn-default" (click)="clearFilter()">Clear</button>
+                                    <button class="btn btn-default" (click)="clearFilter()">Reset</button>
                                 </div>
                             </div>
                             <div class="content table-responsive col-md-12">
                                 <wj-flex-grid #flex [itemsSource]="data" [selectionMode]="'Row'">
+                                    <ng-template wjFlexGridCellTemplate [cellType]="'RowHeader'" let-cell="item">
+                                        <input type="checkbox" data-md-icheck  />
+                                    </ng-template>
                                     <wj-flex-grid-column [header]="'Deal Code'" [binding]="'ShortCode'"></wj-flex-grid-column>
                                     <wj-flex-grid-column [header]="'Facility Code'" [binding]="'FacilityCode'"></wj-flex-grid-column>
                                     <wj-flex-grid-column [header]="'Amount'" [binding]="'Amount'" [format]="'n0'"></wj-flex-grid-column>

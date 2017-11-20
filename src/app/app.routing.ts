@@ -17,6 +17,13 @@ export const AppRoutes: Routes = [
       loadChildren: './auth/auth.module#AuthModule'
     }]
   }, {
+    path: 'dashboard',
+    component: AdminLayoutComponent,
+    children: [{
+      path: '',
+      loadChildren: './dashboard/dashboard.module#DashboardModule'
+    }]
+  }, {
     path: 'accounts',
     component: AdminLayoutComponent,
     children: [{
@@ -46,13 +53,14 @@ export const AppRoutes: Routes = [
     }]
   },
   {
-      path: '',
+      path: 'trades',
       component: AdminLayoutComponent,
       children: [{
-          path: 'trades',
+          path: '',
           loadChildren: './trades/trades.module#TradesModule'
       }]
-  },{
+  }
+  /*{
     path: 'creative',
     component: AdminLayoutComponent,
     children: [
@@ -95,5 +103,5 @@ export const AppRoutes: Routes = [
       path: 'pages',
       loadChildren: './creative/pages/pages.module#PagesModule'
     }]
-  }
+  }*/
 ];

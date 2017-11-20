@@ -58,24 +58,67 @@ export class TradesComponent implements OnInit, AfterViewInit {
         new Broker(9, 'Broker 9'),
     ];
     private newRowCnt = -1;
-    private bookName: string = "Book";
+    private bookName: string = "--All--";
     private newSelectedBookId: number;
+    private tempRows;
+    private flag: boolean = false;
 
     constructor() {
         this.dataSource = this.getData(10);
         this.getCollectionViewData(this.dataSource);
-        this.newTradeData = new wjcCore.CollectionView(this.getNewTrade(1));
+        this.createNewRowData();
         this.filter = { 'TradeDate': this.model };
     }
 
     ngOnInit() {
     }
 
-    ngAfterViewInit() {
-
+    createNewRowData() {
+        this.newTradeData = new wjcCore.CollectionView(this.getNewTrade(1), {
+            getError(item, prop) {
+                if (prop == 'ShortCode' && item.ShortCode === "") {
+                    return true;
+                }
+                if (prop == 'FacilityCode' && item.FacilityCode === "") {
+                    return true;
+                }
+                if (prop == 'Amount' && item.Amount === null) {
+                    return true;
+                }
+                if (prop == 'Price' && item.Price === null) {
+                    return true;
+                }
+                if (prop == 'Book' && item.Book === "") {
+                    return true;
+                }
+            }
+        });
     }
 
-    getCollectionViewData(data : any){
+    ngAfterViewInit() {
+        this.tempRows = new Array();
+        this.flex.rowHeaders.hostElement.addEventListener("click", (e) => {
+            let ht = this.flex.hitTest(e);
+            let obj = JSON.parse(JSON.stringify(this.flex.rows[ht.row].dataItem));
+            let index = this.tempRows.findIndex(d => d.id === obj.id);
+            if (index != -1) {
+                this.tempRows.splice(index, 1);
+            } else {
+                this.tempRows.push(obj);
+            }
+        });
+    }
+
+    onRowSelect() {
+        this.tempRows = new Array();
+        this.flex.rowHeaders.hostElement.addEventListener("click", (e) => {
+            let ht = this.flex.hitTest(e);
+            let obj = JSON.parse(JSON.stringify(this.flex.rows[ht.row].dataItem));
+            this.tempRows[ht.row] = obj;
+        });
+    }
+
+    getCollectionViewData(data: any) {
         this.data = new wjcCore.CollectionView(data);
     }
 
@@ -104,7 +147,7 @@ export class TradesComponent implements OnInit, AfterViewInit {
         return data;
     }
 
-    getNewTrade(count: number): wjcCore.ObservableArray  {
+    getNewTrade(count: number): wjcCore.ObservableArray {
         let data = new wjcCore.ObservableArray();
         for (var i = 0; i < count; i++) {
             data.push({
@@ -130,18 +173,36 @@ export class TradesComponent implements OnInit, AfterViewInit {
     }
 
     saveNewTrade(item: any) {
-        item.Book = this.newSelectedBookId;
-        this.dataSource.push(item);
-        this.newTradeData = new wjcCore.CollectionView(this.getNewTrade(1));
-        this.showNotification('top', 'right', "Trade added successfully.");
+        let prop = ['ShortCode', 'FacilityCode', 'Amount', 'Price'];
+        for (let val of prop) {
+            let isError = this.newTradeData.getError(item, val);
+            if (isError == true) {
+                this.flag = true;
+                alert("Please fill all required fields.")
+                break;
+            }
+            else {
+                this.flag = false;
+            }
+        }
+        if (!this.flag) {
+            item.Book = this.newSelectedBookId;
+            this.dataSource.push(item);
+            this.createNewRowData();
+            this.showNotification('top', 'right', "Trade added successfully.");
+        }
+    }
+
+    clearNewTrade() {
+        this.createNewRowData();
     }
 
     onSelectBook(data: any) {
-        this.dataSource = this.getData(10); 
+        this.dataSource = this.getData(10);
         this.bookName = data.name;
         this.dataSource = this.dataSource.filter(
             b => b.Book === data.id);
-        this.getCollectionViewData(this.dataSource);  
+        this.getCollectionViewData(this.dataSource);
     }
 
     onDateChanged(event: any) {
@@ -164,7 +225,7 @@ export class TradesComponent implements OnInit, AfterViewInit {
     }
 
     clearFilter() {
-        this.dataSource = this.getData(10); 
+        this.dataSource = this.getData(10);
         this.getCollectionViewData(this.dataSource);
     }
 
@@ -181,19 +242,14 @@ export class TradesComponent implements OnInit, AfterViewInit {
             text: "You won't be able to revert this!",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#d33',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
         }).then(function (result) {
-            debugger;
-            let index = that.dataSource.findIndex(d => d.id === data.id); 
+            let index = that.dataSource.findIndex(d => d.id === data.id);
             that.dataSource.splice(index, 1);
-                swal(
-                    'Deleted!',
-                    'Trade has been deleted.',
-                    'success'
-                )
-            })
+            that.showNotification('top', 'right', "Trade deleted successfully.");
+        })
     }
 
     showNotification(from, align, message) {

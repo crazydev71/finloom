@@ -19,7 +19,7 @@
 option, select {
     color: #3C4858 !important
 }
-button.btn-xsl, .btn.btn-success.btn-sm, .btn-danger.btn-sm {
+button.btn-xsl, .btn.btn-success.btn-sm, .btn-danger.btn-sm, .btn-default.btn-sm {
     padding: 4px 8px;
     margin: 0
 }

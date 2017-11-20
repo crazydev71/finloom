@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Account = require('../models').Account;
+const AccountList = require('../models').AccountList;
 const baseAPI = require('./base');
 
-router.use(baseAPI('Account'));
+router.use(baseAPI('AccountList'));
 
 module.exports = function (rootRouter) {
-  rootRouter.use('/account', router)
+  rootRouter.use('/account-list', router)
 }
