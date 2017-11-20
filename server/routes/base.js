@@ -9,6 +9,14 @@ module.exports = (modelName) => {
     res.json(items);
   });
 
+  router.get('/by', async (req, res) => {
+    const where = req.params || req.query;
+    console.log(req.params);
+    console.log(req.query);
+    const items = await Model.findAll({where});
+    res.json(items);
+  })
+
   router.get('/:id', async (req, res) => {
     const {id} = req.params;
     const item = await Model.findById(id);
