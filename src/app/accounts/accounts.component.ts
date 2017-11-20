@@ -4,6 +4,9 @@ import { WjGridModule, WjFlexGrid } from 'wijmo/wijmo.angular2.grid';
 import * as wjcCore from 'wijmo/wijmo';
 import * as wjcGrid from 'wijmo/wijmo.grid';
 
+import { DataService } from '../_services/data.services';
+import { Account, AccountList, BankType, Industry } from '../shared/interfaces/model';
+
 declare const $: any;
 
 @Component({
@@ -16,45 +19,24 @@ declare const $: any;
 export class AccountsComponent implements OnInit, AfterViewInit {
   @ViewChild('flex') flex: WjFlexGrid;
   
-  private accounts = [
-    {name: "Browser"},
-    {name: "Create Single"},
-    {name: "Create Multiple"}
-  ];
-  
-  private account_list = [
-    {name: "List01"},
-    {name: "List02"}    
-  ];
-
-  private Master_Account = 'Master_A1,Master_A2,Master_A3,Master_A4,Master_A5,Master_A6'.split(',');
-  private Lob_Account = 'Lob_A1,Lob_A2,Lob_A3,Lob_A4,Lob_A5'.split(',');
-  private Sa_Account = 'Sa_A1,Sa_A2,Sa_A3,Sa_A4,Sa_A5'.split(',');
-  
   private default_title = "Group By MA,LOB and SA";
-  private group_list = [  
-    {
-      title: 'No Grouping',
-      value: ' ',
-      checked: 'false'
-    },
-    {
-      title: 'Group By MA,LOB and SA',
-      value: 'MA,LOB,SA',
-      checked: 'true'
-    },
-    
-  ]
-  public data = [];
+  private group_list = [{ title: 'No Grouping', value: null, checked: 'false' }, { title: 'Group By MA,LOB and SA', value: 'MA,LOB,SA', checked: 'true' }];
+  public data: any = {};
+  public selected: any = {};
   private view;
-  constructor (private router: Router) {
+  constructor (private router: Router, private dataservice: DataService) {
     this.router.navigateByUrl('/accounts/browser');
   }
 
   ngOnInit() {
-    this.data = this.getData();
-    this.view = new wjcCore.CollectionView(this.data, {
-      sortDescriptions: [new wjcCore.SortDescription('sales', false)]
+    this.getData();
+  }
+
+  ngAfterViewInit() {}
+
+  private initAccountsTable () {
+    this.view = new wjcCore.CollectionView(this.data.accounts, {
+      sortDescriptions: [new wjcCore.SortDescription('id', false)]
     });
     
     // initialize item count display
@@ -64,39 +46,39 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       selectionChanged: function(s, e) {
         if (!flex.selection.isSingleCell) {
           //var stats = getSelectionStats(flex);
-          
         }
       },
-      showAlternatingRows: false,
-      headersVisibility: 'Row'
+      allowAddNew: true
     });
 
     this.group_By('MA,LOB,SA', this.default_title);
   }
 
-  ngAfterViewInit() {
-  
-  }
-
   public getData() {
-    var data = [];
-      // data.push({
-      //   MA:  this.Master_Account[i % this.Master_Account.length],
-      //   LOB: this.Lob_Account[i % this.Lob_Account.length],
-      //   SA:  this.Sa_Account[i % this.Sa_Account.length],
-      // });
-    return data;
+    let parent = this;
+    this.dataservice.getData('/api/account/by', {id: 1}).subscribe((resp: any) => {
+      parent.data.accounts = resp;
+      parent.data.accounts = parent.data.accounts.concat(parent.data.accounts);
+      for (let i = 0; i < parent.data.accounts.length; i++) {
+        parent.data.accounts[i].MA = 0;
+        parent.data.accounts[i].LOB = 1;
+        parent.data.accounts[i].SA = 2;
+      }
+      parent.initAccountsTable();
+    });
+    parent.data.accountLists = [];
+    parent.data.bankTypes = [];
+    parent.data.industries = [];
   }
 
   public group_By(group_name: string, group_title: string) {
     this.default_title = group_title;
     this.view.groupDescriptions.clear();
-    // add the new groups
+    if (group_name == null)
+      return;
 		var props = group_name.split(',');
     for (var i = 0; i < props.length; i++) {
     	var prop = props[i];
-      
-      // group sales by value ranges
       var gd;
       gd = new wjcCore.PropertyGroupDescription(prop);
       this.view.groupDescriptions.push(gd);
