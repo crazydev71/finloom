@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, Injectable } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { WjGridModule, WjFlexGrid } from 'wijmo/wijmo.angular2.grid';
 import * as wjcCore from 'wijmo/wijmo';
 import * as wjcGrid from 'wijmo/wijmo.grid';
@@ -46,8 +47,8 @@ export class AccountsComponent implements OnInit, AfterViewInit {
   ]
   public data = [];
   private view;
-  constructor() {
-    
+  constructor (private router: Router) {
+    this.router.navigateByUrl('/accounts/browser');
   }
 
   ngOnInit() {
@@ -63,7 +64,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       selectionChanged: function(s, e) {
         if (!flex.selection.isSingleCell) {
           //var stats = getSelectionStats(flex);
-          console.log('aaa');
+          
         }
       },
       showAlternatingRows: false,
@@ -79,13 +80,11 @@ export class AccountsComponent implements OnInit, AfterViewInit {
 
   public getData() {
     var data = [];
-    for (var i = 0; i < 1000; i++) {
-      data.push({
-        MA:  this.Master_Account[i % this.Master_Account.length],
-        LOB: this.Lob_Account[i % this.Lob_Account.length],
-        SA:  this.Sa_Account[i % this.Sa_Account.length],
-      });
-    }
+      // data.push({
+      //   MA:  this.Master_Account[i % this.Master_Account.length],
+      //   LOB: this.Lob_Account[i % this.Lob_Account.length],
+      //   SA:  this.Sa_Account[i % this.Sa_Account.length],
+      // });
     return data;
   }
 

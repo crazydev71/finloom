@@ -292,13 +292,22 @@ export class SidebarComponent implements OnInit {
     if (url == '/dashboard')
       this.menuItems = ROUTES;
     else {
-      let matched = ROUTES.filter(menuItem => {
-        return menuItem.path == url;
-      });
-      this.menuItems = [];
-      for (let i = 0; i < matched.length; i ++) {
-        this.menuItems = this.menuItems.concat(matched[i].nextTabs);
+      let matched;
+      if ((url.match(new RegExp("/", "g")) || []).length == 2) {
+        matched = ROUTES.filter(menuItem => {
+          let pos = url.search(menuItem.path);
+          if (pos != -1) return true;
+        });
+      } else {
+        matched = ROUTES.filter(menuItem => {
+          return menuItem.path == url;
+        });
       }
+      this.menuItems = [];
+      for (let i = 0; i < matched[0].nextTabs.length; i ++) {
+        matched[0].nextTabs[i].path = matched[0].path + matched[0].nextTabs[i].path;
+      }
+      this.menuItems = this.menuItems.concat(matched[0].nextTabs);
     }
   }
   updatePS(): void {

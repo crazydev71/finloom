@@ -26,10 +26,14 @@ export const AppRoutes: Routes = [
   }, {
     path: 'accounts',
     component: AdminLayoutComponent,
-    children: [{
-      path: '',
-      loadChildren: './accounts/accounts.module#AccountsModule'
-    }]
+    children: [ {
+        path: '',
+        loadChildren: './accounts/accounts.module#AccountsModule'
+      }, {
+        path: 'browser',
+        loadChildren: './accounts/accounts.module#AccountsModule'
+      }
+    ]
   }, {
     path: 'contacts',
     component: AdminLayoutComponent,
