@@ -109,7 +109,8 @@ export class MaterialModule {}
     ],
     bootstrap:    [ AppComponent ],
     providers: [
-      AuthGuard
+      AuthGuard,
+      DataService
     ]
 })
 export class AppModule { }
