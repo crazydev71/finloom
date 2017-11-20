@@ -45,7 +45,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       itemsSource: this.view,
       selectionChanged: function(s, e) {
         if (!flex.selection.isSingleCell) {
-          //var stats = getSelectionStats(flex);
+          var stats = flex.selection;
         }
       },
       allowAddNew: true
