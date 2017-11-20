@@ -48,7 +48,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
   public data = [];
   private view;
   constructor (private router: Router) {
-    this.router.navigateByUrl('/accounts/browser');
+    this.router.navigateByUrl('/accounts/browser'); 
   }
 
   ngOnInit() {
