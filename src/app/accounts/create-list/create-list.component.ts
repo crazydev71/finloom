@@ -14,4 +14,12 @@ export class CreateListComponent implements OnInit {
     
   }
 
+  private Create_List(list_name: String) :void {
+    if(list_name != '') {
+      this.dataService.postData('/api/account-list', {name: list_name, createdBy: 1})
+          .subscribe((resp: any) => {
+            
+          });
+    }
+  }
 }
