@@ -32,6 +32,7 @@ label {
   color: lightgreen;
 }
 .account-board {
+  height: 64vh;
   margin-right: 0;
   box-shadow: 1px 1px 5px;
 }

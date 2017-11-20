@@ -61,14 +61,12 @@ export class ContactsComponent implements OnInit {
 
   public getData() {
     var data = [];
-    for (var i = 0; i < 1000; i++) {
-      data.push({
-        Name:  this.account_name[i % this.account_name.length],
-        Num: i,
-        Email:  this.account_email[i % this.account_email.length],
-        Bank:  this.contact_bank[i % this.contact_bank.length],
-      });
-    }
+    // data.push({
+    //   Name:  this.account_name[i % this.account_name.length],
+    //   Num: i,
+    //   Email:  this.account_email[i % this.account_email.length],
+    //   Bank:  this.contact_bank[i % this.contact_bank.length],
+    // });
     return data;
   }
 
