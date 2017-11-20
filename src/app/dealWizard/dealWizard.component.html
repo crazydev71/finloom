@@ -1,0 +1,292 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="wizard-container">
+                <div class="card wizard-card" data-color="rose" id="wizardProfile">
+                    <form action="" method="">
+                        <div class="wizard-header">
+                            <h3 class="wizard-title">
+                                Create Deal
+                            </h3>
+                        </div>
+                        <div class="wizard-navigation">
+                            <ul>
+                                <li>
+                                    <a href="#dealDetails" data-toggle="tab">Deal Details</a>
+                                </li>
+                                <li>
+                                    <a href="#facilityDetails" data-toggle="tab">Facility Details</a>
+                                </li>
+                                <li>
+                                    <a href="#dealCommunication" data-toggle="tab">Deal Communication</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane" id="dealDetails">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <label class="control-label">Borrower</label>
+                                            <select name="borrowerSelected" class="form-control">
+                                                                <option disabled="" selected="">Select</option>
+                                                                <option value="1">Expedia Company</option>
+                                                                <option value="2"> Home Depot Inc </option>
+                                                               
+                                                            </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <label class="control-label">Sponser</label>
+                                            <select name="sponserSelected" class="form-control">
+                                                                    <option disabled="" selected="">Select</option>
+                                                                    <option value="1">Expedia Company</option>
+                                                                    <option value="2"> Home Depot Inc </option>
+                                                                   
+                                                                </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <label class="control-label">Guarantor</label>
+                                            <select name="guarantorSelect" class="form-control">
+                                                                        <option disabled="" selected="">Select</option>
+                                                                        <option value="1">Expedia Company</option>
+                                                                        <option value="2"> Home Depot Inc </option>
+                                                                       
+                                                                    </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <label class="control-label">Lead Arranger</label>
+                                            <select name="leadArrangerSelected" class="form-control">
+                                                                            <option disabled="" selected="">Select</option>
+                                                                            <option value="1">Expedia Company</option>
+                                                                            <option value="2"> Home Depot Inc </option>
+                                                                           
+                                                                        </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <label class="control-label">Admin agent</label>
+                                            <select name="adminAgentSelected" class="form-control">
+                                                                                <option disabled="" selected="">Select</option>
+                                                                                <option value="1">Expedia Company</option>
+                                                                                <option value="2"> Home Depot Inc </option>
+                                                                               
+                                                                            </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <label class="control-label">Industry</label>
+                                            <select name="industrySelect" class="form-control">
+                                                                                    <option disabled="" selected="">Select</option>
+                                                                                    <option value="1">Consumer Product and Services </option>
+                                                                                    <option value="2">Consumer Staples</option> 
+                                                                                    <option value="3">Energy</option>  
+                                                                                    <option value="4">Energy and Power</option> 
+                                                                                    <option value="5">Financials</option>                                                                                   
+                                                                                </select>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Deal Name
+                                                                <small>(required)</small>
+                                                            </label>
+                                                <input name="dealname" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Deal Alias
+                                                                <small>(required)</small>
+                                                            </label>
+                                                <input name="dealalias" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Url
+                                                                </label>
+                                                <input name="dealurl" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Short Code
+                                                                    </label>
+                                                <input name="dealshortcode" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <label class="control-label">Type</label>
+                                            <select name="typeSelected" class="form-control">
+                                                                                        <option disabled="" selected="">Select</option>
+                                                                                        <option value="1">Syndication</option>
+                                                                                        <option value="2">Underwrite</option>                                                                       
+                                                                                    </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <label class="control-label">Purpose</label>
+                                            <select name="purposeSelected" class="form-control">
+                                                                                            <option disabled="" selected="">Select</option>
+                                                                                            <option value="1">Acquisitions</option>
+                                                                                            <option value="2">General Corp Purpose</option>                                                                       
+                                                                                        </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <legend>Datepicker</legend>
+                                            <mat-datepicker-toggle matSuffix [for]="resultPicker">
+                                            </mat-datepicker-toggle>
+                                            <mat-input-container>
+                                                <input matInput name="date" [matDatepicker]="resultPicker" placeholder="Pick a day">
+                                            </mat-input-container>
+                                            <mat-datepicker #resultPicker [touchUi]="touch" [startView]="'month'">
+                                            </mat-datepicker>
+                                        </div>
+                                        <div class="input-group">
+                                            <label class="control-label">Currency</label>
+                                            <select name="dealcurrencySelected" class="form-control">
+                                                                                        <option disabled="" selected="">Select</option>
+                                                                                        <option value="1">Acquisitions</option>
+                                                                                        <option value="2">Underwrite</option>                                                                       
+                                                                                    </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Amount
+                                                   </label>
+                                                <input name="dealAmount" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <label class="control-label">Status</label>
+                                            <select name="dealstatusSelected" class="form-control">
+                                                                                            <option disabled="" selected="">Select</option>
+                                                                                            <option value="1">Active</option>
+                                                                                            <option value="2">Complete</option> 
+                                                                                            <option value="3">Pending</option>  
+                                                                                            <option value="4">Terminated</option>                                                                           
+                                                                                        </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="tab-pane" id="facilityDetails">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Facility Name
+                                                                <small>(required)</small>
+                                                            </label>
+                                                <input name="facilityname" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <!-- <span class="input-group-addon">
+                                                            <i class="material-icons">record_voice_over</i>
+                                                        </span> -->
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Facility Alias
+                                                                <small>(required)</small>
+                                                            </label>
+                                                <input name="facilityalias" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+
+                                        <div class="input-group">
+                                            <label class="control-label">Currency</label>
+                                            <select name="facilityCommitment" class="form-control">
+                                                                                            <option disabled="" selected="">Select</option>
+                                                                                            <option value="1">EUR</option>
+                                                                                            <option value="2">GBP</option>  
+                                                                                            <option value="3">INR</option>                                                                              
+                                                                                        </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <label class="control-label">Borrower</label>
+                                            <select name="borrowerSelected" class="form-control">
+                                                                    <option disabled="" selected="">Select</option>
+                                                                    <option value="1">Expedia Company</option>
+                                                                    <option value="2">Home Depot Inc </option>
+                                                                   
+                                                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Commitment(m)
+                                                       </label>
+                                                <input name="facilityCommitment" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="dealCommunication">
+                                <!-- <div class="row">
+                                    <div class="col-sm-12">
+                                        <h4 class="info-text"> Are you living in a nice area? </h4>
+                                    </div>
+                                    <div class="col-sm-7 col-sm-offset-1">
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Street Name</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Street No.</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5 col-sm-offset-1">
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">City</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Country</label>
+                                            <select name="country" class="form-control">
+                                                    <option disabled="" selected=""></option>
+                                                    <option value="Afghanistan"> Afghanistan </option>
+                                                    <option value="Albania"> Albania </option>
+                                                    <option value="Algeria"> Algeria </option>
+                                                    <option value="American Samoa"> American Samoa </option>
+                                                    <option value="Andorra"> Andorra </option>
+                                                    <option value="Angola"> Angola </option>
+                                                    <option value="Anguilla"> Anguilla </option>
+                                                    <option value="Antarctica"> Antarctica </option>
+                                                    <option value="...">...</option>
+                                                </select>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="wizard-footer">
+                            <div class="pull-right">
+                                <input type='button' class='btn btn-next btn-fill btn-rose btn-wd' name='next' value='Next' />
+                                <input type='button' class='btn btn-finish btn-fill btn-rose btn-wd' name='finish' value='Finish' />
+                            </div>
+                            <div class="pull-left">
+                                <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- wizard container -->
+        </div>
+    </div>
+</div>
