@@ -2,17 +2,26 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6 col-sm-6">
-        <label *ngFor="let group of group_list">
-          <input type="radio" name="filter" value="group.value" [checked]="group.checked === 'true'" (click)="group_By(group.value)" />
-          {{group.title}}    
-        </label> 
+        <div class="row">
+          <div class="col-md-8 col-sm-12">
+            <div class="dropdown">
+              <button class="dropdown-toggle btn btn-primary btn-block" data-toggle="dropdown">{{default_title}}
+                <b class="caret"></b>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-left">
+                <li *ngFor="let group of group_list" (click)="group_By(group.value, group.title)">
+                  <a> {{group.title}} </a>
+                </li>
+              </ul>
+            </div>
+          </div>            
+        </div>
         <div id="theGrid">
         </div>
       </div>  
       <div class="col-md-6 col-sm-6">
         <div class="row">
           <div class="col-md-6 col-sm-6">
-            <h3>Account Details</h3>
           </div>
           <div class="col-md-6 col-sm-6 account-edit">
             <button class="btn btn-primary btn-just-icon"><i class="fa fa-edit  mr-1"></i></button>

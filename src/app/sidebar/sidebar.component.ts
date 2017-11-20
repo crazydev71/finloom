@@ -44,25 +44,25 @@ export const ROUTES: RouteInfo[] = [
         path: '/browser',
         title: 'Browser',
         type: 'link',
-        icontype: 'dashboard'
+        icontype: 'view_list'
       },
       {
         path: '/single',
         title: 'Create Single',
         type: 'link',
-        icontype: 'dashboard'
+        icontype: 'person_add'
       },
       {
         path: '/multiple',
         title: 'Create Multiple',
         type: 'link',
-        icontype: 'dashboard',
+        icontype: 'create_new_folder',
       },
       {
         path: '/accountlist',
         title: 'Account List',
         type: 'sub',
-        icontype: 'dashboard',
+        icontype: 'supervisor_account',
         collapse: 'AccountList',
         children: [
           {
@@ -83,7 +83,7 @@ export const ROUTES: RouteInfo[] = [
         path: '/list',
         title: 'Create List',
         type: 'link',
-        icontype: 'dashboard'
+        icontype: 'group_add'
       }
     ]
   },
@@ -122,13 +122,13 @@ export const ROUTES: RouteInfo[] = [
             path: 'contact1',
             title: 'contact1',
             ab: '1',
-            icontype: 'dashboard'
+            icontype: 'person'
           },
           {
             path: 'contact2',
             title: 'contact2',
             ab: '2',
-            icontype: 'dashboard'
+            icontype: 'person'
           }
         ]
       },
@@ -153,7 +153,7 @@ export const ROUTES: RouteInfo[] = [
           },
           {
             path: 'sub2',
-            title: 'sub2',
+            title: 'Sub2',
             ab: '2',
             icontype: 'dashboard'
           }

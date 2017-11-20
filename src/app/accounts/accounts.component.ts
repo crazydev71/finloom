@@ -30,6 +30,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
   private Lob_Account = 'Lob_A1,Lob_A2,Lob_A3,Lob_A4,Lob_A5'.split(',');
   private Sa_Account = 'Sa_A1,Sa_A2,Sa_A3,Sa_A4,Sa_A5'.split(',');
   
+  private default_title = "Group By MA,LOB and SA";
   private group_list = [  
     {
       title: 'No Grouping',
@@ -37,7 +38,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       checked: 'false'
     },
     {
-      title: 'By MA and by LOB and by SA',
+      title: 'Group By MA,LOB and SA',
       value: 'MA,LOB,SA',
       checked: 'true'
     },
@@ -69,7 +70,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       headersVisibility: 'Row'
     });
 
-    this.group_By('MA,LOB,SA');
+    this.group_By('MA,LOB,SA', this.default_title);
   }
 
   ngAfterViewInit() {
@@ -88,7 +89,8 @@ export class AccountsComponent implements OnInit, AfterViewInit {
     return data;
   }
 
-  public group_By(group_name: string) {
+  public group_By(group_name: string, group_title: string) {
+    this.default_title = group_title;
     this.view.groupDescriptions.clear();
     // add the new groups
 		var props = group_name.split(',');
