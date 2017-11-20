@@ -29,9 +29,6 @@ export const AppRoutes: Routes = [
     children: [ {
         path: '',
         loadChildren: './accounts/accounts.module#AccountsModule'
-      }, {
-        path: 'browser',
-        loadChildren: './accounts/accounts.module#AccountsModule'
       }
     ]
   }, {
