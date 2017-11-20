@@ -1,7 +1,7 @@
 <div class="main-content">
     <div class="container-fluid">        
         <div class="row">
-            <div class="col-lg-6 col-md-12">
+            <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-header card-header-text" data-background-color="orange">
                         <h4 class="card-title">{{listName}}</h4>
@@ -15,7 +15,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr (click)="openDetails(row[0])" *ngFor="let row of tableData.dataRows">
+                                <tr class="cls_point" (click)="openDetails(row[0])" *ngFor="let row of tableData.dataRows">
                                     <td *ngFor="let cell of row">{{cell}}</td>
                                 </tr>
                             </tbody>
