@@ -52,6 +52,13 @@ export const AppRoutes: Routes = [
       path: ':id',
       loadChildren: './dealDetails/dealDetails.module#DealDetailsModule'
     }]
+  },{
+    path: 'dealWizard',
+    component: AdminLayoutComponent,
+    children: [{
+      path: '',
+      loadChildren: './dealWizard/dealWizard.module#DealWizardModule'
+    }]
   }
   /*{
     path: 'creative',

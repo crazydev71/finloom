@@ -33,4 +33,8 @@ export class DealsComponent implements OnInit {
   openDetails = function (Id: any) {
     this.router.navigate(['/dealDetails/' + Id]);
   }
+
+  createDeal = function(){
+    this.router.navigate(['/dealWizard']);
+  }
 }

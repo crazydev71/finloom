@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, URLSearchParams } from '@angular/http';
 
 //Grab everything with import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -29,8 +29,16 @@ export class DataService {
       .catch(this.handleError);
   }
 
-  getData(url: string): Observable<any> {
-    return this.http.get(url)
+  getData(url: string, data: any = null): Observable<any> {
+    let u = url;
+    if (data) {
+      let params = new URLSearchParams();
+      for (let key in data) {
+        params.set(key, data[key]);
+      }
+      u += '?' + params.toString();
+    }
+    return this.http.get(u)
       .map((res: Response) => {
         return res.json();
       })
