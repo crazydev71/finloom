@@ -36,3 +36,18 @@ label {
   margin-right: 0;
   box-shadow: 1px 1px 5px;
 }
+#theGrid {
+  position: relative;
+}
+.no-data {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #eeeeee;
+  z-index: 3;
+  text-align: center;
+  display: grid;
+  align-items: center;
+}
