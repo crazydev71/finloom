@@ -169,9 +169,9 @@ export class TradesComponent implements OnInit, AfterViewInit {
                 ShortCode: "",
                 FacilityCode: "",
                 CPC: "",
-                Amount: 0.00,
+                Amount: 0,
                 Currency: "USD",
-                Price: 0.00,
+                Price: 0,
                 TradeDate: new Date().toLocaleDateString(),
                 SalesCom: 0,
                 Book: " ",
@@ -197,7 +197,7 @@ export class TradesComponent implements OnInit, AfterViewInit {
         this.newSelectedBrokerId = id;
     }
     saveNewTrade(item: any) {
-        let prop = ['ShortCode', 'FacilityCode', 'Amount', 'Price'];
+        let prop = ['ShortCode', 'FacilityCode', 'Amount', 'Price', 'CPC'];
         for (let val of prop) {
             let isError = this.newTradeData.getError(item, val);
             if (isError == true) {
