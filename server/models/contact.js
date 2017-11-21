@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     phoneNumber: DataTypes.STRING,
     isAdminAccount: DataTypes.INTEGER,
     isPublic: DataTypes.INTEGER,
+    defaultInvitee: {
+      type: DataTypes.INTEGER(1),
+      defaultValue: 0
+    },
     
     password: DataTypes.STRING,
     status: {
