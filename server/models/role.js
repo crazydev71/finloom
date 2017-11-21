@@ -1,7 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var ContactProfile = sequelize.define('ContactProfile', {
-    password: DataTypes.STRING
+  var Role = sequelize.define('Role', {
+    name: DataTypes.STRING,
+    status: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {
@@ -9,5 +10,5 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
-  return ContactProfile;
+  return Role;
 };
