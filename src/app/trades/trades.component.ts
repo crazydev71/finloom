@@ -3,6 +3,7 @@ import { WjGridModule, WjFlexGrid } from 'wijmo/wijmo.angular2.grid';
 import * as wjcCore from 'wijmo/wijmo';
 import * as wjGrid from "wijmo/wijmo.grid";
 import { Book } from './book';
+import { Currency } from './currency';
 import { Trade } from './trade';
 import { Broker } from './broker';
 import { SalesPerson } from './salesPerson';
@@ -57,6 +58,16 @@ export class TradesComponent implements OnInit, AfterViewInit {
         new Broker(8, 'Broker 8'),
         new Broker(9, 'Broker 9'),
     ];
+    private currency = [
+        new Currency(1, 'USD'),
+        new Currency(2, 'INR'),
+        new Currency(3, 'EUR'),
+        new Currency(4, 'GBP'),
+        new Currency(5, 'CAD')
+    ];
+    private newSelectedCurrencyId: number;
+    private newSelectedSalesPersonId: number;
+    newSelectedBrokerId: number;
     private newRowCnt = -1;
     private bookName: string = "--All--";
     private newSelectedBookId: number;
@@ -80,6 +91,9 @@ export class TradesComponent implements OnInit, AfterViewInit {
                     return true;
                 }
                 if (prop == 'FacilityCode' && item.FacilityCode === "") {
+                    return true;
+                }
+                if (prop == 'CPC' && item.CPC === "") {
                     return true;
                 }
                 if (prop == 'Amount' && item.Amount === null) {
@@ -132,6 +146,7 @@ export class TradesComponent implements OnInit, AfterViewInit {
                 id: i,
                 ShortCode: "ShortCode" + i,
                 FacilityCode: "FacilityCode" + i,
+                CPC: "Counter Party Code" +i,
                 Amount: 200 + i,
                 Currency: "USD",
                 Price: 100 + i,
@@ -153,11 +168,12 @@ export class TradesComponent implements OnInit, AfterViewInit {
             data.push({
                 ShortCode: "",
                 FacilityCode: "",
-                Amount: null,
-                Currency: "",
-                Price: null,
+                CPC: "",
+                Amount: 0.00,
+                Currency: "USD",
+                Price: 0.00,
                 TradeDate: new Date().toLocaleDateString(),
-                SalesCom: null,
+                SalesCom: 0,
                 Book: " ",
                 SalesPerson: "",
                 Broker: "",
@@ -171,7 +187,15 @@ export class TradesComponent implements OnInit, AfterViewInit {
     onSelectBookNewTrade(id: number) {
         this.newSelectedBookId = id;
     }
-
+    onSelectCurrencyNewTrade(id: number) {
+        this.newSelectedCurrencyId = id;
+    }
+    onSelectSalesPersonNewTrade(id: number) {
+        this.newSelectedSalesPersonId = id;
+    }
+    onSelectBrokerNewTrade(id: number) {
+        this.newSelectedBrokerId = id;
+    }
     saveNewTrade(item: any) {
         let prop = ['ShortCode', 'FacilityCode', 'Amount', 'Price'];
         for (let val of prop) {
@@ -187,6 +211,9 @@ export class TradesComponent implements OnInit, AfterViewInit {
         }
         if (!this.flag) {
             item.Book = this.newSelectedBookId;
+            item.Currency = this.newSelectedCurrencyId;
+            item.SalesPerson = this.newSelectedSalesPersonId;
+            item.Broker = this.newSelectedBrokerId;
             this.dataSource.push(item);
             this.createNewRowData();
             this.showNotification('top', 'right', "Trade added successfully.");
@@ -225,6 +252,7 @@ export class TradesComponent implements OnInit, AfterViewInit {
     }
 
     clearFilter() {
+        this.bookName = "--All--";
         this.dataSource = this.getData(10);
         this.getCollectionViewData(this.dataSource);
     }
@@ -237,6 +265,7 @@ export class TradesComponent implements OnInit, AfterViewInit {
 
     onDelete(data: any) {
         var that = this;
+        console.log(that.tempRows);
         swal({
             title: 'Are you sure? Do you want to delete this trade?',
             text: "You won't be able to revert this!",
