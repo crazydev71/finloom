@@ -33,6 +33,10 @@ module.exports = {
           model: 'flm_accounts',
         }
       },
+      defaultInvitee: {
+        type: Sequelize.INTEGER(1),
+        defaultValue: 0
+      },
       password: {
         type: Sequelize.STRING
       },
