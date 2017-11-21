@@ -130,19 +130,19 @@ export class NavbarComponent implements OnInit {
 
   getTitle() {
     let title: any = this.location.prepareExternalUrl(this.location.path());
-    for (let i = 0; i < this.listTitles.length; i++) {
-      if (this.listTitles[i].type === "link" && this.listTitles[i].path === title) {
-        return this.listTitles[i].title;
-      } else if (this.listTitles[i].type === "sub") {
-        for (let j = 0; j < this.listTitles[i].children.length; j++) {
-          let subtitle = this.listTitles[i].path + '/' + this.listTitles[i].children[j].path;
-          if (subtitle === title) {
-            return this.listTitles[i].children[j].title;
-          }
-        }
-      }
-    }
-    return 'Dashboard';
+    // for (let i = 0; i < this.listTitles.length; i++) {
+    //   if (this.listTitles[i].type === "link" && this.listTitles[i].path === title) {
+    //     return this.listTitles[i].title;
+    //   } else if (this.listTitles[i].type === "sub") {
+    //     for (let j = 0; j < this.listTitles[i].children.length; j++) {
+    //       let subtitle = this.listTitles[i].path + '/' + this.listTitles[i].children[j].path;
+    //       if (subtitle === title) {
+    //         return this.listTitles[i].children[j].title;
+    //       }
+    //     }
+    //   }
+    // }
+    return title;
   }
   getPath() {
     return this.location.prepareExternalUrl(this.location.path());

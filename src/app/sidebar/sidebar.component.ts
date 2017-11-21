@@ -44,25 +44,25 @@ export const ROUTES: RouteInfo[] = [
         path: '/browser',
         title: 'Browser',
         type: 'link',
-        icontype: 'dashboard'
+        icontype: 'view_list'
       },
       {
         path: '/single',
         title: 'Create Single',
         type: 'link',
-        icontype: 'dashboard'
+        icontype: 'person_add'
       },
       {
         path: '/multiple',
         title: 'Create Multiple',
         type: 'link',
-        icontype: 'dashboard',
+        icontype: 'create_new_folder',
       },
       {
         path: '/accountlist',
         title: 'Account List',
         type: 'sub',
-        icontype: 'dashboard',
+        icontype: 'supervisor_account',
         collapse: 'AccountList',
         children: [
           {
@@ -83,7 +83,7 @@ export const ROUTES: RouteInfo[] = [
         path: '/list',
         title: 'Create List',
         type: 'link',
-        icontype: 'dashboard'
+        icontype: 'group_add'
       }
     ]
   },
@@ -122,13 +122,13 @@ export const ROUTES: RouteInfo[] = [
             path: 'contact1',
             title: 'contact1',
             ab: '1',
-            icontype: 'dashboard'
+            icontype: 'person'
           },
           {
             path: 'contact2',
             title: 'contact2',
             ab: '2',
-            icontype: 'dashboard'
+            icontype: 'person'
           }
         ]
       },
@@ -153,7 +153,7 @@ export const ROUTES: RouteInfo[] = [
           },
           {
             path: 'sub2',
-            title: 'sub2',
+            title: 'Sub2',
             ab: '2',
             icontype: 'dashboard'
           }
@@ -299,13 +299,22 @@ export class SidebarComponent implements OnInit {
     if (url == '/dashboard')
       this.menuItems = ROUTES;
     else {
-      let matched = ROUTES.filter(menuItem => {
-        return menuItem.path == url;
-      });
-      this.menuItems = [];
-      for (let i = 0; i < matched.length; i ++) {
-        this.menuItems = this.menuItems.concat(matched[i].nextTabs);
+      let matched;
+      if ((url.match(new RegExp("/", "g")) || []).length == 2) {
+        matched = ROUTES.filter(menuItem => {
+          let pos = url.search(menuItem.path);
+          if (pos != -1) return true;
+        });
+      } else {
+        matched = ROUTES.filter(menuItem => {
+          return menuItem.path == url;
+        });
       }
+      this.menuItems = [];
+      for (let i = 0; i < matched[0].nextTabs.length; i ++) {
+        matched[0].nextTabs[i].path = matched[0].path + matched[0].nextTabs[i].path;
+      }
+      this.menuItems = this.menuItems.concat(matched[0].nextTabs);
     }
   }
   updatePS(): void {
