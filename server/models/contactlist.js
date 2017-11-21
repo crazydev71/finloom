@@ -7,8 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
+        models['ContactList'].belongsTo(models['Account']);
       }
-    }
+    },
+    tableName: 'flm_contact_lists'
   });
   return ContactList;
 };

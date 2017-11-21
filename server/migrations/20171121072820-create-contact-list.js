@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('ContactLists', {
+    return queryInterface.createTable('flm_contact_lists', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,6 +14,12 @@ module.exports = {
       status: {
         type: Sequelize.INTEGER
       },
+      accountId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'flm_accounts',
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -25,6 +31,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('ContactLists');
+    return queryInterface.dropTable('flm_contact_lists');
   }
 };

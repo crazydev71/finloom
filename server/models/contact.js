@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     primaryEmail: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
+    isAdminAccount: DataTypes.INTEGER,
     
     password: DataTypes.STRING,
     statusCode: {
@@ -24,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       associate: function(models) {
         models['Contact'].belongsTo(models['Account']);
         models['Contact'].belongsTo(models['Role']);
-        models['Contact'].belongsToMany(models['ContactList']);
+        models['Contact'].belongsToMany(models['ContactList'],{through: models['ContactXList']});
         models['Contact'].hadMany(models['ContactEmail']);
       }
     },
