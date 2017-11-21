@@ -3,7 +3,9 @@ module.exports = (sequelize, DataTypes) => {
   var Contact = sequelize.define('Contact', {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    primaryEmail:  DataTypes.STRING,
+    primaryEmail: DataTypes.STRING,
+    phoneNumber: DataTypes.STRING,
+    
     password: DataTypes.STRING,
     statusCode: {
       type: DataTypes.INTEGER,
@@ -20,7 +22,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        models['Contact'].belongsTo(models['Account']);
+        models['Contact'].belongsTo(models['Role']);
+        models['Contact'].belongsToMany(models['ContactList']);
+        models['Contact'].hadMany(models['ContactEmail']);
       }
     },
     tableName: 'flm_contacts'

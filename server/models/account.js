@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         models['Account'].belongsToMany(models['BankType'], {through: models['AccountBankType']});
         models['Account'].belongsToMany(models['AccountList'], {through: models['AccountListEntry']});
         models['Account'].belongsToMany(models['Industry'], {through: models['AccountIndustry']});
+        models['Account'].hasMany(models['Contact']);
       }
     },
     tableName: 'flm_accounts'

@@ -9,7 +9,18 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       contactId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'flm_contacts',
+          allowNull: false
+        }
+      },
+      contactListId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'flm_contact_lists',
+          allowNull: false
+        }
       },
       createdAt: {
         allowNull: false,
