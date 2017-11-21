@@ -16,6 +16,10 @@ module.exports = {
         type: Sequelize.INTEGER(1),
         defaultValue: 0
       },
+      isPublic: {
+        type: Sequelize.INTEGER(1),
+        defaultValue: 0
+      },
       roleId: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
