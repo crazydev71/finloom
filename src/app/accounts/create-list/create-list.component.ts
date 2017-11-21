@@ -8,17 +8,17 @@ import { DataService } from '../../_services/data.services';
 })
 export class CreateListComponent implements OnInit {
 
-  constructor( private dataService: DataService ) { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    
+
   }
 
-  private Create_List(list_name: String) :void {
-    if(list_name != '') {
-      this.dataService.postData('/api/account-list', {name: list_name, createdBy: 1})
-          .subscribe((resp: any) => {
-          });
+  private Create_List(list_name: String): void {
+    if (list_name != '') {
+      this.dataService.postData('/api/account-list', { name: list_name, createdBy: 1 })
+        .subscribe((resp: any) => {
+        });
     }
   }
 }
