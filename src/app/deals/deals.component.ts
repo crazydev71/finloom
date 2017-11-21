@@ -35,6 +35,10 @@ export class DealsComponent implements OnInit {
   }
 
   createDeal = function(){
+    this.router.navigate(['/addDeal']);
+  }
+
+  createDealWizard = function(){
     this.router.navigate(['/dealWizard']);
   }
 }

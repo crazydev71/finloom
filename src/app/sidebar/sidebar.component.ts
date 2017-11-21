@@ -291,7 +291,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     let url = this.router.url;
-    if (url == '/dashboard')
+    if (url == '/dashboard' || url == '/deals')
       this.menuItems = ROUTES;
     else {
       let matched;
