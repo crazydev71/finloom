@@ -1,0 +1,266 @@
+﻿<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon" data-background-color="orange">
+                        <i class="material-icons">assignment</i>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title">Add Trade</h4>
+                        <div class="content table-responsive">
+                            <wj-flex-grid #flex1 [itemsSource]="newTradeData" (cellEditEnded)="cellEditEnded(grid, $event)">
+                                <wj-flex-grid-column [header]="'Deal Code'" [binding]="'ShortCode'"></wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Facility Code'" [binding]="'FacilityCode'"></wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'CPC'" [binding]="'CPC'"></wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Price'" [binding]="'Price'" [format]="'n2'"></wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Amount'" [binding]="'Amount'" [format]="'n0'"></wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Currency'" >
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                                        <select (change)="onSelectCurrencyNewTrade($event.target.value)">
+                                            <option *ngFor="let c of currency" value={{c.id}}>
+                                                {{c.name}}
+                                            </option>
+                                        </select>
+                                    </template>
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Trade Date'" [binding]="'TradeDate'"  [format]="MM/dd/yyyy"></wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Sales Comp (in %)'" [binding]="'SalesCom'" [format]="'n0'"></wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Book'">
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                                        <select (change)="onSelectBookNewTrade($event.target.value)">
+                                            <option *ngFor="let book of books" value={{book.id}}>
+                                                {{book.name}}
+                                            </option>
+                                        </select>
+                                    </template>
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Salesperson'" >
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                                        <select (change)="onSelectSalesPersonNewTrade($event.target.value)">
+                                            <option *ngFor="let s of salesPersons" value={{s.id}}>
+                                                {{s.name}}
+                                            </option>
+                                        </select>
+                                    </template>
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Broker'" >
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                                        <select (change)="onSelectBrokerNewTrade($event.target.value)">
+                                            <option *ngFor="let b of brokers" value={{b.id}}>
+                                                {{b.name}}
+                                            </option>
+                                        </select>
+                                    </template>
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Notes'" [binding]="'Notes'"></wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Action'" [isReadOnly]="true">
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                                        <button class="btn btn-success btn-sm" (click)="saveNewTrade(item)">Save</button>
+                                        <button class="btn btn-default btn-sm" (click)="clearNewTrade()">Clear</button>
+                                    </template>
+                                </wj-flex-grid-column>
+                            </wj-flex-grid>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon" data-background-color="orange">
+                        <i class="material-icons">assignment</i>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title">Trades</h4>
+                        <div class="row">
+                            <div class="table-button col-md-12">
+                                <div class="col-sm-1"></div>
+                                <div class="input-book col-sm-4">
+                                    <label>Book</label>
+                                    <div class="dropdown">
+                                        <button href="#" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                            {{bookName}}
+                                            <b class="caret"></b>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li *ngFor="let book of books" (click)="onSelectBook(book)">
+                                                <a href="javascript:void(0)">{{book.name}} </a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="input-date col-sm-4">
+                                    <mat-form-field>
+                                        <input matInput [matDatepicker]="myDatepicker" placeholder="pick a day" (dateChange)="onDateChanged($event)">
+                                        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #myDatepicker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div class="input-date col-sm-3">
+                                    <button class="btn btn-default" (click)="clearFilter()">Reset</button>
+                                </div>
+                            </div>
+                            <div class="content table-responsive col-md-12">
+                                <wj-flex-grid #flex [itemsSource]="data" [selectionMode]="'Row'">
+                                    <ng-template wjFlexGridCellTemplate [cellType]="'RowHeader'" let-cell="item">
+                                        <input type="checkbox" data-md-icheck  />
+                                    </ng-template>
+                                    <wj-flex-grid-column [header]="'Deal Code'" [binding]="'ShortCode'"></wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Facility Code'" [binding]="'FacilityCode'"></wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'CPC'" [binding]="'CPC'"></wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Price'" [binding]="'Price'" [format]="'n0'"></wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Amount'" [binding]="'Amount'" [format]="'n0'"></wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Currency'" [binding]="'Currency'">
+                                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                                            <select (change)="onChange($event.target.value, item.id)">
+                                                <option *ngFor="let c of currency" value={{c.id}} [selected]="item.Currency == c.id">
+                                                    {{c.name}}
+                                                </option>
+                                            </select>
+                                        </template>
+                                    </wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Trade Date'" [binding]="'TradeDate'" format="MM/dd/yyyy"></wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Sales Comp (in %)'" [binding]="'SalesCom'" [format]="'n0'"></wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Book'">
+                                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                                            <select (change)="onChange($event.target.value, item.id)">
+                                                <option *ngFor="let book of books" value={{book.id}} [selected]="item.Book == book.id">
+                                                    {{book.name}}
+                                                </option>
+                                            </select>
+                                        </template>
+                                    </wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Salesperson'">
+                                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                                            <select>
+                                                <option *ngFor="let salesPerson of salesPersons" value={{salesPerson.id}} [selected]="item.SalesPerson == salesPerson.id">
+                                                    {{salesPerson.name}}
+                                                </option>
+                                            </select>
+                                        </template>
+                                    </wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Broker'">
+                                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                                            <select>
+                                                <option *ngFor="let broker of brokers" value={{broker.id}} [selected]="item.Broker == broker.id">
+                                                    {{broker.name}}
+                                                </option>
+                                            </select>
+                                        </template>
+                                    </wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Last Update Ts'" [binding]="'LastUpdateTs'"></wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Notes'" [binding]="'Notes'"></wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Action'" [isReadOnly]="true">
+                                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                                            <button class="btn btn-success btn-sm" (click)="onEdit(item)">Save</button>
+                                            <button class="btn btn-danger btn-sm" (click)="onDelete(item)">Delete</button>
+                                        </template>
+                                    </wj-flex-grid-column>
+                                </wj-flex-grid>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="row">
+            <div class="top-section">
+                <label>Add New Trades</label>
+                <wj-flex-grid #flex1 [itemsSource]="newTradeData">
+                    <wj-flex-grid-column [header]="'Deal Code'" [binding]="'ShortCode'"></wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Facility Code'" [binding]="'FacilityCode'"></wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Amount'" [binding]="'Amount'" [format]="'n0'"></wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Currency'" [binding]="'Currency'"></wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Price'" [binding]="'Price'" [format]="'n0'"></wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Trade Date'" [binding]="'TradeDate'" format="MM-dd-yyyy"></wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Sales Comp (in %)'" [binding]="'SalesCom'" [format]="'n0'"></wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Book'">
+                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                            <select (change)="onSelectBookNewTrade($event.target.value)">
+                                <option *ngFor="let book of books" value={{book.id}}>
+                                    {{book.name}}
+                                </option>
+                            </select>
+                        </template>
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Salesperson'" [binding]="'SalesPerson'"></wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Broker'" [binding]="'Broker'"></wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Notes'" [binding]="'Notes'"></wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Action'" [isReadOnly]="true">
+                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                            <button class="btn btn-success" (click)="saveNewTrade(item)">Save</button>
+                        </template>
+                    </wj-flex-grid-column>
+                </wj-flex-grid>
+            </div>
+        </div>
+
+        <div class="table-button">
+            <div class="col-sm-2"></div>
+            <div class="input-book col-sm-4">
+                <label>Book</label>
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        {{bookName}}
+                        <b class="caret"></b>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-left">
+                        <li class="dropdown-header">Book list</li>
+                        <li class="divider"></li>
+                        <li *ngFor="let book of books" class="book-list" (click)="onSelectBook(book)">
+                            <a> <i class="fa fa-caret-right" aria-hidden="true"></i>{{book.name}} </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="input-date col-sm-4">
+                <label>Trade Date</label>
+                <my-date-picker name="mydate" [options]="myDatePickerOptions"
+                                [(ngModel)]="filter.Date">
+                </my-date-picker>
+            </div>
+        </div>
+
+        <div>
+            <wj-flex-grid #flex [itemsSource]="data" [selectionMode]="'Row'">
+                <wj-flex-grid-column [header]="'Deal Code'" [binding]="'ShortCode'"></wj-flex-grid-column>
+                <wj-flex-grid-column [header]="'Facility Code'" [binding]="'FacilityCode'"></wj-flex-grid-column>
+                <wj-flex-grid-column [header]="'Amount'" [binding]="'Amount'" [format]="'n0'"></wj-flex-grid-column>
+                <wj-flex-grid-column [header]="'Currency'" [binding]="'Currency'"></wj-flex-grid-column>
+                <wj-flex-grid-column [header]="'Price'" [binding]="'Price'" [format]="'n0'"></wj-flex-grid-column>
+                <wj-flex-grid-column [header]="'Trade Date'" [binding]="'TradeDate'" format="MM/dd/yyyy"></wj-flex-grid-column>
+                <wj-flex-grid-column [header]="'Sales Comp (in %)'" [binding]="'SalesCom'" [format]="'n0'"></wj-flex-grid-column>
+                <wj-flex-grid-column [header]="'Book'">
+                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                        <select (change)="onChange($event.target.value, item.id)">
+                            <option *ngFor="let book of books" value={{book.id}} [selected]="item.Book == book.id">
+                                {{book.name}}
+                            </option>
+                        </select>
+                    </template>
+                </wj-flex-grid-column>
+                <wj-flex-grid-column [header]="'Salesperson'" [binding]="'SalesPerson'"></wj-flex-grid-column>
+                <wj-flex-grid-column [header]="'Broker'" [binding]="'Broker'"></wj-flex-grid-column>
+                <wj-flex-grid-column [header]="'Last Update Ts'" [binding]="'LastUpdateTs'"></wj-flex-grid-column>
+                <wj-flex-grid-column [header]="'Notes'" [binding]="'Notes'"></wj-flex-grid-column>
+                <wj-flex-grid-column [header]="'Action'" [isReadOnly]="true">
+                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                        <button class="btn btn-success" (click)="onEdit(item)">Save</button>
+                        <button class="btn btn-danger" (click)="onDelete(item)">Delete</button>
+                    </template>
+                </wj-flex-grid-column>
+            </wj-flex-grid>
+        </div>-->
+
+    </div>
+</div>
+
+
+
+
+
+

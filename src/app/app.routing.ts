@@ -26,10 +26,10 @@ export const AppRoutes: Routes = [
   }, {
     path: 'accounts',
     component: AdminLayoutComponent,
-    children: [ {
-        path: '',
-        loadChildren: './accounts/accounts.module#AccountsModule'
-      }
+    children: [{
+      path: '',
+      loadChildren: './accounts/accounts.module#AccountsModule'
+    }
     ]
   }, {
     path: 'contacts',
@@ -52,19 +52,26 @@ export const AppRoutes: Routes = [
       path: ':id',
       loadChildren: './dealDetails/dealDetails.module#DealDetailsModule'
     }]
-  },{
+  }, {
     path: 'dealWizard',
     component: AdminLayoutComponent,
     children: [{
       path: '',
       loadChildren: './dealWizard/dealWizard.module#DealWizardModule'
     }]
-  },{
+  }, {
     path: 'addDeal',
     component: AdminLayoutComponent,
     children: [{
       path: '',
       loadChildren: './addDeal/addDeal.module#AddDealModule'
+    }]
+  }, {
+    path: 'trades',
+    component: AdminLayoutComponent,
+    children: [{
+      path: '',
+      loadChildren: './trades/trades.module#TradesModule'
     }]
   }
   /*{
