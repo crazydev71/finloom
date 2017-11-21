@@ -8,9 +8,9 @@ module.exports = (sequelize, DataTypes) => {
     isAdminAccount: DataTypes.INTEGER,
     
     password: DataTypes.STRING,
-    statusCode: {
+    status: {
       type: DataTypes.INTEGER,
-      defaultValue: 1
+      defaultValue: 0
     },
     isRegistered: {
       type: DataTypes.INTEGER,
@@ -23,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: function(models) {
-        models['Contact'].belongsTo(models['Account']);
         models['Contact'].belongsTo(models['Role']);
+        models['Contact'].belongsTo(models['Account']);
         models['Contact'].belongsToMany(models['ContactList'],{through: models['ContactXList']});
         models['Contact'].hadMany(models['ContactEmail']);
       }
