@@ -26,6 +26,7 @@ export class DealDetailsComponent implements OnInit {
     public contractHeaders: any = [];
     public data = [];
     private view;
+    loadGrid: boolean = false;
 
     private account_name = 'Rechard Del,Sachie Clark,Trant Blarkey,Tae Carrilio,Ryone Cloke,Rahul Dickstein'.split(',');
     private account_email = 'Test1@gmail.com,Test2@gmail.com,Test3@gmail.com,Test4@gmail.com,Test5@gmail.com'.split(',');
@@ -75,33 +76,51 @@ export class DealDetailsComponent implements OnInit {
             }
         ];
 
-        this.data = this.getData();
-        this.view = new wjcCore.CollectionView(this.data, {
-         // sortDescriptions: [new wjcCore.SortDescription('sales', false)]
-        });
-        
-        // initialize item count display
-       // this.view.onCollectionChanged();
-        var theGrid = new wjcGrid.FlexGrid('.dealDuesGrid', {
-          itemsSource: this.view,
-          allowAddNew: true,
-          allowDelete: true,
-          showAlternatingRows: false,
-          headersVisibility: 'Row'
-        });
-      
+        //     this.data = this.getData();
+        //     this.view = new wjcCore.CollectionView(this.data, {
+        //      // sortDescriptions: [new wjcCore.SortDescription('sales', false)]
+        //     });
+
+        //     // initialize item count display
+        //    // this.view.onCollectionChanged();
+        //     var theGrid = new wjcGrid.FlexGrid('.dealDuesGrid', {
+        //       itemsSource: this.view,
+        //       allowAddNew: true,
+        //       allowDelete: true,
+        //       showAlternatingRows: false,
+        //       headersVisibility: 'Row'
+        //     });
+
+    }
+    getDealDues() {
+        debugger;
+        if (this.loadGrid == false) {
+            this.loadGrid = true;
+            this.data = this.getData();
+            this.view = new wjcCore.CollectionView(this.data, {
+                // sortDescriptions: [new wjcCore.SortDescription('sales', false)]
+            });
+            $(".dealDuesGrid").html("");
+            var theGrid = new wjcGrid.FlexGrid('.dealDuesGrid', {
+                itemsSource: this.view,
+                allowAddNew: true,
+                allowDelete: true,
+                showAlternatingRows: false,
+                headersVisibility: 'Row'
+            });
+        }
     }
 
     public getData() {
         var data = [];
         for (var i = 0; i < this.dealModel.dealDues.length; i++) {
-          data.push({
-            dueType:  this.dealModel.dealDues[i].dueType,          
-            dueAmount:  this.dealModel.dealDues[i].dueAmount,
-            dueDate:  this.dealModel.dealDues[i].dueDate,
-            paidAmount:  this.dealModel.dealDues[i].paidAmount,
-          });
+            data.push({
+                dueType: this.dealModel.dealDues[i].dueType,
+                dueAmount: this.dealModel.dealDues[i].dueAmount,
+                dueDate: this.dealModel.dealDues[i].dueDate,
+                paidAmount: this.dealModel.dealDues[i].paidAmount,
+            });
         }
         return data;
-      }
+    }
 }

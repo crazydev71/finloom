@@ -1,21 +1,37 @@
 <div class="main-content">
-  <div class="container-fluid">
-    <mat-card>
-      <mat-card-title>
-        Create Single
-      </mat-card-title>
-      <mat-card-content>
-        <div class="row">
-        </div>
-      </mat-card-content>
-      <mat-card-footer>
-        <div class="row">
-          <div class="col-md-6 col-sm-6 col-lg-4">
-            <button class="btn btn-success btn-block">Create Single</button>
+  <form [formGroup]="modelForm" (submit)="createAccount()">
+    <div class="container-fluid row">
+      <mat-card class="col-md-7 col-sm-12 col-xs-12">
+        <mat-card-title>
+          Create Single
+        </mat-card-title>
+        <mat-card-content class="row">
+          <div class="col-md-7">
+            <div *ngFor="let field of fields">
+              <mat-form-field *ngIf="field.type=='input'">
+                <input matInput placeholder="{{field.name}}" class="form-group" formControlName="{{field.id}}">
+              </mat-form-field>
+              <mat-form-field *ngIf="field.type=='textarea'">
+                <textarea matInput placeholder="{{field.name}}" matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="5" class="form-group" formControlName="{{field.id}}"></textarea>
+              </mat-form-field>
+            </div>
+          </div>          
+          <div class="col-md-5">
+            <div class="row status">
+              <h3 class="col-md-7">Status</h3>
+              <span class="col-md-5">Pending</span>
+            </div>
           </div>
-        </div>
-      </mat-card-footer>
-    </mat-card>
-  </div>
+        </mat-card-content>
+        <mat-card-footer>
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-lg-4">
+              <button type="submit" class="btn btn-success btn-block">Create Single</button>
+            </div>
+          </div>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </form>    
 </div>
   

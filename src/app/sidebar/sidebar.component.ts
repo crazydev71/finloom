@@ -166,21 +166,19 @@ export const ROUTES: RouteInfo[] = [
         icontype: 'settings'
       }
     ]
-  },
-  {
+  }, {
     path: '/deals',
     title: 'Deals',
     type: 'link',
+    icontype: 'dashboard',
+    breadComb: ['Deals'],
+    nextTabs: []
+  }, {
+    path: '/trades',
+    title: 'Trades',
+    type: 'link',
     icontype: 'dashboard'
-  }
-    ,
-  {
-      path: '/trades',
-      title: 'Trades',
-      type: 'link',
-      icontype: 'dashboard'
-  },
-  {
+  }, {
     path: '/creative',
     title: 'Creative',
     type: 'sub',
@@ -280,8 +278,8 @@ export const ROUTES: RouteInfo[] = [
   }*/
 ];
 @Component({
-    selector: 'app-sidebar-cmp',
-    templateUrl: 'sidebar.component.html',
+  selector: 'app-sidebar-cmp',
+  templateUrl: 'sidebar.component.html',
 })
 
 export class SidebarComponent implements OnInit {
@@ -296,7 +294,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     let url = this.router.url;
-    if (url == '/dashboard')
+    if (url == '/dashboard' || url == '/deals')
       this.menuItems = ROUTES;
     else {
       let matched;
@@ -311,10 +309,12 @@ export class SidebarComponent implements OnInit {
         });
       }
       this.menuItems = [];
-      for (let i = 0; i < matched[0].nextTabs.length; i ++) {
-        matched[0].nextTabs[i].path = matched[0].path + matched[0].nextTabs[i].path;
+      if (matched.length > 0) {
+        for (let i = 0; i < matched[0].nextTabs.length; i++) {
+          matched[0].nextTabs[i].path = matched[0].path + matched[0].nextTabs[i].path;
+        }
+        this.menuItems = this.menuItems.concat(matched[0].nextTabs);
       }
-      this.menuItems = this.menuItems.concat(matched[0].nextTabs);
     }
   }
   updatePS(): void {
