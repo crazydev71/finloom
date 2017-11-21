@@ -16,7 +16,13 @@ module.exports = {
       
       shortCode: Sequelize.STRING,  // short code
       
-      domain: Sequelize.STRING, // account domain
+      primaryWebDomain: {
+        type: Sequelize.INTEGER
+      },
+
+      primaryEmailDomain: {
+        type: Sequelize.INTEGER
+      },
       
       legalAddress: Sequelize.STRING, // address
       
@@ -37,13 +43,6 @@ module.exports = {
       
       accountType: Sequelize.ENUM('master', 'lob', 'sub'), // account type
 
-      industryId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'flm_industries',
-          key: 'id'
-        }
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

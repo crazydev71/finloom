@@ -4,8 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     aka: DataTypes.STRING,  // aka of account
     legalName: DataTypes.STRING,  // legal name
     shortCode: DataTypes.STRING,  // short code
-    domain: DataTypes.STRING, // account domain
     legalAddress: DataTypes.STRING, // address
+    primaryWebDomain: DataTypes.INTEGER,
+    PrimaryEmailDomain: DataTypes.INTEGER,
     accountStatus: { // status, should be verified by admin
       type: DataTypes.ENUM('active', 'pending', 'inactive'),
       defaultValue: 'active' 
@@ -27,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
         models['Account'].belongsToMany(models['Industry'], {through: models['AccountIndustry']});
         models['Account'].hasMany(models['Contact']);
         models['Account'].hasMany(models['ContactList']);
+        models['Account'].hadMany(models['WebDomain']);
+        models['Account'].belongsTo(models['WebDomain'], {as: 'primaryWebDomain'});
+        models['Account'].hadMany(models['EmailDomain']);
+        models['Account'].belongsTo(models['EmailDomain'], {as: 'primaryEmailDomain'});
       }
     },
     tableName: 'flm_accounts'
