@@ -171,7 +171,9 @@ export const ROUTES: RouteInfo[] = [
     path: '/deals',
     title: 'Deals',
     type: 'link',
-    icontype: 'dashboard'
+    icontype: 'dashboard',
+    breadComb: ['Deals'],
+    nextTabs: []
   },
   {
     path: '/creative',
@@ -304,10 +306,12 @@ export class SidebarComponent implements OnInit {
         });
       }
       this.menuItems = [];
-      for (let i = 0; i < matched[0].nextTabs.length; i ++) {
-        matched[0].nextTabs[i].path = matched[0].path + matched[0].nextTabs[i].path;
+      if (matched.length > 0) {
+        for (let i = 0; i < matched[0].nextTabs.length; i++) {
+          matched[0].nextTabs[i].path = matched[0].path + matched[0].nextTabs[i].path;
+        }
+        this.menuItems = this.menuItems.concat(matched[0].nextTabs);
       }
-      this.menuItems = this.menuItems.concat(matched[0].nextTabs);
     }
   }
   updatePS(): void {
