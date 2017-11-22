@@ -36,6 +36,7 @@ Before running the tests make sure you are serving the app via `ng serve`.
 
 1. Run `npm install -g sequelize-cli` to use `sequelize` commands
 2. Run `sequelize db:migrate` ( Refer to [sequelize-cli doc](https://github.com/sequelize/cli#usage) )
+3. Run `sequelize db:seed:all` ( Refer to [sequelize-cli doc](https://github.com/sequelize/cli#usage) )
 
 More information about sequelize model, seed, migration can be found in [http://docs.sequelizejs.com/](http://docs.sequelizejs.com/).
 
