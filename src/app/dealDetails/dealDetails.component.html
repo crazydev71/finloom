@@ -14,7 +14,7 @@
                                         </a>
                   </li>
                   <li class="">
-                    <a href="#DealDues" data-toggle="tab">
+                    <a (click)="getDealDues()" href="#DealDues" data-toggle="tab">
                                             {{dueHeaders.DealDues}}
                                             <div class="ripple-container"></div>
                                         </a>
@@ -37,6 +37,7 @@
               <div class="tab-pane active" id="DealDetails">
                 <div class="col-md-6 col-sm-6 account-edit">
                   <button class="btn btn-primary btn-just-icon"><i class="fa fa-edit  mr-1"></i></button>
+                  <button class="btn btn-primary btn-just-icon"><i class="fa fa-trash  mr-1"></i></button>
                 </div>
                 <div class="row account-board">
                   <div class="col-md-7 col-sm-7 account-detail">
@@ -94,6 +95,7 @@
                       <div class="tab-pane active" id="facDetails{{row.facilityId}}">
                         <div class="col-md-6 col-sm-6 account-edit">
                           <button class="btn btn-primary btn-just-icon"><i class="fa fa-edit  mr-1"></i></button>
+                          <button class="btn btn-primary btn-just-icon"><i class="fa fa-trash  mr-1"></i></button>
                         </div>
                         <div class="row account-board">
                           <div class="col-md-7 col-sm-7 account-detail">
@@ -132,6 +134,7 @@
                       <div *ngFor="let contractRow of row.contractModel" class="tab-pane" id="con{{contractRow.contractId}}">
                         <div class="col-md-6 col-sm-6 account-edit">
                           <button class="btn btn-primary btn-just-icon"><i class="fa fa-edit  mr-1"></i></button>
+                          <button class="btn btn-primary btn-just-icon"><i class="fa fa-trash  mr-1"></i></button>
                         </div>
                         <div class="row account-board">
                           <div class="col-md-7 col-sm-7 account-detail">

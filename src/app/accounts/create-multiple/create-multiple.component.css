@@ -2,6 +2,9 @@
   width: 70vw;
   margin: 0 auto;
 }
+.mat-card-title {
+  color: gray;
+}
 .mat-card-footer {
   padding: 0 20px;
 }

@@ -56,7 +56,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
 
   public getData() {
     let parent = this;
-    this.dataservice.getData('/api/account/by', {id: 1}).subscribe((resp: any) => {
+    this.dataservice.getData('/api/account').subscribe((resp: any) => {
       parent.data.accounts = resp;
       parent.data.accounts = parent.data.accounts.concat(parent.data.accounts);
       for (let i = 0; i < parent.data.accounts.length; i++) {

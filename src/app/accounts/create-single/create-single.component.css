@@ -1,7 +1,29 @@
+.container-fluid {
+  display: grid;
+}
 .mat-card {
-  width: 40vw;
   margin: 0 auto;
+}
+.mat-card-title {
+  color: gray;
 }
 .mat-card-footer {
   padding: 0 20px;
+}
+.mat-form-field {
+  width: 100% !important;
+}
+.mat-card-footer .row {
+  display: grid;
+}
+.mat-card-footer .col-md-6 {
+  margin: 0 auto;
+}
+.status h3 {
+  color: blue;
+}
+.status span {
+  color: gray;
+  font-size: 16px;
+  line-height: 35px;
 }

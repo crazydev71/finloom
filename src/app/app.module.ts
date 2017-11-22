@@ -90,7 +90,7 @@ import { DataService } from './_services/data.services';
 export class MaterialModule {}
 
 @NgModule({
-    imports:      [
+    imports: [
         CommonModule,
         BrowserAnimationsModule,
         FormsModule,
