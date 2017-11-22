@@ -26,7 +26,8 @@ export class AccountsComponent implements OnInit, AfterViewInit {
   private view;
   private flex;
   private accountFields: any[] = [{name: 'aka', title: 'AKA Name'}, {name: 'legalName', title: 'Legal Name'}, {name: 'shortCode', title: 'Short Code'}, {name: 'domain', title: 'Domain'}, {name: 'legalAddress', title: 'Legal Address'}];
-  constructor (private router: Router, private dataservice: DataService) {
+  constructor (private router: Router,
+               private dataservice: DataService) {
     this.router.navigateByUrl('/accounts/browser');
   }
 

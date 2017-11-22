@@ -1,19 +1,21 @@
 <div class="main-content">
-  <div class="container-fluid row">
+  <div class="container-fluid">
     <div class="col-md-6 col-md-offset-3">
       <div class="card">
         <div class="card-header card-header-icon" data-background-color="orange">
           <i class="material-icons">assignment</i>
         </div>
         <div class="card-content">
-          <h4 class="card-title">Create Account List</h4>
+          <h4 class="card-title">Create Contact List</h4>
           <div class="form-group label-floating">
             <label class="control-label">List name</label>
             <input #listname type="input" class="form-control">
           </div>
         </div>
-        <div class="card-footer">
-          <button class="btn btn-success btn-block" (click)="Create_List(listname.value)" [ngStyle]="{'max-width': '250px', 'margin': '0 auto'}">Create List</button>
+        <div class="card-footer row">
+          <div [ngStyle]="{'max-width': '500px', 'margin': '0 auto', 'text-align': 'center', 'display': 'flex'}">
+            <button class="btn btn-success btn-block" (click)="Create_List(listname.value)" [ngStyle]="{'max-width': '250px', 'margin': '0 auto'}">Create List</button>
+          </div>
         </div>
       </div>
     </div>
