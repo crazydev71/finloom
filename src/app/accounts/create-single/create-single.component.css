@@ -51,3 +51,9 @@ b.caret {
   right: 16px;
   top: 50%;
 }
+.domain-multi {
+  display: flex;
+}
+.multi {
+  width: calc(100% - 50px);
+}
