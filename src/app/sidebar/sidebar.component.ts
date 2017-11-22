@@ -178,7 +178,21 @@ export const ROUTES: RouteInfo[] = [
       path: '/trades',
       title: 'Trades',
       type: 'link',
-      icontype: 'dashboard'
+      icontype: 'dashboard',
+      nextTabs: [
+          {
+              path: '/input',
+              title: 'Input',
+              type: 'link',
+              icontype: 'view_list'
+          },
+
+          {
+              path: '/blotter',
+              title: 'Blotter',
+              type: 'link',
+              icontype: 'view_list'
+          }]
   },
   {
     path: '/creative',

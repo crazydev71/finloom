@@ -7,6 +7,7 @@ import { Currency } from './currency';
 import { Trade } from './trade';
 import { Broker } from './broker';
 import { SalesPerson } from './salesPerson';
+import { Router } from '@angular/router';
 declare const $: any;
 declare var swal: any;
 
@@ -74,7 +75,8 @@ export class TradesComponent implements OnInit, AfterViewInit {
     private tempRows;
     private flag: boolean = false;
 
-    constructor() {
+    constructor(private router: Router) {
+        this.router.navigateByUrl('/trades/input');
         this.dataSource = this.getData(10);
         this.getCollectionViewData(this.dataSource);
         this.createNewRowData();
@@ -170,7 +172,7 @@ export class TradesComponent implements OnInit, AfterViewInit {
                 FacilityCode: "",
                 CPC: "",
                 Amount: 0,
-                Currency: "USD",
+                Currency: this.currency,
                 Price: 0,
                 TradeDate: new Date().toLocaleDateString(),
                 SalesCom: 0,
@@ -260,7 +262,8 @@ export class TradesComponent implements OnInit, AfterViewInit {
     onEdit(data: any) {
         let itemIndex = this.dataSource.findIndex(item => item.id == data.id);
         this.dataSource[itemIndex] = data;
-        this.showNotification('top', 'right', "Trade updated successfully.");
+        //this.showNotification('top', 'right', "Trade updated successfully.");
+        this.router.navigateByUrl('/trades/blotter');
     }
 
     onDelete(data: any) {
@@ -275,8 +278,17 @@ export class TradesComponent implements OnInit, AfterViewInit {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
         }).then(function (result) {
-            let index = that.dataSource.findIndex(d => d.id === data.id);
-            that.dataSource.splice(index, 1);
+            if (that.tempRows.length > 0) {
+                for (var _i = 0; _i < that.tempRows.length; _i++) {
+                    let index = that.dataSource.findIndex(d => d.id === that.tempRows[_i].id);
+                    that.dataSource.splice(index, 1);
+                }
+                that.tempRows = [];
+            }
+            else {
+                let index = that.dataSource.findIndex(d => d.id === data.id);
+                that.dataSource.splice(index, 1);
+            }
             that.showNotification('top', 'right', "Trade deleted successfully.");
         })
     }

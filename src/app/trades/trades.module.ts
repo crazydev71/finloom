@@ -8,6 +8,7 @@ import { WjGridModule } from 'wijmo/wijmo.angular2.grid';
 import { MyDatePickerModule } from 'mydatepicker';
 import { TradesComponent } from './trades.component';
 import { TradesRoutes } from './trades.routing';
+import { BlottersComponent } from './blotter/blotter.component';
 
 @NgModule({
     imports: [
@@ -20,7 +21,7 @@ import { TradesRoutes } from './trades.routing';
         MyDatePickerModule
     ],
     declarations: [
-        TradesComponent
+        TradesComponent, BlottersComponent
     ]
 })
 
