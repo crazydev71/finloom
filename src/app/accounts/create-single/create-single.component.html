@@ -24,14 +24,14 @@
                 <div class="">
                   <div class="">
                     <mat-form-field>
-                      <mat-select placeholder="Account Type" name="city">
+                      <mat-select [(ngModel)]="selectedType" [ngModelOptions]="{standalone: true}" placeholder="Account Type" name="city">
                         <mat-option *ngFor="let city of accountTypes" [value]="city.name">
                           {{ city.title }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div class="">
+                  <div class="" *ngIf="selectedType=='SA'">
                     <mat-form-field>
                       <mat-select placeholder="Parent Account" name="city">
                         <mat-option *ngFor="let city of data.accounts" [value]="city.id">
