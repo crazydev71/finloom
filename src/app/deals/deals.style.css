@@ -5,3 +5,7 @@
 .align_right{
     text-align: right;
 }
+.bg_color{
+    background-color: #fc950d;
+    color: #FFFFFF;
+}

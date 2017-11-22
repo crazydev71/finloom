@@ -20,11 +20,13 @@
                             <thead class="text-warning">
                                 <tr>
                                     <th *ngFor="let cell of tableData.headerRow">{{ cell }}</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="cls_point" (click)="openDetails(row[0])" *ngFor="let row of tableData.dataRows">
-                                    <td *ngFor="let cell of row">{{cell}}</td>
+                                <tr class="cls_point"  *ngFor="let row of tableData.dataRows">
+                                    <td (click)="openDetails(row[0])" *ngFor="let cell of row">{{cell}}</td>
+                                    <td (click)="openDetailActivity(row[0])"><button title="Deal Activity Log" class="btn btn-primary bg_color"><i class="fa fa-align-justify  mr-1"></i></button></td>
                                 </tr>
                             </tbody>
                         </table>

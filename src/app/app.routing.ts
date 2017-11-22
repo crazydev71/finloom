@@ -73,6 +73,27 @@ export const AppRoutes: Routes = [
       path: '',
       loadChildren: './trades/trades.module#TradesModule'
     }]
+  },{
+    path: 'dealActivity',
+    component: AdminLayoutComponent,
+    children: [{
+      path: ':id',
+      loadChildren: './dealActivity/dealActivity.module#DealActivityModule'
+    }]
+  }, {
+    path: 'position',
+    component: AdminLayoutComponent,
+    children: [{
+      path: '',
+      loadChildren: './position/position.module#PositionModule'
+    }]
+  }, {
+    path: 'positionDetail',
+    component: AdminLayoutComponent,
+    children: [{
+      path: ':id',
+      loadChildren: './positionDetail/positionDetail.module#PositionDetailModule'
+    }]
   }
   /*{
     path: 'creative',
