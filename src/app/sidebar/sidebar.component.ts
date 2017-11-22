@@ -66,13 +66,13 @@ export const ROUTES: RouteInfo[] = [
         collapse: 'AccountList',
         children: [
           {
-            path: 'list1',
+            path: '1',
             title: 'List1',
             ab: '1',
             icontype: 'dashboard'
           },
           {
-            path: 'list2',
+            path: '2',
             title: 'List2',
             ab: '2',
             icontype: 'dashboard'
@@ -119,13 +119,13 @@ export const ROUTES: RouteInfo[] = [
         collapse: 'contactlist',
         children: [
           {
-            path: 'contact1',
+            path: '1',
             title: 'contact1',
             ab: '1',
             icontype: 'person'
           },
           {
-            path: 'contact2',
+            path: '2',
             title: 'contact2',
             ab: '2',
             icontype: 'person'
@@ -297,7 +297,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     let url = this.router.url;
-    if (url == '/dashboard' || url == '/deals') {
+    if (url == '/dashboard' || url == '/deals' || url == '/trades') {
       this.menuItems = ROUTES;
     }
     else {
@@ -316,11 +316,30 @@ export class SidebarComponent implements OnInit {
       this.menuItems = [];
       if (matched.length > 0) {
         if (matched[0].nextTabs) {
-
+          let newItems = [];
           for (let i = 0; i < matched[0].nextTabs.length; i++) {
-            matched[0].nextTabs[i].path = matched[0].path + matched[0].nextTabs[i].path;
+            let newItem: any = {};
+            newItem.path = matched[0].path + matched[0].nextTabs[i].path;
+            newItem.title = matched[0].nextTabs[i].title;
+            newItem.title = matched[0].nextTabs[i].title;
+            newItem.type = matched[0].nextTabs[i].type;
+            newItem.icontype = matched[0].nextTabs[i].icontype;
+            newItem.collapse = matched[0].nextTabs[i].collapse;
+            if (matched[0].nextTabs[i].children) {
+              let childs = [];
+              for (let c = 0; c < matched[0].nextTabs[i].children.length; c++) {
+                let child : any = {};
+                child.path = newItem.path + '/' + matched[0].nextTabs[i].children[c].path;
+                child.title = matched[0].nextTabs[i].children[c].title;
+                child.ab = matched[0].nextTabs[i].children[c].ab;
+                child.icontype = matched[0].nextTabs[i].children[c].icontype;
+                childs.push(child);
+              }
+              newItem.children = childs;
+            }
+            newItems.push(newItem);
           }
-          this.menuItems = this.menuItems.concat(matched[0].nextTabs);
+          this.menuItems = this.menuItems.concat(newItems);
         }
       }
     }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../_services/data.services';
+import { ToastrService } from '../../_services/toastr.services';
+
+declare const $: any;
 
 @Component({
   selector: 'app-create-list',
@@ -8,7 +11,7 @@ import { DataService } from '../../_services/data.services';
 })
 export class CreateListComponent implements OnInit {
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private toastrService: ToastrService) { }
 
   ngOnInit() {
 
@@ -18,10 +21,11 @@ export class CreateListComponent implements OnInit {
     if (list_name != '') {
       this.dataService.postData('/api/account-list', { name: list_name, createdBy: 1 })
         .subscribe((resp: any) => {
-        },
-        function (error) {
-          console.log(error)
+          console.log(resp);
+          this.toastrService.showNotification('List ' + list_name + ' is successfully created', 'success');
         });
+    } else {
+      this.toastrService.showNotification('List Name is required', 'danger');
     }
   }
 }
