@@ -281,6 +281,7 @@ export const ROUTES: RouteInfo[] = [
 @Component({
   selector: 'app-sidebar-cmp',
   templateUrl: 'sidebar.component.html',
+  styleUrls: ['sidebar.style.css']
 })
 
 export class SidebarComponent implements OnInit {
