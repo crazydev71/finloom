@@ -33,6 +33,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getData();
+    this.initAccountsTable();
   }
 
   ngAfterViewInit() {}
