@@ -139,6 +139,12 @@
                 <span class="sidebar-normal">{{childitem.title}}</span>
               </a>
             </li>
+            <li *ngIf="!menuitem.children.length">
+              <a>
+                <span class="sidebar-mini">N</span>
+                <span class="sidebar-normal">No Data</span>
+              </a>
+            </li>
           </ul>
         </div>
       </li>

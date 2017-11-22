@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
 
+import { DataService } from '../_services/data.services';
+
 declare const $: any;
 
 //Metadata
@@ -10,6 +12,7 @@ export interface RouteInfo {
   title: string;
   type: string;
   icontype: string;
+  api?: string;
   collapse?: string;
   children?: ChildrenItems[];
   nextTabs?: RouteInfo[];
@@ -32,8 +35,7 @@ export const ROUTES: RouteInfo[] = [
     type: '',
     icontype: 'dashboard',
     breadComb: ['Dashboard']
-  },
-  {
+  }, {
     path: '/accounts',
     title: 'Accounts',
     type: 'link',
@@ -45,49 +47,44 @@ export const ROUTES: RouteInfo[] = [
         title: 'Browser',
         type: 'link',
         icontype: 'view_list'
-      },
-      {
+      }, {
         path: '/single',
         title: 'Create Single',
         type: 'link',
         icontype: 'person_add'
-      },
-      {
+      }, {
         path: '/multiple',
         title: 'Create Multiple',
         type: 'link',
         icontype: 'create_new_folder',
-      },
-      {
+      }, {
         path: '/accountlist',
         title: 'Account List',
         type: 'sub',
         icontype: 'supervisor_account',
         collapse: 'AccountList',
+        api: '/api/account-list',
         children: [
           {
-            path: '1',
+            path: '/1',
             title: 'List1',
             ab: '1',
             icontype: 'dashboard'
-          },
-          {
-            path: '2',
+          }, {
+            path: '/2',
             title: 'List2',
             ab: '2',
             icontype: 'dashboard'
           }
         ]
-      },
-      {
+      }, {
         path: '/list',
         title: 'Create List',
         type: 'link',
         icontype: 'group_add'
       }
     ]
-  },
-  {
+  }, {
     path: '/contacts',
     title: 'Contacts',
     type: 'link',
@@ -117,6 +114,7 @@ export const ROUTES: RouteInfo[] = [
         type: 'sub',
         icontype: 'keyboard_arrow_down',
         collapse: 'contactlist',
+        api: '/api/contact-list',
         children: [
           {
             path: '1',
@@ -284,10 +282,11 @@ export const ROUTES: RouteInfo[] = [
 
 export class SidebarComponent implements OnInit {
   public menuItems: any[];
-  
-  constructor(private router: Router) { 
-    
+
+  constructor(private router: Router, private dataservice: DataService) {
+
   }
+
   isMobileMenu() {
     if ($(window).width() > 991) {
       return false;
@@ -307,7 +306,7 @@ export class SidebarComponent implements OnInit {
           let pos = url.search(menuItem.path);
           if (pos != -1) return true;
         });
-        
+
       } else {
         matched = ROUTES.filter(menuItem => {
           return menuItem.path == url;
@@ -324,18 +323,31 @@ export class SidebarComponent implements OnInit {
             newItem.title = matched[0].nextTabs[i].title;
             newItem.type = matched[0].nextTabs[i].type;
             newItem.icontype = matched[0].nextTabs[i].icontype;
-            newItem.collapse = matched[0].nextTabs[i].collapse;
-            if (matched[0].nextTabs[i].children) {
-              let childs = [];
-              for (let c = 0; c < matched[0].nextTabs[i].children.length; c++) {
-                let child : any = {};
-                child.path = newItem.path + '/' + matched[0].nextTabs[i].children[c].path;
-                child.title = matched[0].nextTabs[i].children[c].title;
-                child.ab = matched[0].nextTabs[i].children[c].ab;
-                child.icontype = matched[0].nextTabs[i].children[c].icontype;
-                childs.push(child);
+            if (matched[0].nextTabs[i].collapse) {
+              newItem.collapse = matched[0].nextTabs[i].collapse;
+              newItem.children = [];
+              if (matched[0].nextTabs[i].api) {
+                this.dataservice.getData(matched[0].nextTabs[i].api).subscribe((resp: any) => {
+                  let childs = resp;
+                  for (let i = 0; i < childs.length; i++) {
+                    childs[i].path = newItem.path + '/' + childs[i].id;
+                    childs[i].title = childs[i].name;
+                    childs[i].ab = (i + 1);
+                  }
+                  newItem.children = childs;
+                });
+              } else {
+                let childs = [];
+                for (let c = 0; c < matched[0].nextTabs[i].children.length; c++) {
+                  let child: any = {};
+                  child.path = newItem.path + matched[0].nextTabs[i].children[c].path;
+                  child.title = matched[0].nextTabs[i].children[c].title;
+                  child.ab = matched[0].nextTabs[i].children[c].ab;
+                  child.icontype = matched[0].nextTabs[i].children[c].icontype;
+                  childs.push(child);
+                }
+                newItem.children = childs;
               }
-              newItem.children = childs;
             }
             newItems.push(newItem);
           }
