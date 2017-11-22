@@ -151,14 +151,14 @@
         <div id="{{menuitem.collapse}}" class="collapse {{observe ? 'in' : ''}}" *ngIf="menuitem.type === 'sub'" aria-expanded="observe">
           <ul class="nav">
             <li routerLinkActive="active" *ngFor="let childitem of menuitem.children">
-              <a [routerLink]="[childitem.path]" [ngClass]="{'list': menuitem.api!=''}">
+              <a [routerLink]="[childitem.path]" [ngClass]="{'list': childitem.api}">
                 <span *ngIf="!childitem.icontype" class="sidebar-mini">{{childitem.ab}}</span>
                 <span *ngIf="childitem.icontype" class="sidebar-mini">
                   <i class="material-icons">{{childitem.icontype}}</i>
                 </span>
                 <span class="sidebar-normal">{{childitem.title}}</span>
-                <i class="material-icons" data-toggle="modal" data-target="#smallAlertModal">close</i>
-                <i class="material-icons" data-toggle="modal" data-target="#smallAlertModal">edit</i>
+                <i *ngIf="childitem.api" class="material-icons" data-toggle="modal" data-target="#smallAlertModal" (click)="selection.delete = menuitem.id">close</i>
+                <i *ngIf="childitem.api" class="material-icons" data-toggle="modal" data-target="#smallAlertModal" (click)="selection.delete = menuitem.id">edit</i>
               </a>
             </li>
             <li *ngIf="!menuitem.children.length">

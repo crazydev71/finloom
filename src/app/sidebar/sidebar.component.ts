@@ -287,6 +287,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   public menuItems: any[];
   public observe: boolean;
+  public selection: any = {edit: null, delete: null};
 
   constructor(private router: Router, private dataservice: DataService, private menuservice: MenuService) {
     this.observe = false;
@@ -346,6 +347,7 @@ export class SidebarComponent implements OnInit {
                     childs[i].path = newItem.path + '/' + childs[i].id;
                     childs[i].title = childs[i].name;
                     childs[i].ab = (i + 1);
+                    childs[i].api = true;
                   }
                   newItem.children = childs;
                 });

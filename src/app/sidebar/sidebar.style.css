@@ -9,6 +9,7 @@ a.list > i.material-icons {
 a.list:hover > i.material-icons:hover {
   background: #ffffff75;
 }
-a.list:hover > i.material-icons {
+a.list:hover > i.material-icons,
+.active > a.list > i.material-icons {
   opacity: 1;
 }
