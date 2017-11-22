@@ -36,8 +36,7 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatStepperModule,
-  
+  MatStepperModule  
 } from '@angular/material';
 
 import { AppComponent } from './app.component';

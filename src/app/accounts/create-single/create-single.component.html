@@ -11,9 +11,43 @@
             <div class="card-content row">
               <div class="col-md-7">
                 <div *ngFor="let field of fields">
-                  <mat-form-field *ngIf="field.type=='input'">
+                  <mat-form-field *ngIf="field.type=='input' && field.mode=='single'">
                     <input matInput placeholder="{{field.name}}" class="form-group" formControlName="{{field.id}}">
                   </mat-form-field>
+                  <div *ngIf="field.id=='domain'">
+                    <div [ngClass]="{'domain-multi': field.mode=='multi'}" *ngFor="let domain of emailDomain; let i = index">
+                      <div [ngClass]="{'multi': field.mode=='multi'}">
+                        <mat-form-field *ngIf="field.type=='input'">
+                          <input matInput placeholder="{{field.name}}" class="form-group" formControlName="{{field.id}}">
+                        </mat-form-field>
+                      </div>
+                      <button type="button" *ngIf="field.mode=='multi' && i==0" class="btn btn-success btn-round btn-fab btn-fab-mini" (click)="addDomain('email')">
+                        <i class="material-icons">add</i>
+                        <div class="ripple-container"></div>
+                      </button>
+                      <button type="button" *ngIf="field.mode=='multi' && i>0" class="btn btn-success btn-round btn-fab btn-fab-mini" (click)="removeDomain('email', i)">
+                        <i class="material-icons">delete</i>
+                        <div class="ripple-container"></div>
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngIf="field.id=='webDomain'">
+                    <div [ngClass]="{'domain-multi': field.mode=='multi'}" *ngFor="let domain of webDomain; let i = index">
+                      <div [ngClass]="{'multi': field.mode=='multi'}">
+                        <mat-form-field *ngIf="field.type=='input' && field.mode=='multi'">
+                          <input matInput placeholder="{{field.name}}" class="form-group" formControlName="{{field.id}}">
+                        </mat-form-field>
+                      </div>
+                      <button type="button" *ngIf="field.mode=='multi' && i==0" class="btn btn-success btn-round btn-fab btn-fab-mini" (click)="addDomain('web')">
+                        <i class="material-icons">add</i>
+                        <div class="ripple-container"></div>
+                      </button>
+                      <button type="button" *ngIf="field.mode=='multi' && i>0" class="btn btn-success btn-round btn-fab btn-fab-mini" (click)="removeDomain('web', i)">
+                        <i class="material-icons">delete</i>
+                        <div class="ripple-container"></div>
+                      </button>
+                    </div>
+                  </div>
                   <mat-form-field *ngIf="field.type=='textarea'">
                     <textarea matInput placeholder="{{field.name}}" matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="5" class="form-group"
                       formControlName="{{field.id}}"></textarea>
@@ -24,27 +58,27 @@
                 <div class="">
                   <div class="">
                     <mat-form-field>
-                      <mat-select [(ngModel)]="selectedType" [ngModelOptions]="{standalone: true}" placeholder="Account Type" name="city">
-                        <mat-option *ngFor="let city of accountTypes" [value]="city.name">
-                          {{ city.title }}
+                      <mat-select [(ngModel)]="selectedType" [ngModelOptions]="{standalone: true}" placeholder="Account Type" name="accountType">
+                        <mat-option *ngFor="let accountType of accountTypes" [value]="accountType.name">
+                          {{ accountType.title }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
                   <div class="" *ngIf="selectedType=='SA'">
                     <mat-form-field>
-                      <mat-select placeholder="Parent Account" name="city">
-                        <mat-option *ngFor="let city of data.accounts" [value]="city.id">
-                          {{ city.aka }}
+                      <mat-select placeholder="Parent Account" name="account">
+                        <mat-option *ngFor="let account of data.accounts" [value]="account.id">
+                          {{ account.aka }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
                   <div class="">
                     <mat-form-field>
-                      <mat-select multiple placeholder="Bank Types" name="Paris">
-                        <mat-option *ngFor="let city of accountTypes" [value]="city.name">
-                          {{ city.title }}
+                      <mat-select multiple placeholder="Bank Types" name="bankType">
+                        <mat-option *ngFor="let bankType of accountTypes" [value]="bankType.name">
+                          {{ bankType.title }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>

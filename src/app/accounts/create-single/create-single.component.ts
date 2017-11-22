@@ -16,24 +16,34 @@ export class CreateSingleComponent implements OnInit {
     {
       name: 'AKA Name',
       id: 'aka',
-      type: 'input'
-    }, {
+      type: 'input',
+      mode: 'single'
+    }, 
+    {
       name: 'Legal Name',
       id: 'legalName',
-      type: 'input'
-    }, {
+      type: 'input',
+      mode: 'single'
+    },
+    {
       name: 'Short Code',
       id: 'shortCode',
-      type: 'input'
-    }, {
+      type: 'input',
+      mode: 'single'
+    },
+    {
       name: 'Email Domain',
       id: 'domain',
-      type: 'input'
-    }, {
+      type: 'input',
+      mode: 'multi'
+    },
+    {
       name: 'Web Domain',
       id: 'webDomain',
-      type: 'input'
-    }, {
+      type: 'input',
+      mode: 'multi'
+    },
+    {
       name: 'Legal Address',
       id: 'legalAddress',
       type: 'textarea'
@@ -43,7 +53,16 @@ export class CreateSingleComponent implements OnInit {
   private accountType: number = 0;
   private data: any = {};
   private formData = {accountType: 0, paretnId: 0};
-
+  private emailDomain = [
+    {
+      id:1
+    }
+  ];
+  private webDomain = [
+    {
+      id:1
+    }
+  ];
   constructor(private router: Router,
     private fb: FormBuilder,
     private dataService: DataService) {
@@ -63,6 +82,7 @@ export class CreateSingleComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
+    this.getBankType();
   }
 
   public getData() {
@@ -74,8 +94,12 @@ export class CreateSingleComponent implements OnInit {
     parent.data.bankTypes = [];
     parent.data.industries = [];
   }
+  
+  private getBankType() {
+    
+  }
 
-  private createAccount() {
+  private createAccount(): void {
     if (this.modelForm.invalid) {
       return;
     }
@@ -93,7 +117,31 @@ export class CreateSingleComponent implements OnInit {
       });
   }
 
-  private changeFormData (index, key) {
+  private changeFormData (index, key): void {
     this.formData[key] = index + 1;
   }
+
+  private addDomain(domainType: string): void {
+    let id = domainType == 'email' ? this.emailDomain.length : this.webDomain.length;
+    if(domainType == 'email') {
+      id ++;
+      this.emailDomain = this.emailDomain.concat({
+        id: id
+      });
+    } else {
+      this.webDomain = this.webDomain.concat({
+        id: id
+      });
+    }
+  }
+
+  private removeDomain(domainType: string, delId: number): void {
+    if(domainType == 'email') {
+      this.emailDomain.splice(delId, 1);
+    } else {
+      this.webDomain.splice(delId, 1);
+    }
+  }
+
+
 }
