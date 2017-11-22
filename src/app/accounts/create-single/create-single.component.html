@@ -77,8 +77,8 @@
                   <div class="">
                     <mat-form-field>
                       <mat-select multiple placeholder="Bank Types" name="bankType">
-                        <mat-option *ngFor="let bankType of accountTypes" [value]="bankType.name">
-                          {{ bankType.title }}
+                        <mat-option *ngFor="let bankType of bankTypes" [value]="bankType.name">
+                          {{ bankType.name }}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>

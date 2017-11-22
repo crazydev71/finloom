@@ -50,6 +50,7 @@ export class CreateSingleComponent implements OnInit {
     }
   ];
   private accountTypes = [{name: 'MA', title: 'Master Account'}, {name: 'LOB', title: 'Line of business'}, {name: 'SA', title: 'Sub Account'}];
+  private bankTypes;
   private accountType: number = 0;
   private data: any = {};
   private formData = {accountType: 0, paretnId: 0};
@@ -96,7 +97,13 @@ export class CreateSingleComponent implements OnInit {
   }
   
   private getBankType() {
-    
+    this.dataService.getData('/api/banktype')
+    .subscribe((resp: any) => {
+      this.bankTypes = resp;
+    },
+    function (error) {
+      console.log(error)
+    });
   }
 
   private createAccount(): void {
