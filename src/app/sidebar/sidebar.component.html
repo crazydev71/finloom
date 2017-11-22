@@ -8,23 +8,17 @@
     <img src="/assets/img/logo.png" />
   </div>
 </div>
-<div class="modal fade" id="smallAlertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-small ">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          <i class="material-icons">clear</i>
-        </button>
-      </div>
-      <div class="modal-body text-center">
-        <h5>Are you sure you want to do this? </h5>
-      </div>
-      <div class="modal-footer text-center">
-        <button type="button" class="btn btn-simple" data-dismiss="modal">Never mind</button>
-        <button type="button" class="btn btn-success btn-simple">Yes</button>
-      </div>
-    </div>
-  </div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <confirm-modal
+    [data]="{type: 'delete'}"
+    (confirm)="onDelete($event)"
+  ></confirm-modal>
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <confirm-modal
+    [data]="{type: 'edit', name: selection.edit.title}"
+    (confirm)="onEdit($event)"
+  ></confirm-modal>
 </div>
 <div class="sidebar-wrapper">
   <div class="user">
@@ -151,14 +145,14 @@
         <div id="{{menuitem.collapse}}" class="collapse {{observe ? 'in' : ''}}" *ngIf="menuitem.type === 'sub'" aria-expanded="observe">
           <ul class="nav">
             <li routerLinkActive="active" *ngFor="let childitem of menuitem.children">
-              <a [routerLink]="[childitem.path]" [ngClass]="{'list': menuitem.api!=''}">
+              <a [routerLink]="[childitem.path]" [ngClass]="{'list': childitem.api}">
                 <span *ngIf="!childitem.icontype" class="sidebar-mini">{{childitem.ab}}</span>
                 <span *ngIf="childitem.icontype" class="sidebar-mini">
                   <i class="material-icons">{{childitem.icontype}}</i>
                 </span>
                 <span class="sidebar-normal">{{childitem.title}}</span>
-                <i class="material-icons" data-toggle="modal" data-target="#smallAlertModal">close</i>
-                <i class="material-icons" data-toggle="modal" data-target="#smallAlertModal">edit</i>
+                <i *ngIf="childitem.api" class="material-icons" data-toggle="modal" data-target="#deleteModal" (click)="selection.delete = childitem">close</i>
+                <i *ngIf="childitem.api" class="material-icons" data-toggle="modal" data-target="#editModal" (click)="selection.edit = childitem">edit</i>
               </a>
             </li>
             <li *ngIf="!menuitem.children.length">

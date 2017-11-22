@@ -36,7 +36,7 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatStepperModule  
+  MatStepperModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -44,7 +44,7 @@ import { AuthGuard } from './_guards/auth.guard';
 
 import { SidebarModule } from './sidebar/sidebar.module';
 import { FooterModule } from './shared/footer/footer.module';
-import { NavbarModule} from './shared/navbar/navbar.module';
+import { NavbarModule } from './shared/navbar/navbar.module';
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 
@@ -88,32 +88,32 @@ import { MenuService } from './_services/menu.service';
     MatTooltipModule
   ]
 })
-export class MaterialModule {}
+export class MaterialModule { }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        RouterModule.forRoot(AppRoutes),
-        HttpModule,
-        MaterialModule,
-        MatNativeDateModule,
-        SidebarModule,
-        NavbarModule,
-        FooterModule
-    ],
-    declarations: [
-        AppComponent,
-        AdminLayoutComponent,
-        AuthLayoutComponent
-    ],
-    bootstrap:    [ AppComponent ],
-    providers: [
-      AuthGuard,
-      DataService,
-      ToastrService,
-      MenuService
-    ]
+  imports: [
+    CommonModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    RouterModule.forRoot(AppRoutes),
+    HttpModule,
+    MaterialModule,
+    MatNativeDateModule,
+    SidebarModule,
+    NavbarModule,
+    FooterModule
+  ],
+  declarations: [
+    AppComponent,
+    AdminLayoutComponent,
+    AuthLayoutComponent
+  ],
+  bootstrap: [AppComponent],
+  providers: [
+    AuthGuard,
+    DataService,
+    ToastrService,
+    MenuService
+  ]
 })
 export class AppModule { }
