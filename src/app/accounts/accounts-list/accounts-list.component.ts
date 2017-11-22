@@ -10,7 +10,7 @@ import { ToastrService } from '../../_services/toastr.services';
 })
 export class AccountsListComponent implements OnInit {
   private listId: number;
-  private list: any;
+  private list: any = {};
   private tableData: any;
 
   constructor(private route: ActivatedRoute, private dataservice: DataService) {

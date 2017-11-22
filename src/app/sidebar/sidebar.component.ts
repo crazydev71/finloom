@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
 
 import { DataService } from '../_services/data.services';
+import { MenuService } from '../_services/menu.service';
+import { checkAndUpdateElementDynamic } from '@angular/core/src/view/element';
+import { fadeInContent } from '@angular/material';
 
 declare const $: any;
 
@@ -278,13 +281,18 @@ export const ROUTES: RouteInfo[] = [
 @Component({
   selector: 'app-sidebar-cmp',
   templateUrl: 'sidebar.component.html',
+  styleUrls: ['sidebar.style.css']
 })
 
 export class SidebarComponent implements OnInit {
   public menuItems: any[];
+  public observe: boolean;
 
-  constructor(private router: Router, private dataservice: DataService) {
-
+  constructor(private router: Router, private dataservice: DataService, private menuservice: MenuService) {
+    this.observe = false;
+    this.menuservice.handleUpdate().subscribe(handle => {
+      this.updateMenu(true);
+    })
   }
 
   isMobileMenu() {
@@ -295,6 +303,11 @@ export class SidebarComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.updateMenu ();
+  }
+  updateMenu (observe: boolean = false) {
+    this.observe = observe;
+
     let url = this.router.url;
     if (url == '/dashboard' || url == '/deals' || url == '/trades') {
       this.menuItems = ROUTES;
