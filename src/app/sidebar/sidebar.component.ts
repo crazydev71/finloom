@@ -66,13 +66,13 @@ export const ROUTES: RouteInfo[] = [
         collapse: 'AccountList',
         children: [
           {
-            path: '/1',
+            path: '1',
             title: 'List1',
             ab: '1',
             icontype: 'dashboard'
           },
           {
-            path: '/2',
+            path: '2',
             title: 'List2',
             ab: '2',
             icontype: 'dashboard'
@@ -119,13 +119,13 @@ export const ROUTES: RouteInfo[] = [
         collapse: 'contactlist',
         children: [
           {
-            path: 'contact1',
+            path: '1',
             title: 'contact1',
             ab: '1',
             icontype: 'person'
           },
           {
-            path: 'contact2',
+            path: '2',
             title: 'contact2',
             ab: '2',
             icontype: 'person'
@@ -329,7 +329,7 @@ export class SidebarComponent implements OnInit {
               let childs = [];
               for (let c = 0; c < matched[0].nextTabs[i].children.length; c++) {
                 let child : any = {};
-                child.path = newItem.path + matched[0].nextTabs[i].children[c].path;
+                child.path = newItem.path + '/' + matched[0].nextTabs[i].children[c].path;
                 child.title = matched[0].nextTabs[i].children[c].title;
                 child.ab = matched[0].nextTabs[i].children[c].ab;
                 child.icontype = matched[0].nextTabs[i].children[c].icontype;
