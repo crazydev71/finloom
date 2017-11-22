@@ -11,6 +11,7 @@ import { AccountsRoutes } from './accounts.routing';
 import { CreateSingleComponent } from './create-single/create-single.component';
 import { CreateListComponent } from './create-list/create-list.component';
 import { CreateMultipleComponent } from './create-multiple/create-multiple.component';
+import { AccountsListComponent } from './accounts-list/accounts-list.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -24,7 +25,7 @@ import { CreateMultipleComponent } from './create-multiple/create-multiple.compo
   exports: [
     FormsModule
   ],
-  declarations: [AccountsComponent, CreateSingleComponent, CreateListComponent, CreateMultipleComponent],
+  declarations: [AccountsComponent, CreateSingleComponent, CreateListComponent, CreateMultipleComponent, AccountsListComponent],
   providers: []
 })
 

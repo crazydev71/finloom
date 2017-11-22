@@ -284,7 +284,10 @@ export const ROUTES: RouteInfo[] = [
 
 export class SidebarComponent implements OnInit {
   public menuItems: any[];
-  constructor(private router: Router) { }
+  
+  constructor(private router: Router) { 
+    
+  }
   isMobileMenu() {
     if ($(window).width() > 991) {
       return false;
@@ -294,15 +297,17 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     let url = this.router.url;
-    if (url == '/dashboard' || url == '/deals')
+    if (url == '/dashboard' || url == '/deals') {
       this.menuItems = ROUTES;
+    }
     else {
       let matched;
-      if ((url.match(new RegExp("/", "g")) || []).length == 2) {
+      if ((url.match(new RegExp("/", "g")) || []).length == 2 || (url.match(new RegExp("/", "g")) || []).length == 3) {
         matched = ROUTES.filter(menuItem => {
           let pos = url.search(menuItem.path);
           if (pos != -1) return true;
         });
+        
       } else {
         matched = ROUTES.filter(menuItem => {
           return menuItem.path == url;
@@ -311,6 +316,7 @@ export class SidebarComponent implements OnInit {
       this.menuItems = [];
       if (matched.length > 0) {
         if (matched[0].nextTabs) {
+
           for (let i = 0; i < matched[0].nextTabs.length; i++) {
             matched[0].nextTabs[i].path = matched[0].path + matched[0].nextTabs[i].path;
           }
