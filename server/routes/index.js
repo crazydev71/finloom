@@ -9,5 +9,9 @@ router.get('/', (req, res) => {
 require('./account.routes.js')(router);
 require('./account_list.routes.js')(router);
 require('./industry.routes.js')(router);
+require('./role.routes.js')(router);
+require('./contact.routes.js')(router);
+require('./contact_list.routes.js')(router);
+require('./contact_email.routes.js')(router);
 
 module.exports = router;
