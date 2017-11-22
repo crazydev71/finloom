@@ -27,7 +27,7 @@ export class CreateListComponent implements OnInit {
           this.router.navigateByUrl('/accounts/accountlist/' + resp.id);
         });
     } else {
-      this.toastrService.showNotification('List Name is required', 'danger');
+      this.toastrService.showNotification('"List Name" is required', 'danger');
     }
   }
 }

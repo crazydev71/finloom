@@ -11,7 +11,8 @@ const misc: any = {
 declare var $: any;
 @Component({
   selector: 'app-navbar-cmp',
-  templateUrl: 'navbar.component.html'
+  templateUrl: 'navbar.component.html',
+  styleUrls: ['navbar.styles.css']
 })
 
 export class NavbarComponent implements OnInit {
@@ -128,23 +129,24 @@ export class NavbarComponent implements OnInit {
     }
   };
 
-  getTitle() {
+  getTitle(index) {
     let title: any = this.location.prepareExternalUrl(this.location.path());
-    // for (let i = 0; i < this.listTitles.length; i++) {
-    //   if (this.listTitles[i].type === "link" && this.listTitles[i].path === title) {
-    //     return this.listTitles[i].title;
-    //   } else if (this.listTitles[i].type === "sub") {
-    //     for (let j = 0; j < this.listTitles[i].children.length; j++) {
-    //       let subtitle = this.listTitles[i].path + '/' + this.listTitles[i].children[j].path;
-    //       if (subtitle === title) {
-    //         return this.listTitles[i].children[j].title;
-    //       }
-    //     }
-    //   }
-    // }
+    let titles = title.split('/');
+    title = titles[index];
+    if (title.length > 0)
+      title = title[0].toUpperCase() + title.substr(1);
     return title;
   }
+
   getPath() {
-    return this.location.prepareExternalUrl(this.location.path());
+    let url = this.location.prepareExternalUrl(this.location.path());
+    let urls = url.split('/');
+    urls = urls.filter(u => {
+      return u != 'dashboard';
+    })
+    for (let i = 1; i < urls.length; i++) {
+      urls[i] = urls[i - 1] + '/' + urls[i];
+    }
+    return urls;
   }
 }
