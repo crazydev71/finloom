@@ -51,6 +51,7 @@ import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 
 import { AppRoutes } from './app.routing';
 import { DataService } from './_services/data.services';
+import { ToastrService } from './_services/toastr.services';
 
 @NgModule({
   exports: [
@@ -110,7 +111,8 @@ export class MaterialModule {}
     bootstrap:    [ AppComponent ],
     providers: [
       AuthGuard,
-      DataService
+      DataService,
+      ToastrService
     ]
 })
 export class AppModule { }
