@@ -8,13 +8,13 @@ import { DealsComponent } from './deals.component';
 import { DealsRoutes } from './deals.routing';
 
 @NgModule({
-    imports: [
-        RouterModule.forChild(DealsRoutes),
-        CommonModule,
-        FormsModule,
-        MaterialModule
-    ],
-    declarations: [DealsComponent]
+  imports: [
+    RouterModule.forChild(DealsRoutes),
+    CommonModule,
+    FormsModule,
+    MaterialModule
+  ],
+  declarations: [DealsComponent]
 })
 
-export class DealsModule {}
+export class DealsModule { }

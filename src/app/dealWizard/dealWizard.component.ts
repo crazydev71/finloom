@@ -68,7 +68,7 @@ export class DealWizardComponent implements OnInit {
         dealstatusSelected: {
           required: true
         },
-        dealAmount:{
+        dealAmount: {
           required: true
         },
         facilitycurrencySelected: {
@@ -92,7 +92,6 @@ export class DealWizardComponent implements OnInit {
       'previousSelector': '.btn-previous',
 
       onNext: function (tab, navigation, index) {
-        debugger;
         var $valid = $('.wizard-card form').valid();
         if (!$valid) {
           $validator.focusInvalid();
@@ -245,7 +244,6 @@ export class DealWizardComponent implements OnInit {
 
     // Prepare the preview for profile picture
     $('#wizard-picture').change(function () {
-      debugger;
       const input = $(this);
 
       if (input[0].files && input[0].files[0]) {
