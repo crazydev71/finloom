@@ -48,15 +48,12 @@ export class CreateSingleComponent implements OnInit {
     private fb: FormBuilder,
     private dataService: DataService) {
     var data = {};
-    const emailPattern: RegExp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, "i");
+    
     for (var i = 0; i < this.fields.length; i++) {
-      var arr1 = [];
+      var arr1 = [], arr2 = [];
       arr1[arr1.length] = Validators.required;
-      if (this.fields[i].id != 'domain' && this.fields[i].id != 'webDomain')
-        arr1[arr1.length] = Validators.maxLength(128);
-      else
-        arr1[arr1.length] = Validators.pattern(emailPattern);
-      var arr2 = [];
+      arr1[arr1.length] = Validators.maxLength(128);
+      
       arr2[arr2.length] = '';
       arr2[arr2.length] = arr1;
       data[this.fields[i].id] = arr2;
