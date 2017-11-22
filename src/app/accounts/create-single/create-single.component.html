@@ -1,37 +1,63 @@
 <div class="main-content">
   <form [formGroup]="modelForm" (submit)="createAccount()">
     <div class="container-fluid row">
-      <mat-card class="col-md-7 col-sm-12 col-xs-12">
-        <mat-card-title>
-          Create Single
-        </mat-card-title>
-        <mat-card-content class="row">
-          <div class="col-md-7">
-            <div *ngFor="let field of fields">
-              <mat-form-field *ngIf="field.type=='input'">
-                <input matInput placeholder="{{field.name}}" class="form-group" formControlName="{{field.id}}">
-              </mat-form-field>
-              <mat-form-field *ngIf="field.type=='textarea'">
-                <textarea matInput placeholder="{{field.name}}" matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="5" class="form-group" formControlName="{{field.id}}"></textarea>
-              </mat-form-field>
-            </div>
-          </div>          
-          <div class="col-md-5">
-            <div class="row status">
-              <h3 class="col-md-7">Status</h3>
-              <span class="col-md-5">Pending</span>
+      <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="card-header card-header-icon" data-background-color="orange">
+            <i class="material-icons">assignment</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">Create Single</h4>
+            <div class="card-content row">
+              <div class="col-md-7">
+                <div *ngFor="let field of fields">
+                  <mat-form-field *ngIf="field.type=='input'">
+                    <input matInput placeholder="{{field.name}}" class="form-group" formControlName="{{field.id}}">
+                  </mat-form-field>
+                  <mat-form-field *ngIf="field.type=='textarea'">
+                    <textarea matInput placeholder="{{field.name}}" matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="5" class="form-group"
+                      formControlName="{{field.id}}"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="">
+                  <div class="">
+                    <mat-form-field>
+                      <mat-select placeholder="Account Type" name="city">
+                        <mat-option *ngFor="let city of accountTypes" [value]="city.name">
+                          {{ city.title }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="">
+                    <mat-form-field>
+                      <mat-select placeholder="Parent Account" name="city">
+                        <mat-option *ngFor="let city of data.accounts" [value]="city.id">
+                          {{ city.aka }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="">
+                    <mat-form-field>
+                      <mat-select multiple placeholder="Bank Types" name="Paris">
+                        <mat-option *ngFor="let city of accountTypes" [value]="city.name">
+                          {{ city.title }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </mat-card-content>
-        <mat-card-footer>
-          <div class="row">
-            <div class="col-md-6 col-sm-6 col-lg-4">
-              <button type="submit" class="btn btn-success btn-block">Create Single</button>
-            </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-success btn-block" [ngStyle]="{'max-width': '250px', 'margin': '0 auto'}">Create Single</button>
           </div>
-        </mat-card-footer>
-      </mat-card>
+        </div>
+      </div>
     </div>
-  </form>    
+  </form>
 </div>
-  

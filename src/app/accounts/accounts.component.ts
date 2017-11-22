@@ -17,14 +17,17 @@ declare const $: any;
 
 @Injectable()
 export class AccountsComponent implements OnInit, AfterViewInit {
-  @ViewChild('flex') flex: WjFlexGrid;
+  @ViewChild('flex') flexGrid: WjFlexGrid;
   
   private default_title = "Group By MA,LOB and SA";
   private group_list = [{ title: 'No Grouping', value: null, checked: 'false' }, { title: 'Group By MA,LOB and SA', value: 'MA,LOB,SA', checked: 'true' }];
   public data: any = {};
-  public selected: any = {};
+  public selected: any = {account: {}};
   private view;
-  constructor (private router: Router, private dataservice: DataService) {
+  private flex;
+  private accountFields: any[] = [{name: 'aka', title: 'AKA Name'}, {name: 'legalName', title: 'Legal Name'}, {name: 'shortCode', title: 'Short Code'}, {name: 'domain', title: 'Domain'}, {name: 'legalAddress', title: 'Legal Address'}];
+  constructor (private router: Router,
+               private dataservice: DataService) {
     this.router.navigateByUrl('/accounts/browser');
   }
 
@@ -35,8 +38,9 @@ export class AccountsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {}
 
   private initAccountsTable () {
+    let parent = this;
     this.view = new wjcCore.CollectionView(this.data.accounts, {
-      sortDescriptions: [new wjcCore.SortDescription('id', false)]
+      sortDescriptions: [new wjcCore.SortDescription('id', true)]
     });
     
     // initialize item count display
@@ -44,25 +48,25 @@ export class AccountsComponent implements OnInit, AfterViewInit {
     var flex = new wjcGrid.FlexGrid('#theGrid', {
       itemsSource: this.view,
       selectionChanged: function(s, e) {
-        if (!flex.selection.isSingleCell) {
-          var stats = flex.selection;
-        }
+        var stats = flex.selection;
+        let newData = flex.selectedRows[0]._data || {};
+        parent.selected.account = newData;
       },
       allowAddNew: true
     });
 
-    this.group_By('MA,LOB,SA', this.default_title);
+    // this.group_By('MA,LOB,SA', this.default_title);
+    this.flex = flex;
   }
 
   public getData() {
     let parent = this;
     this.dataservice.getData('/api/account').subscribe((resp: any) => {
       parent.data.accounts = resp;
-      parent.data.accounts = parent.data.accounts.concat(parent.data.accounts);
       for (let i = 0; i < parent.data.accounts.length; i++) {
-        parent.data.accounts[i].MA = 0;
-        parent.data.accounts[i].LOB = 1;
-        parent.data.accounts[i].SA = 2;
+        let account = parent.data.accounts[i];
+        account.MA = account.parentId;
+        account.LOB = account.parentId;
       }
       parent.initAccountsTable();
     });

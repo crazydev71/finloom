@@ -28,7 +28,7 @@
                                 </div>
                                 <div class="input-date col-sm-4">
                                     <mat-form-field>
-                                        <input matInput [matDatepicker]="myDatepicker" placeholder="pick a day" [(ngModel)]="TradeDate" (dateChange)="onDateChanged($event)">
+                                        <input matInput [matDatepicker]="myDatepicker" placeholder="pick a day"  (dateChange)="onDateChanged($event)">
                                         <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
                                         <mat-datepicker #myDatepicker></mat-datepicker>
                                     </mat-form-field>

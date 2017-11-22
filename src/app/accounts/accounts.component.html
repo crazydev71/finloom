@@ -2,55 +2,61 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6 col-sm-6">
-        <div class="row">
-          <div class="col-md-8 col-sm-12">
-            <div class="dropdown">
-              <button class="dropdown-toggle btn btn-primary btn-block" data-toggle="dropdown">{{default_title}}
-                <b class="caret"></b>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-left">
-                <li *ngFor="let group of group_list" (click)="group_By(group.value, group.title)">
-                  <a> {{group.title}} </a>
-                </li>
-              </ul>
+        <div class="card">
+          <div class="card-header card-header-icon" data-background-color="orange">
+            <i class="material-icons">assignment</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">Accounts</h4>
+            <div class="col-md-10 col-sm-12 col-xs-12 col-lg-8">
+              <div class="dropdown">
+                <button class="dropdown-toggle btn btn-primary btn-block" data-toggle="dropdown">{{default_title}}
+                    <b class="caret"></b>
+                  </button>
+                <ul class="dropdown-menu dropdown-menu-left">
+                  <li *ngFor="let group of group_list" (click)="group_By(group.value, group.title)">
+                    <a> {{group.title}} </a>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>            
-        </div>
-        <div id="theGrid">
-          <div class="no-data" [hidden]="data.accounts && data.accounts.length"><h4>No Data Available</h4></div>
-        </div>
-      </div>  
-      <div class="col-md-6 col-sm-6" *ngIf="selected.account">
-        <div class="row">
-          <div class="col-md-6 col-sm-6">
-          </div>
-          <div class="col-md-6 col-sm-6 account-edit">
-            <button class="btn btn-primary btn-just-icon"><i class="fa fa-edit  mr-1"></i></button>
-          </div>
-        </div>
-        <div class="row account-board">
-          <div class="col-md-7 col-sm-7 account-detail">
-            <h4 class="col-md-6 col-sm-6">AKA Name</h4>
-            <h4 class="col-md-6 col-sm-6">FinLoom</h4>
-            <h4 class="col-md-6 col-sm-6">Legal Name</h4>
-            <h4 class="col-md-6 col-sm-6">FinLoom Inc</h4>
-            <h4 class="col-md-6 col-sm-6">Short Code</h4>
-            <h4 class="col-md-6 col-sm-6">FI</h4>
-            <h4 class="col-md-6 col-sm-6">Alias</h4>
-            <h4 class="col-md-6 col-sm-6">FinLoom</h4>
-            <h4 class="col-md-6 col-sm-6">Ticker</h4>
-            <h4 class="col-md-6 col-sm-6">FINLOOM</h4>
-            <h4 class="col-md-6 col-sm-6">Email Domain</h4>
-            <h4 class="col-md-6 col-sm-6">finloom.com</h4>
-            <h4 class="col-md-12 col-sm-12">Legal Address</h4>
-            <h4 class="col-md-12 col-sm-12">Park Ave, NY, 10020</h4>
-          </div>
-          <div class="col-md-5 col-sm-5">
-            <h4 class="col-md-6 col-sm-6">Status</h4>
-            <h4 class="col-md-6 col-sm-6 account-active">Active</h4>
+            <div id="theGrid">
+              <div class="no-data" *ngIf="!(data.accounts && data.accounts.length)">
+                <h4>No Data Available</h4>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>  
+      <div class="col-md-6 col-sm-6" *ngIf="selected.account.id">
+        <div class="card">
+          <div class="card-header card-header-icon" data-background-color="orange">
+            <i class="material-icons">assignment</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">Detail</h4>
+            <div class="row">
+              <div class="col-md-6 col-sm-6">
+              </div>
+              <div class="col-md-6 col-sm-6 account-edit">
+                <button class="btn btn-primary btn-just-icon"><i class="fa fa-edit  mr-1"></i></button>
+              </div>
+            </div>
+            <div class="row account-board">
+              <div class="col-md-7 col-sm-7 account-detail">
+                <div *ngFor="let f of accountFields">
+                  <h4 class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">{{f.title}}</h4>
+                  <h4 class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">{{selected.account[f.name]}}</h4>
+                </div>
+              </div>
+              <div class="col-md-5 col-sm-5">
+                <h4 class="col-md-6 col-sm-6">Status</h4>
+                <h4 class="col-md-6 col-sm-6 account-active">Active</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

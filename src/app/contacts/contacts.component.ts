@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { WjGridModule, WjFlexGrid } from 'wijmo/wijmo.angular2.grid';
 import * as wjcCore from 'wijmo/wijmo';
 import * as wjcGrid from 'wijmo/wijmo.grid';
@@ -9,8 +10,6 @@ import * as wjcGrid from 'wijmo/wijmo.grid';
   styleUrls: ['./contacts.component.css']
 })
 export class ContactsComponent implements OnInit {
-
-  constructor() { }
   private contact_name = "My Contact";
 
   private contacts = [
@@ -37,6 +36,10 @@ export class ContactsComponent implements OnInit {
   ]
   public data = [];
   private view;
+  
+  constructor (private router: Router) { 
+    this.router.navigateByUrl('/contacts/contact');    
+  }
 
   ngOnInit() {
     this.data = this.getData();
@@ -61,12 +64,6 @@ export class ContactsComponent implements OnInit {
 
   public getData() {
     var data = [];
-    // data.push({
-    //   Name:  this.account_name[i % this.account_name.length],
-    //   Num: i,
-    //   Email:  this.account_email[i % this.account_email.length],
-    //   Bank:  this.contact_bank[i % this.contact_bank.length],
-    // });
     return data;
   }
 
