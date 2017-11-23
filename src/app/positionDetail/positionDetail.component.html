@@ -1,0 +1,53 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="col-sm-7 ">
+            <ul class="list-inline  sub-heading">
+                <li>{{selectedDealName}}</li>
+            </ul>
+            <div class="table-responsive height-min">
+                <table class="table-bordered table sub-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th class="second-width">
+                                Post Date
+                                <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="filter.PostDate" style="clear: both;
+                        display: block;">
+                                </my-date-picker>
+                            </th>
+                            <th class="third-width">Effective Date</th>
+                            <th class="fourth-width">Description </th>
+                            <th class="fifth-width">Amount </th>
+                            <th class="sixth-width">Price</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr *ngFor="let item of positionDetailData | groupBy:'PostDate'| positiondetailfilter:'key':filter.PostDate; let i = index">
+                            <td colspan="7" class="full-width">
+                                <b (click)="setCollId(i)" class="pointer">
+                            <i aria-hidden="true" [ngClass]="(selectedPositionIndex == i && !isCollapsed)?'fa fa-caret-down':'fa fa-caret-right'"></i>
+                            {{item.key}}
+                        </b>                        
+                                <table class="table-bordered table table-sort">
+                                    <tbody *ngIf="selectedPositionIndex == i && !isCollapsed">
+                                        <tr *ngFor="let val of item.value">
+                                            <td></td>
+                                            <td class="second-width">{{val.PostDate}}</td>
+                                            <td class="third-width">{{val.EffectiveDate}}</td>
+                                            <td class="fourth-width">{{val.Description}}</td>
+                                            <td class="fifth-width">{{val.Amount}}</td>
+                                            <td class="sixth-width">{{val.Price}}</td>
+                                            <td>{{val.Status}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

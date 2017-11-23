@@ -27,7 +27,6 @@ export class DealDetailsComponent implements OnInit {
   public data = [];
   private view;
   loadGrid: boolean = false;
-
   private account_name = 'Rechard Del,Sachie Clark,Trant Blarkey,Tae Carrilio,Ryone Cloke,Rahul Dickstein'.split(',');
   private account_email = 'Test1@gmail.com,Test2@gmail.com,Test3@gmail.com,Test4@gmail.com,Test5@gmail.com'.split(',');
   private contact_bank = 'Bank of America,Bank of United Kingdom'.split(',');

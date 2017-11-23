@@ -3,22 +3,16 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('flm_bank_types', [
-      {name: 'Borrower'},
       {name: 'Lender'},
       {name: 'Guarantor'},
+      {name: 'Borrower'},
+      {name: 'Agent Bank', parentId: 1},
+      {name: 'Arranger Bank', parentId: 1},
       {name: 'Sponsor'},
-      {name: 'Agent Bank'},
-      {name: 'Arranger Bank'},
     ], {});
   },
 
   down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('Person', null, {});
-    */
+    return queryInterface.bulkDelete('flm_bank_types', null, {});
   }
 };

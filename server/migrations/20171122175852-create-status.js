@@ -9,7 +9,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       status: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
       },
       deal: {
         type: Sequelize.INTEGER(1),
@@ -38,14 +39,6 @@ module.exports = {
       event: {
         type: Sequelize.INTEGER(1),
         defaultValue: 1
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
       }
     });
   },

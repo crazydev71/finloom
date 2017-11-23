@@ -8,6 +8,7 @@ import { WjGridModule } from 'wijmo/wijmo.angular2.grid';
 import { DealDetailsComponent } from './dealDetails.component';
 import { DealDetailsRoutes } from './dealDetails.routing';
 
+
 @NgModule({
     imports: [
         RouterModule.forChild(DealDetailsRoutes),

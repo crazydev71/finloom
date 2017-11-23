@@ -30,7 +30,7 @@ module.exports = (modelName) => {
 
   router.post('/', async (req, res) => {
     const data = req.body;
-    const item = await Model.create(data);
+    const item = await Model.create(data, {include: [{all: true, nested: true}]});
     res.json(item.toJSON());
   });
 
