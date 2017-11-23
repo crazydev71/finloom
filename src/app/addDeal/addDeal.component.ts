@@ -29,10 +29,7 @@ export class AddDealComponent implements OnInit {
 
 
     constructor(private formBuilder: FormBuilder) {
-        debugger;
-        // this.sub = this.route.params.subscribe(params => {
-        //     this.selectedDealId = params['id'];
-        // });
+      
     }
 
     public typeValidation: User;
@@ -52,8 +49,6 @@ export class AddDealComponent implements OnInit {
         { value: 'Terminated', text: 'Terminated' },
         { value: 'Complete', text: 'Complete' }
       ];
-
-    // pattern=" [a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
 
     isFieldValid(form: FormGroup, field: string) {
         return !form.get(field).valid && form.get(field).touched;

@@ -1,7 +1,5 @@
 <div class="main-content">
     <div class="container-fluid">
-
-
         <div class="col-sm-7 ">
             <ul class="list-inline  sub-heading">
                 <li>{{selectedDealName}}</li>
@@ -31,9 +29,7 @@
                             <i aria-hidden="true" [ngClass]="(selectedPositionIndex == i && !isCollapsed)?'fa fa-caret-down':'fa fa-caret-right'"></i>
                             {{item.key}}
                         </b>
-                                <!--   [class.fa fa-sort-desc]="isCollapsed" -->
                                 <table class="table-bordered table table-sort">
-
                                     <tbody *ngIf="selectedPositionIndex == i && !isCollapsed">
                                         <tr *ngFor="let val of item.value">
                                             <td></td>
@@ -43,17 +39,14 @@
                                             <td class="fifth-width">{{val.Amount}}</td>
                                             <td class="sixth-width">{{val.Price}}</td>
                                             <td>{{val.Status}}</td>
-
                                         </tr>
                                     </tbody>
                                 </table>
                             </td>
                         </tr>
-
                     </tbody>
                 </table>
             </div>
         </div>
-
     </div>
 </div>

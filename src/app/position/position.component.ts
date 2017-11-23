@@ -12,7 +12,7 @@ export class PositionComponent implements OnInit {
     public lstPosition: any = [];
 
     constructor(private router: Router) {
-        debugger;
+        
     }
 
     public ngOnInit() {
