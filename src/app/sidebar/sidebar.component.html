@@ -8,6 +8,18 @@
     <img src="/assets/img/logo.png" />
   </div>
 </div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <confirm-modal
+    [data]="{type: 'delete'}"
+    (confirm)="onDelete($event)"
+  ></confirm-modal>
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <confirm-modal
+    [data]="{type: 'edit', name: selection.edit.title}"
+    (confirm)="onEdit($event)"
+  ></confirm-modal>
+</div>
 <div class="sidebar-wrapper">
   <div class="user">
     <div class="photo">
@@ -123,20 +135,24 @@
           <p>{{menuitem.title}}</p>
         </a>
         <!--If it have a submenu-->
-        <a data-toggle="collapse" href="#{{menuitem.collapse}}" *ngIf="menuitem.type === 'sub'" (click)="updatePS()">
+        <a data-toggle="collapse" href="#{{menuitem.collapse}}" *ngIf="menuitem.type === 'sub'" (click)="updatePS()" aria-expanded="observe">
           <i class="material-icons">{{menuitem.icontype}}</i>
           <p>{{menuitem.title}}
             <b class="caret"></b>
           </p>
         </a>
         <!--Display the submenu items-->
-        <div id="{{menuitem.collapse}}" class="collapse" *ngIf="menuitem.type === 'sub'">
+        <div id="{{menuitem.collapse}}" class="collapse {{observe ? 'in' : ''}}" *ngIf="menuitem.type === 'sub'" aria-expanded="observe">
           <ul class="nav">
             <li routerLinkActive="active" *ngFor="let childitem of menuitem.children">
-              <a [routerLink]="[childitem.path]">
+              <a [routerLink]="[childitem.path]" [ngClass]="{'list': childitem.api}">
                 <span *ngIf="!childitem.icontype" class="sidebar-mini">{{childitem.ab}}</span>
-                <span *ngIf="childitem.icontype" class="sidebar-mini"><i class="material-icons">{{childitem.icontype}}</i></span>
+                <span *ngIf="childitem.icontype" class="sidebar-mini">
+                  <i class="material-icons">{{childitem.icontype}}</i>
+                </span>
                 <span class="sidebar-normal">{{childitem.title}}</span>
+                <i *ngIf="childitem.api" class="material-icons" data-toggle="modal" data-target="#deleteModal" (click)="selection.delete = childitem">close</i>
+                <i *ngIf="childitem.api" class="material-icons" data-toggle="modal" data-target="#editModal" (click)="selection.edit = childitem">edit</i>
               </a>
             </li>
             <li *ngIf="!menuitem.children.length">

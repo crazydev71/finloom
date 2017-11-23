@@ -36,8 +36,7 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatStepperModule,
-  
+  MatStepperModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -45,13 +44,14 @@ import { AuthGuard } from './_guards/auth.guard';
 
 import { SidebarModule } from './sidebar/sidebar.module';
 import { FooterModule } from './shared/footer/footer.module';
-import { NavbarModule} from './shared/navbar/navbar.module';
+import { NavbarModule } from './shared/navbar/navbar.module';
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 
 import { AppRoutes } from './app.routing';
 import { DataService } from './_services/data.services';
 import { ToastrService } from './_services/toastr.services';
+import { MenuService } from './_services/menu.service';
 
 @NgModule({
   exports: [
@@ -88,31 +88,32 @@ import { ToastrService } from './_services/toastr.services';
     MatTooltipModule
   ]
 })
-export class MaterialModule {}
+export class MaterialModule { }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        RouterModule.forRoot(AppRoutes),
-        HttpModule,
-        MaterialModule,
-        MatNativeDateModule,
-        SidebarModule,
-        NavbarModule,
-        FooterModule
-    ],
-    declarations: [
-        AppComponent,
-        AdminLayoutComponent,
-        AuthLayoutComponent
-    ],
-    bootstrap:    [ AppComponent ],
-    providers: [
-      AuthGuard,
-      DataService,
-      ToastrService
-    ]
+  imports: [
+    CommonModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    RouterModule.forRoot(AppRoutes),
+    HttpModule,
+    MaterialModule,
+    MatNativeDateModule,
+    SidebarModule,
+    NavbarModule,
+    FooterModule
+  ],
+  declarations: [
+    AppComponent,
+    AdminLayoutComponent,
+    AuthLayoutComponent
+  ],
+  bootstrap: [AppComponent],
+  providers: [
+    AuthGuard,
+    DataService,
+    ToastrService,
+    MenuService
+  ]
 })
 export class AppModule { }

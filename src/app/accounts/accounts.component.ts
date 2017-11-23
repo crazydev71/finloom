@@ -33,6 +33,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getData();
+    this.initAccountsTable();
   }
 
   ngAfterViewInit() {}
@@ -42,21 +43,23 @@ export class AccountsComponent implements OnInit, AfterViewInit {
     this.view = new wjcCore.CollectionView(this.data.accounts, {
       sortDescriptions: [new wjcCore.SortDescription('id', true)]
     });
-    
     // initialize item count display
     this.view.onCollectionChanged();
-    var flex = new wjcGrid.FlexGrid('#theGrid', {
-      itemsSource: this.view,
-      selectionChanged: function(s, e) {
-        var stats = flex.selection;
-        let newData = flex.selectedRows[0]._data || {};
-        parent.selected.account = newData;
-      },
-      allowAddNew: true
-    });
 
-    // this.group_By('MA,LOB,SA', this.default_title);
-    this.flex = flex;
+    if (!this.flex) {
+      var flex = new wjcGrid.FlexGrid('#theGrid', {
+        itemsSource: this.view,
+        selectionChanged: function(s, e) {
+          var stats = flex.selection;
+          let newData = flex.selectedRows[0]._data || {};
+          parent.selected.account = newData;
+        },
+        allowAddNew: true
+      });
+
+      // this.group_By('MA,LOB,SA', this.default_title);
+      this.flex = flex;
+    }
   }
 
   public getData() {

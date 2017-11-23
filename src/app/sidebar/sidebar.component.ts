@@ -3,6 +3,11 @@ import { Router } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
 
 import { DataService } from '../_services/data.services';
+import { MenuService } from '../_services/menu.service';
+import { checkAndUpdateElementDynamic } from '@angular/core/src/view/element';
+import { fadeInContent } from '@angular/material';
+
+import { ConfirmModalComponent } from '../_component/confirm-modal/confirm-modal.component'
 
 declare const $: any;
 
@@ -13,6 +18,9 @@ export interface RouteInfo {
   type: string;
   icontype: string;
   api?: string;
+  id?: number;
+  prevId?: number;
+  nextId?: number;
   collapse?: string;
   children?: ChildrenItems[];
   nextTabs?: RouteInfo[];
@@ -290,13 +298,19 @@ export const ROUTES: RouteInfo[] = [
 @Component({
   selector: 'app-sidebar-cmp',
   templateUrl: 'sidebar.component.html',
+  styleUrls: ['sidebar.style.css']
 })
 
 export class SidebarComponent implements OnInit {
   public menuItems: any[];
+  public observe: boolean;
+  public selection: any = {edit: {}, delete: {}};
 
-  constructor(private router: Router, private dataservice: DataService) {
-
+  constructor(private router: Router, private dataservice: DataService, private menuservice: MenuService) {
+    this.observe = false;
+    this.menuservice.handleUpdate().subscribe(handle => {
+      this.updateMenu(true);
+    })
   }
 
   isMobileMenu() {
@@ -307,6 +321,11 @@ export class SidebarComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.updateMenu ();
+  }
+  updateMenu (observe: boolean = false) {
+    this.observe = observe;
+
     let url = this.router.url;
     if (url == '/dashboard' || url == '/deals' || url == '/trades') {
       this.menuItems = ROUTES;
@@ -345,6 +364,14 @@ export class SidebarComponent implements OnInit {
                     childs[i].path = newItem.path + '/' + childs[i].id;
                     childs[i].title = childs[i].name;
                     childs[i].ab = (i + 1);
+                    childs[i].api = true;
+                    childs[i].id = childs[i].id;
+                    if (i >= 1)
+                      childs[i].prevId = childs[i -1].id;
+                    else
+                      childs[i].prevId = 0;
+                    if (i < childs.length - 1)
+                      childs[i].nextId = childs[i + 1].id;
                   }
                   newItem.children = childs;
                 });
@@ -380,5 +407,28 @@ export class SidebarComponent implements OnInit {
       bool = true;
     }
     return bool;
+  }
+
+  onDelete (event) {
+    if (event) {
+      var d = this.selection.delete;
+      this.dataservice.deleteData('/api/account-list/' + d.id)
+      .subscribe(resp => {
+        this.menuservice.subject.next({menu: 'update'});
+        if (d.prevId || d.nextId)
+          this.router.navigateByUrl('/accounts/accountlist/' + (d.prevId || d.nextId));
+        else
+          this.router.navigateByUrl('/accounts/list');
+      });
+    }
+  }
+  
+  onEdit (event) {
+    if (event) {
+      this.dataservice.putData('/api/account-list/' + this.selection.edit.id, {name: event})
+      .subscribe(resp => {
+        this.menuservice.subject.next({menu: 'update'});
+      });
+    }
   }
 }

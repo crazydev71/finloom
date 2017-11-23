@@ -16,47 +16,64 @@ export class CreateSingleComponent implements OnInit {
     {
       name: 'AKA Name',
       id: 'aka',
-      type: 'input'
-    }, {
+      type: 'input',
+      mode: 'single'
+    }, 
+    {
       name: 'Legal Name',
       id: 'legalName',
-      type: 'input'
-    }, {
+      type: 'input',
+      mode: 'single'
+    },
+    {
       name: 'Short Code',
       id: 'shortCode',
-      type: 'input'
-    }, {
+      type: 'input',
+      mode: 'single'
+    },
+    {
       name: 'Email Domain',
       id: 'domain',
-      type: 'input'
-    }, {
+      type: 'input',
+      mode: 'multi'
+    },
+    {
       name: 'Web Domain',
       id: 'webDomain',
-      type: 'input'
-    }, {
+      type: 'input',
+      mode: 'multi'
+    },
+    {
       name: 'Legal Address',
       id: 'legalAddress',
       type: 'textarea'
     }
   ];
   private accountTypes = [{name: 'MA', title: 'Master Account'}, {name: 'LOB', title: 'Line of business'}, {name: 'SA', title: 'Sub Account'}];
+  private bankTypes;
   private accountType: number = 0;
   private data: any = {};
   private formData = {accountType: 0, paretnId: 0};
-
+  private emailDomain = [
+    {
+      id:1
+    }
+  ];
+  private webDomain = [
+    {
+      id:1
+    }
+  ];
   constructor(private router: Router,
     private fb: FormBuilder,
     private dataService: DataService) {
     var data = {};
-    const emailPattern: RegExp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, "i");
+    
     for (var i = 0; i < this.fields.length; i++) {
-      var arr1 = [];
+      var arr1 = [], arr2 = [];
       arr1[arr1.length] = Validators.required;
-      if (this.fields[i].id != 'domain' && this.fields[i].id != 'webDomain')
-        arr1[arr1.length] = Validators.maxLength(128);
-      else
-        arr1[arr1.length] = Validators.pattern(emailPattern);
-      var arr2 = [];
+      arr1[arr1.length] = Validators.maxLength(128);
+      
       arr2[arr2.length] = '';
       arr2[arr2.length] = arr1;
       data[this.fields[i].id] = arr2;
@@ -66,6 +83,7 @@ export class CreateSingleComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
+    this.getBankType();
   }
 
   public getData() {
@@ -77,8 +95,18 @@ export class CreateSingleComponent implements OnInit {
     parent.data.bankTypes = [];
     parent.data.industries = [];
   }
+  
+  private getBankType() {
+    this.dataService.getData('/api/banktype')
+    .subscribe((resp: any) => {
+      this.bankTypes = resp;
+    },
+    function (error) {
+      console.log(error)
+    });
+  }
 
-  private createAccount() {
+  private createAccount(): void {
     if (this.modelForm.invalid) {
       return;
     }
@@ -96,7 +124,31 @@ export class CreateSingleComponent implements OnInit {
       });
   }
 
-  private changeFormData (index, key) {
+  private changeFormData (index, key): void {
     this.formData[key] = index + 1;
   }
+
+  private addDomain(domainType: string): void {
+    let id = domainType == 'email' ? this.emailDomain.length : this.webDomain.length;
+    if(domainType == 'email') {
+      id ++;
+      this.emailDomain = this.emailDomain.concat({
+        id: id
+      });
+    } else {
+      this.webDomain = this.webDomain.concat({
+        id: id
+      });
+    }
+  }
+
+  private removeDomain(domainType: string, delId: number): void {
+    if(domainType == 'email') {
+      this.emailDomain.splice(delId, 1);
+    } else {
+      this.webDomain.splice(delId, 1);
+    }
+  }
+
+
 }

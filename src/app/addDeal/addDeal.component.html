@@ -1,7 +1,7 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="row">
-            <!-- <div class="col-md-6">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- <div class="col-md-6">
                 <div class="card">
                     <form [formGroup]="register">
                         <div class="card-header card-header-icon" data-background-color="rose">
@@ -184,223 +184,223 @@
                 </div>
             </div> -->
 
-            <div class="col-md-12">
-                <div class="card">
-                    <form [formGroup]="deal" class="form-horizontal">
-                        <div class="card-header card-header-text" data-background-color="rose">
-                            <h4 class="card-title">Add Deal</h4>
-                        </div>
+      <div class="col-md-12">
+        <div class="card">
+          <form [formGroup]="deal" class="form-horizontal">
+            <div class="card-header card-header-text" data-background-color="rose">
+              <h4 class="card-title">Add Deal</h4>
+            </div>
 
 
-                        <div class="card-content">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <label class="col-sm-3 align-left label-on-left">Deal Name</label>
-                                    <div class="col-sm-7">
-                                        <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealName')">
-                                            <label class="control-label"></label>
-                                            <input type="text" id="text" class="form-control" [(ngModel)]="dealModel.dealName" formControlName="dealName">
-                                            <app-field-error-display [displayError]="isFieldValid(deal, 'dealName')" errorMsg="Required text">
-                                            </app-field-error-display>
-                                        </div>
-                                    </div>
+            <div class="card-content">
+              <div class="col-md-6">
+                <div class="row">
+                  <label class="col-sm-3 align-left label-on-left">Deal Name</label>
+                  <div class="col-sm-7">
+                    <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealName')">
+                      <label class="control-label"></label>
+                      <input type="text" id="text" class="form-control" [(ngModel)]="dealModel.dealName" formControlName="dealName">
+                      <app-field-error-display [displayError]="isFieldValid(deal, 'dealName')" errorMsg="Required text">
+                      </app-field-error-display>
+                    </div>
+                  </div>
 
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-3 align-left label-on-left">Deal Alias</label>
-                                    <div class="col-sm-7">
-                                        <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealAlias')">
-                                            <label class="control-label"></label>
-                                            <input type="text" id="text" class="form-control" [(ngModel)]="dealModel.dealAlias" formControlName="dealAlias">
-                                            <app-field-error-display [displayError]="isFieldValid(deal, 'dealAlias')" errorMsg="Required text">
-                                            </app-field-error-display>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-3 align-left label-on-left">Deal Amount(m)</label>
-                                    <div class="col-sm-7">
-                                        <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealAmount')">
-                                            <label class="control-label"></label>
-                                            <input class="form-control" type="number" number="true" formControlName="dealAmount">
-                                            <app-field-error-display [displayError]="isFieldValid(deal, 'dealAmount')" errorMsg="Add a number!">
-                                            </app-field-error-display>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-3 align-left label-on-left">Deal Borrower</label>
-                                    <div class="col-sm-7">
-                                        <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealBorrower')">
-                                            <label class="control-label"></label>
-                                            <select formControlName="dealBorrower" class="form-control">
-                                                <option disabled="" selected="">Select</option>
-                                                <option value="1">Expedia Company</option>
-                                                <option value="2">Home Depot Inc </option>
-                                               
-                                            </select>
-                                            <app-field-error-display [displayError]="isFieldValid(deal, 'dealBorrower')" errorMsg="Select an option">
-                                            </app-field-error-display>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <label class="col-sm-3 align-left label-on-left">Lead Arranger</label>
-                                    <div class="col-sm-7">
-                                        <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealLeadArranger')">
-                                            <label class="control-label"></label>
-                                            <select formControlName="dealLeadArranger" class="form-control">
-                                                            <option disabled="" selected="">Select</option>
-                                                            <option value="1">Expedia Company</option>
-                                                            <option value="2">Home Depot Inc </option>                                                   
-                                                        </select>
-                                            <app-field-error-display [displayError]="isFieldValid(deal, 'dealLeadArranger')" errorMsg="Select an option">
-                                            </app-field-error-display>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-3 align-left label-on-left">Admin Agent</label>
-                                    <div class="col-sm-7">
-                                        <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealAdminAgent')">
-                                            <label class="control-label"></label>
-                                            <select formControlName="dealAdminAgent" class="form-control">
-                                                                <option disabled="" selected="">Select</option>
-                                                                <option value="1">Expedia Company</option>
-                                                                <option value="2">Home Depot Inc </option>                                                   
-                                                            </select>
-                                            <app-field-error-display [displayError]="isFieldValid(deal, 'dealAdminAgent')" errorMsg="Select an option">
-                                            </app-field-error-display>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-3 align-left label-on-left">Currency</label>
-                                    <div class="col-sm-7">
-                                        <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealCurrency')">
-                                            <label class="control-label"></label>
-                                            <select formControlName="dealCurrency" class="form-control">
-                                                                    <option disabled="" selected="">Select</option>
-                                                                    <option *ngFor="let lst of currency" value= {{lst.value}}>
-                                                                            {{lst.text}}
-                                                                    </option>                                               
-                                                                </select>
-                                            <app-field-error-display [displayError]="isFieldValid(deal, 'dealCurrency')" errorMsg="Select an option">
-                                            </app-field-error-display>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-3 align-left label-on-left">Status</label>
-                                    <div class="col-sm-7">
-                                        <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealStatus')">
-                                            <label class="control-label"></label>
-                                            <select formControlName="dealStatus" class="form-control">
-                                                                        <option disabled="" selected="">Select</option>
-                                                                         <option *ngFor="let lst of status" value= {{lst.value}}>
-                                                   {{lst.text}}
-                                                  </option>                                                   
-                                                                    </select>
-                                            <app-field-error-display [displayError]="isFieldValid(deal, 'dealStatus')" errorMsg="Select an option">
-                                            </app-field-error-display>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <form [formGroup]="facility" class="form-horizontal">
-                        <div class="card-header card-header-text" data-background-color="rose">
-                            <h4 class="card-title">Add Facility</h4>
-                        </div>
-                        <div class="card-content">
-                            <div class="col-md-6">
+                <div class="row">
+                  <label class="col-sm-3 align-left label-on-left">Deal Alias</label>
+                  <div class="col-sm-7">
+                    <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealAlias')">
+                      <label class="control-label"></label>
+                      <input type="text" id="text" class="form-control" [(ngModel)]="dealModel.dealAlias" formControlName="dealAlias">
+                      <app-field-error-display [displayError]="isFieldValid(deal, 'dealAlias')" errorMsg="Required text">
+                      </app-field-error-display>
+                    </div>
+                  </div>
 
-                                <div class="row">
-                                    <label class="col-sm-3 align-left label-on-left">Facility Name</label>
-                                    <div class="col-sm-7">
-                                        <div class="form-group label-floating" [ngClass]="displayFieldCss(facility, 'facilityName')">
-                                            <label class="control-label"></label>
-                                            <input type="text" class="form-control" formControlName="facilityName">
-                                            <app-field-error-display [displayError]="isFieldValid(facility, 'facilityName')" errorMsg="Required text">
-                                            </app-field-error-display>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-3 align-left label-on-left">Facility Alias</label>
-                                    <div class="col-sm-7">
-                                        <div class="form-group label-floating" [ngClass]="displayFieldCss(facility, 'facilityAlias')">
-                                            <label class="control-label"></label>
-                                            <input type="text" class="form-control" formControlName="facilityAlias">
-                                            <app-field-error-display [displayError]="isFieldValid(facility, 'facilityAlias')" errorMsg="Required text">
-                                            </app-field-error-display>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-3 label-on-left">Commitment(m)</label>
-                                    <div class="col-sm-7">
-                                        <div class="form-group label-floating" [ngClass]="displayFieldCss(facility, 'facilityCommitment')">
-                                            <label class="control-label"></label>
-                                            <input class="form-control" type="number" number="true" formControlName="facilityCommitment">
-                                            <app-field-error-display [displayError]="isFieldValid(facility, 'facilityCommitment')" errorMsg="Add a number!">
-                                            </app-field-error-display>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <label class="col-sm-3 align-left label-on-left">Facility Borrower</label>
-                                    <div class="col-sm-7">
-                                        <div class="form-group label-floating" [ngClass]="displayFieldCss(facility, 'facilityBorrower')">
-                                            <label class="control-label"></label>
-                                            <select formControlName="facilityBorrower" class="form-control">
-                                                    <option disabled="" selected="">Select</option>
-                                                    <option value="1">Expedia Company</option>
-                                                    <option value="2">Home Depot Inc </option>
-                                                   
-                                                </select>
-                                            <app-field-error-display [displayError]="isFieldValid(facility, 'facilityBorrower')" errorMsg="Select an option">
-                                            </app-field-error-display>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <label class="col-sm-3 align-left label-on-left">Currency</label>
-                                    <div class="col-sm-7">
-                                        <div class="form-group label-floating" [ngClass]="displayFieldCss(facility, 'facilityCurrency')">
-                                            <label class="control-label"></label>
-                                            <select formControlName="facilityCurrency" class="form-control">
-                                                                <option disabled="" selected="">Select</option>
-                                                                <option *ngFor="let lst of currency" value= {{lst.value}}>
-                                                                        {{lst.text}}
-                                                                </option>                                               
-                                                            </select>
-                                            <app-field-error-display [displayError]="isFieldValid(facility, 'facilityCurrency')" errorMsg="Select an option">
-                                            </app-field-error-display>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                 </div>
+                <div class="row">
+                  <label class="col-sm-3 align-left label-on-left">Deal Amount(m)</label>
+                  <div class="col-sm-7">
+                    <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealAmount')">
+                      <label class="control-label"></label>
+                      <input class="form-control" type="number" number="true" formControlName="dealAmount">
+                      <app-field-error-display [displayError]="isFieldValid(deal, 'dealAmount')" errorMsg="Add a number!">
+                      </app-field-error-display>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-3 align-left label-on-left">Deal Borrower</label>
+                  <div class="col-sm-7">
+                    <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealBorrower')">
+                      <label class="control-label"></label>
+                      <select formControlName="dealBorrower" class="form-control">
+                        <option disabled="" selected="">Select</option>
+                        <option value="1">Expedia Company</option>
+                        <option value="2">Home Depot Inc </option>
+
+                      </select>
+                      <app-field-error-display [displayError]="isFieldValid(deal, 'dealBorrower')" errorMsg="Select an option">
+                      </app-field-error-display>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <label class="col-sm-3 align-left label-on-left">Lead Arranger</label>
+                  <div class="col-sm-7">
+                    <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealLeadArranger')">
+                      <label class="control-label"></label>
+                      <select formControlName="dealLeadArranger" class="form-control">
+                        <option disabled="" selected="">Select</option>
+                        <option value="1">Expedia Company</option>
+                        <option value="2">Home Depot Inc </option>
+                      </select>
+                      <app-field-error-display [displayError]="isFieldValid(deal, 'dealLeadArranger')" errorMsg="Select an option">
+                      </app-field-error-display>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-3 align-left label-on-left">Admin Agent</label>
+                  <div class="col-sm-7">
+                    <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealAdminAgent')">
+                      <label class="control-label"></label>
+                      <select formControlName="dealAdminAgent" class="form-control">
+                        <option disabled="" selected="">Select</option>
+                        <option value="1">Expedia Company</option>
+                        <option value="2">Home Depot Inc </option>
+                      </select>
+                      <app-field-error-display [displayError]="isFieldValid(deal, 'dealAdminAgent')" errorMsg="Select an option">
+                      </app-field-error-display>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-3 align-left label-on-left">Currency</label>
+                  <div class="col-sm-7">
+                    <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealCurrency')">
+                      <label class="control-label"></label>
+                      <select formControlName="dealCurrency" class="form-control">
+                        <option disabled="" selected="">Select</option>
+                        <option *ngFor="let lst of currency" value={ {lst.value}}>
+                          {{lst.text}}
+                        </option>
+                      </select>
+                      <app-field-error-display [displayError]="isFieldValid(deal, 'dealCurrency')" errorMsg="Select an option">
+                      </app-field-error-display>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-3 align-left label-on-left">Status</label>
+                  <div class="col-sm-7">
+                    <div class="form-group label-floating" [ngClass]="displayFieldCss(deal, 'dealStatus')">
+                      <label class="control-label"></label>
+                      <select formControlName="dealStatus" class="form-control">
+                        <option disabled="" selected="">Select</option>
+                        <option *ngFor="let lst of status" value={ {lst.value}}>
+                          {{lst.text}}
+                        </option>
+                      </select>
+                      <app-field-error-display [displayError]="isFieldValid(deal, 'dealStatus')" errorMsg="Select an option">
+                      </app-field-error-display>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="card-footer text-center">
-                <button type="submit" class="btn btn-rose btn-fill" (click)="onDealSubmit()">Create Deal</button>
-            </div>
+          </form>
         </div>
+      </div>
+      <div class="col-md-12">
+        <div class="card">
+          <form [formGroup]="facility" class="form-horizontal">
+            <div class="card-header card-header-text" data-background-color="rose">
+              <h4 class="card-title">Add Facility</h4>
+            </div>
+            <div class="card-content">
+              <div class="col-md-6">
+
+                <div class="row">
+                  <label class="col-sm-3 align-left label-on-left">Facility Name</label>
+                  <div class="col-sm-7">
+                    <div class="form-group label-floating" [ngClass]="displayFieldCss(facility, 'facilityName')">
+                      <label class="control-label"></label>
+                      <input type="text" class="form-control" formControlName="facilityName">
+                      <app-field-error-display [displayError]="isFieldValid(facility, 'facilityName')" errorMsg="Required text">
+                      </app-field-error-display>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <label class="col-sm-3 align-left label-on-left">Facility Alias</label>
+                  <div class="col-sm-7">
+                    <div class="form-group label-floating" [ngClass]="displayFieldCss(facility, 'facilityAlias')">
+                      <label class="control-label"></label>
+                      <input type="text" class="form-control" formControlName="facilityAlias">
+                      <app-field-error-display [displayError]="isFieldValid(facility, 'facilityAlias')" errorMsg="Required text">
+                      </app-field-error-display>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <label class="col-sm-3 label-on-left">Commitment(m)</label>
+                  <div class="col-sm-7">
+                    <div class="form-group label-floating" [ngClass]="displayFieldCss(facility, 'facilityCommitment')">
+                      <label class="control-label"></label>
+                      <input class="form-control" type="number" number="true" formControlName="facilityCommitment">
+                      <app-field-error-display [displayError]="isFieldValid(facility, 'facilityCommitment')" errorMsg="Add a number!">
+                      </app-field-error-display>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <label class="col-sm-3 align-left label-on-left">Facility Borrower</label>
+                  <div class="col-sm-7">
+                    <div class="form-group label-floating" [ngClass]="displayFieldCss(facility, 'facilityBorrower')">
+                      <label class="control-label"></label>
+                      <select formControlName="facilityBorrower" class="form-control">
+                        <option disabled="" selected="">Select</option>
+                        <option value="1">Expedia Company</option>
+                        <option value="2">Home Depot Inc </option>
+
+                      </select>
+                      <app-field-error-display [displayError]="isFieldValid(facility, 'facilityBorrower')" errorMsg="Select an option">
+                      </app-field-error-display>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <label class="col-sm-3 align-left label-on-left">Currency</label>
+                  <div class="col-sm-7">
+                    <div class="form-group label-floating" [ngClass]="displayFieldCss(facility, 'facilityCurrency')">
+                      <label class="control-label"></label>
+                      <select formControlName="facilityCurrency" class="form-control">
+                        <option disabled="" selected="">Select</option>
+                        <option *ngFor="let lst of currency" value={ {lst.value}}>
+                          {{lst.text}}
+                        </option>
+                      </select>
+                      <app-field-error-display [displayError]="isFieldValid(facility, 'facilityCurrency')" errorMsg="Select an option">
+                      </app-field-error-display>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card-footer text-center">
+        <button type="submit" class="btn btn-rose btn-fill" (click)="onDealSubmit()">Create Deal</button>
+      </div>
     </div>
+  </div>
 </div>

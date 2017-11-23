@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../../_services/data.services';
+import { MenuService } from '../../_services/menu.service';
 import { ToastrService } from '../../_services/toastr.services';
 
 declare const $: any;
@@ -12,7 +13,7 @@ declare const $: any;
 })
 export class CreateListComponent implements OnInit {
 
-  constructor(private router: Router, private dataService: DataService, private toastrService: ToastrService) { }
+  constructor(private router: Router, private dataService: DataService, private menuservice: MenuService, private toastrService: ToastrService) { }
 
   ngOnInit() {
 
@@ -24,10 +25,11 @@ export class CreateListComponent implements OnInit {
         .subscribe((resp: any) => {
           console.log(resp);
           this.toastrService.showNotification('List "' + list_name + '" is successfully created', 'success');
+          this.menuservice.subject.next({menu: 'update'});
           this.router.navigateByUrl('/accounts/accountlist/' + resp.id);
         });
     } else {
-      this.toastrService.showNotification('List Name is required', 'danger');
+      this.toastrService.showNotification('"List Name" is required', 'danger');
     }
   }
 }

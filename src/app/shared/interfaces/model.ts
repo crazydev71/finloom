@@ -25,20 +25,36 @@ export interface Industry {
   updatedAt: Date;
 }
 
+// export interface Account {
+//   id: number;
+//   aka: string;
+//   legalName: string;
+//   shortCode: string;
+//   domain: string;
+//   legalAddress: string;
+//   accountStatus: string;
+//   isClient: boolean;
+//   parentId: number;
+//   accountType: string;
+//   bankTypes ?: BankType[];
+//   accountLists ?: AccountList[];
+//   industries ?: Industry [];
+//   createdAt: Date;
+//   updatedAt: Date;
+// }
+
 export interface Account {
   id: number;
   aka: string;
   legalName: string;
   shortCode: string;
-  domain: string;
+  primaryWebDomain: string;
+  primaryEmailDomain: string;
   legalAddress: string;
   accountStatus: string;
   isClient: boolean;
   parentId: number;
   accountType: string;
-  bankTypes ?: BankType[];
-  accountLists ?: AccountList[];
-  industries ?: Industry [];
   createdAt: Date;
   updatedAt: Date;
 }
