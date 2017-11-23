@@ -1,23 +1,21 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('flm_bank_types', {
+    return queryInterface.createTable('flm_purposes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
-      },
-      parentId: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
+      purpose: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('flm_bank_types');
+    return queryInterface.dropTable('flm_purposes');
   }
 };

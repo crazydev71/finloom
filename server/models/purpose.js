@@ -1,13 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var FilterType = sequelize.define('FilterType', {
-    name: DataTypes.STRING
+  var Purpose = sequelize.define('Purpose', {
+    purpose: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
       }
-    }
+    },
+    tableName: 'flm_purposes'
   });
-  return FilterType;
+  return Purpose;
 };
