@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('ContractDetails', {
+    return queryInterface.createTable('flm_extension_terms', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,7 +9,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true,
+      },
+      unit: {
+        type: Sequelize.ENUM('year', 'month', 'day'),
+        defaultValue: 'year'
+      },
+      value: {
+        type: Sequelize.INTEGER,
+        defaultValue: 1
       },
       createdAt: {
         allowNull: false,
@@ -22,6 +31,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('ContractDetails');
+    return queryInterface.dropTable('flm_extension_terms');
   }
 };

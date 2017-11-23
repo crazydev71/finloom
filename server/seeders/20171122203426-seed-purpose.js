@@ -3,18 +3,18 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('flm_purposes', [
-      {name: 'General Corporate Purposes'},
-      {name: 'Acquisition Financing'},
-      {name: 'Project Finance'},
-      {name: 'Property Acquisition'},
-      {name: 'Working Capital'},
-      {name: 'Leveraged Buyout'},
-      {name: 'Sponsored Buyout'},
-      {name: 'Capital Expenditures'},
-      {name: 'Ship Financing'},
-      {name: 'Spinoff'},
-      {name: 'Refinance Bank Debt'},
-      {name: 'Other'},
+      {purpose: 'General Corporate Purposes'},
+      {purpose: 'Acquisition Financing'},
+      {purpose: 'Project Finance'},
+      {purpose: 'Property Acquisition'},
+      {purpose: 'Working Capital'},
+      {purpose: 'Leveraged Buyout'},
+      {purpose: 'Sponsored Buyout'},
+      {purpose: 'Capital Expenditures'},
+      {purpose: 'Ship Financing'},
+      {purpose: 'Spinoff'},
+      {purpose: 'Refinance Bank Debt'},
+      {purpose: 'Other'},
     ], {});
   },
 

@@ -9,7 +9,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       status: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
       },
       deal: {
         type: Sequelize.INTEGER(1),
