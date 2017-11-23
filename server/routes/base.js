@@ -40,7 +40,7 @@ module.exports = (modelName) => {
   });
 
   router.delete('/:id', async (req, res) => {
-    const {id} = req.parmas;
+    const {id} = req.params;
     let item = await Model.findById(id);
 
     if (item) {
