@@ -11,14 +11,14 @@
             <div class="card-content row">
               <div class="col-md-7">
                 <div *ngFor="let field of fields">
-                  <mat-form-field *ngIf="field.type=='input' && field.mode=='single'">
-                    <input matInput placeholder="{{field.name}}" class="form-group" formControlName="{{field.id}}">
+                  <mat-form-field *ngIf="field.ele=='input' && field.mode=='single'">
+                    <input matInput placeholder="{{field.name}}" [(ngModel)]="field.value" class="form-group" formControlName="{{field.id}}">
                   </mat-form-field>
-                  <div *ngIf="field.id=='domain'">
+                  <div *ngIf="field.type=='email'">
                     <div [ngClass]="{'domain-multi': field.mode=='multi'}" *ngFor="let domain of emailDomain; let i = index">
                       <div [ngClass]="{'multi': field.mode=='multi'}">
-                        <mat-form-field *ngIf="field.type=='input'">
-                          <input matInput placeholder="{{field.name}}" class="form-group" formControlName="{{field.id}}">
+                        <mat-form-field *ngIf="field.ele=='input'">
+                          <input matInput placeholder="{{field.name}}" class="form-group" formControlName="{{field.id}}{{i}}">
                         </mat-form-field>
                       </div>
                       <button type="button" *ngIf="field.mode=='multi' && i==0" class="btn btn-success btn-round btn-fab btn-fab-mini" (click)="addDomain('email')">
@@ -31,11 +31,11 @@
                       </button>
                     </div>
                   </div>
-                  <div *ngIf="field.id=='webDomain'">
+                  <div *ngIf="field.type=='web'">
                     <div [ngClass]="{'domain-multi': field.mode=='multi'}" *ngFor="let domain of webDomain; let i = index">
                       <div [ngClass]="{'multi': field.mode=='multi'}">
-                        <mat-form-field *ngIf="field.type=='input' && field.mode=='multi'">
-                          <input matInput placeholder="{{field.name}}" class="form-group" formControlName="{{field.id}}">
+                        <mat-form-field *ngIf="field.ele=='input' && field.mode=='multi'">
+                          <input matInput placeholder="{{field.name}}" class="form-group" formControlName="{{field.id}}{{i}}">
                         </mat-form-field>
                       </div>
                       <button type="button" *ngIf="field.mode=='multi' && i==0" class="btn btn-success btn-round btn-fab btn-fab-mini" (click)="addDomain('web')">
@@ -48,7 +48,7 @@
                       </button>
                     </div>
                   </div>
-                  <mat-form-field *ngIf="field.type=='textarea'">
+                  <mat-form-field *ngIf="field.ele=='textarea'">
                     <textarea matInput placeholder="{{field.name}}" matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="5" class="form-group"
                       formControlName="{{field.id}}"></textarea>
                   </mat-form-field>
@@ -65,7 +65,7 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div class="" *ngIf="selectedType=='SA'">
+                  <div class="" *ngIf="selectedType=='sub'">
                     <mat-form-field>
                       <mat-select placeholder="Parent Account" name="account">
                         <mat-option *ngFor="let account of data.accounts" [value]="account.id">
