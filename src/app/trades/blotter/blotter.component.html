@@ -44,7 +44,7 @@
                                     <wj-flex-grid-column [header]="'Facility Name'" [binding]="'FacilityName'"></wj-flex-grid-column>
                                     <wj-flex-grid-column [header]="'CPC'" [binding]="'CPC'"></wj-flex-grid-column>
                                     <wj-flex-grid-column [header]="'Price'" [binding]="'Price'" [format]="'p0'"></wj-flex-grid-column>
-                                    <wj-flex-grid-column [header]="'Amount'" [binding]="'Amount'" [format]="'n0'"></wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Amount'" [binding]="'Amount'" [format]="'n2'"></wj-flex-grid-column>
                                     <wj-flex-grid-column [header]="'Currency'" [binding]="'Currency'">
                                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
                                             <select (change)="onChange($event.target.value, item.id)">
@@ -54,7 +54,7 @@
                                             </select>
                                         </template>
                                     </wj-flex-grid-column>
-                                    <wj-flex-grid-column [header]="'Trade Date'" [binding]="'TradeDate'" format="MM/dd/yyyy"></wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Trade Date'" [binding]="'TradeDate'" [format]="MM/dd/yyyy"></wj-flex-grid-column>
                                     <wj-flex-grid-column [header]="'Sales Comp'" [binding]="'SalesCom'" [format]="'p0'"></wj-flex-grid-column>
                                     <!--<wj-flex-grid-column [header]="'Book'"  [binding]="'Book'"  [dataMap]="dataMap"></wj-flex-grid-column>-->
                                <wj-flex-grid-column [header]="'Book'">

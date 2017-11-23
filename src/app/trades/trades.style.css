@@ -34,11 +34,15 @@ button.btn-xsl, .btn.btn-success.btn-sm, .btn-danger.btn-sm, .btn-default.btn-sm
     color: #fff;
 }
 
-
-:host /deep/  .mat-form-field-infix {
- 
+:host /deep/ .mat-form-field-infix {
     margin: -14px 0 0 !important;
 }
     :host /deep/  .mat-form-field-infix input {
         padding: 4px !important;
     }
+.modal-footer1{display:inline-block; width:100%; padding:5px 30px}
+
+
+:host .cdk-overlay-container {
+    z-index: 99999 !important;
+}

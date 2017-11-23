@@ -69,14 +69,12 @@ export class BlottersComponent implements OnInit, AfterViewInit {
     private bookName: string = "--All--";
     private TradeDate = new Date().toLocaleDateString();
     private defaultDate = new Date();
-    countries = 'US,UK,China,Germany,India'.split(',');
 
 
     constructor() {
         this.dataSource = this.getData(10);
         this.getCollectionViewData(this.dataSource);
         this.filter = { 'TradeDate': this.model };
-        this.dataMap = new wjGrid.DataMap(this.getCountry(), 'id', 'country');
     }
 
     ngOnInit() {
@@ -85,16 +83,7 @@ export class BlottersComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
 
     }
-    getCountry() {
-        let data = [];
-        for (let i = 0; i < this.countries.length; i++) {
-            data.push({
-                id: i,
-                country: this.countries[i]
-            });
-        }
-        return data;
-    }
+    
 
     getCollectionViewData(data: any) {
         this.data = new wjcCore.CollectionView(data);
@@ -115,9 +104,9 @@ export class BlottersComponent implements OnInit, AfterViewInit {
                 Amount: 200 + i,
                 Currency: "USD",
                 Price:  i,
-                TradeDate: tradeDate,
-                SalesCom: 100 + i,
-                Book: this.countries[i % this.countries.length],
+                TradeDate: date,
+                SalesCom:  i,
+                Book: i,
                 SalesPerson: i,
                 Broker: i,
                 LastUpdateTs: new Date(2014, i % 12, i % 28),
@@ -128,8 +117,8 @@ export class BlottersComponent implements OnInit, AfterViewInit {
     }
     convertDate(str) {
         var date = new Date(str),
-            mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-            day = ("0" + date.getDate()).slice(-2);
+            mnth = ((date.getMonth() + 1)),
+            day = (date.getDate());
         return [mnth, day, date.getFullYear()].join("/");
     }
     onSelectBook(data: any) {
@@ -148,10 +137,10 @@ export class BlottersComponent implements OnInit, AfterViewInit {
     }
 
     onDateChanged(event: any) {
-        let date = this.convertDate(this.TradeDate);
+        let date = this.convertDate(event.value);
         this.dataSource = this.getData(10);
         this.dataSource = this.dataSource.filter(
-            b => b.TradeDate === date);
+            b => this.convertDate(b.TradeDate) === date);
         this.getCollectionViewData(this.dataSource);
     }
 }
