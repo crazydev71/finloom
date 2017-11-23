@@ -180,10 +180,22 @@ export const ROUTES: RouteInfo[] = [
     breadComb: ['Deals'],
     nextTabs: []
   }, {
-    path: '/trades',
-    title: 'Trades',
-    type: 'link',
-    icontype: 'dashboard'
+      path: '/trades',
+      title: 'Trades',
+      type: 'link',
+      icontype: 'dashboard',
+      nextTabs: [
+          {
+              path: '/input',
+              title: 'Input',
+              type: 'link',
+              icontype: 'contacts'
+          }, {
+              path: '/blotter',
+              title: 'Blotter',
+              type: 'link',
+              icontype: 'contacts'
+          }]
   }, {
     path: '/creative',
     title: 'Creative',
