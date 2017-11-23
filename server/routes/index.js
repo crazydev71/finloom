@@ -13,5 +13,6 @@ require('./role.routes.js')(router);
 require('./contact.routes.js')(router);
 require('./contact_list.routes.js')(router);
 require('./contact_email.routes.js')(router);
+require('./banktype.routes.js')(router);
 
 module.exports = router;

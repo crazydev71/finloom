@@ -12,16 +12,16 @@ import { AddDealComponent } from './addDeal.component';
 import { AddDealRoutes } from './addDeal.routing';
 import { FieldErrorDisplayComponent } from './field-error-display/field-error-display.component';
 @NgModule({
-    imports: [
-        RouterModule.forChild(AddDealRoutes),
-        CommonModule,
-        FormsModule,
-        MaterialModule,
-        ReactiveFormsModule,
-        NouisliderModule,
-        TagInputModule
-    ],
-    declarations: [AddDealComponent,FieldErrorDisplayComponent]
+  imports: [
+    RouterModule.forChild(AddDealRoutes),
+    CommonModule,
+    FormsModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    NouisliderModule,
+    TagInputModule
+  ],
+  declarations: [AddDealComponent, FieldErrorDisplayComponent]
 })
 
-export class AddDealModule {}
+export class AddDealModule { }

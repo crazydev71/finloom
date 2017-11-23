@@ -2,6 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
 
+import { DataService } from '../_services/data.services';
+import { MenuService } from '../_services/menu.service';
+import { checkAndUpdateElementDynamic } from '@angular/core/src/view/element';
+import { fadeInContent } from '@angular/material';
+
+import { ConfirmModalComponent } from '../_component/confirm-modal/confirm-modal.component'
+
 declare const $: any;
 
 //Metadata
@@ -10,6 +17,10 @@ export interface RouteInfo {
   title: string;
   type: string;
   icontype: string;
+  api?: string;
+  id?: number;
+  prevId?: number;
+  nextId?: number;
   collapse?: string;
   children?: ChildrenItems[];
   nextTabs?: RouteInfo[];
@@ -32,8 +43,7 @@ export const ROUTES: RouteInfo[] = [
     type: '',
     icontype: 'dashboard',
     breadComb: ['Dashboard']
-  },
-  {
+  }, {
     path: '/accounts',
     title: 'Accounts',
     type: 'link',
@@ -45,49 +55,44 @@ export const ROUTES: RouteInfo[] = [
         title: 'Browser',
         type: 'link',
         icontype: 'view_list'
-      },
-      {
+      }, {
         path: '/single',
         title: 'Create Single',
         type: 'link',
         icontype: 'person_add'
-      },
-      {
+      }, {
         path: '/multiple',
         title: 'Create Multiple',
         type: 'link',
         icontype: 'create_new_folder',
-      },
-      {
+      }, {
         path: '/accountlist',
         title: 'Account List',
         type: 'sub',
         icontype: 'supervisor_account',
         collapse: 'AccountList',
+        api: '/api/account-list',
         children: [
           {
-            path: 'list1',
+            path: '/1',
             title: 'List1',
             ab: '1',
             icontype: 'dashboard'
-          },
-          {
-            path: 'list2',
+          }, {
+            path: '/2',
             title: 'List2',
             ab: '2',
             icontype: 'dashboard'
           }
         ]
-      },
-      {
+      }, {
         path: '/list',
         title: 'Create List',
         type: 'link',
         icontype: 'group_add'
       }
     ]
-  },
-  {
+  }, {
     path: '/contacts',
     title: 'Contacts',
     type: 'link',
@@ -117,15 +122,16 @@ export const ROUTES: RouteInfo[] = [
         type: 'sub',
         icontype: 'keyboard_arrow_down',
         collapse: 'contactlist',
+        api: '/api/contact-list',
         children: [
           {
-            path: 'contact1',
+            path: '1',
             title: 'contact1',
             ab: '1',
             icontype: 'person'
           },
           {
-            path: 'contact2',
+            path: '2',
             title: 'contact2',
             ab: '2',
             icontype: 'person'
@@ -280,11 +286,21 @@ export const ROUTES: RouteInfo[] = [
 @Component({
   selector: 'app-sidebar-cmp',
   templateUrl: 'sidebar.component.html',
+  styleUrls: ['sidebar.style.css']
 })
 
 export class SidebarComponent implements OnInit {
   public menuItems: any[];
-  constructor(private router: Router) { }
+  public observe: boolean;
+  public selection: any = {edit: {}, delete: {}};
+
+  constructor(private router: Router, private dataservice: DataService, private menuservice: MenuService) {
+    this.observe = false;
+    this.menuservice.handleUpdate().subscribe(handle => {
+      this.updateMenu(true);
+    })
+  }
+
   isMobileMenu() {
     if ($(window).width() > 991) {
       return false;
@@ -293,16 +309,23 @@ export class SidebarComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.updateMenu ();
+  }
+  updateMenu (observe: boolean = false) {
+    this.observe = observe;
+
     let url = this.router.url;
-    if (url == '/dashboard' || url == '/deals')
+    if (url == '/dashboard' || url == '/deals' || url == '/trades') {
       this.menuItems = ROUTES;
+    }
     else {
       let matched;
-      if ((url.match(new RegExp("/", "g")) || []).length == 2) {
+      if ((url.match(new RegExp("/", "g")) || []).length == 2 || (url.match(new RegExp("/", "g")) || []).length == 3) {
         matched = ROUTES.filter(menuItem => {
           let pos = url.search(menuItem.path);
           if (pos != -1) return true;
         });
+
       } else {
         matched = ROUTES.filter(menuItem => {
           return menuItem.path == url;
@@ -311,10 +334,51 @@ export class SidebarComponent implements OnInit {
       this.menuItems = [];
       if (matched.length > 0) {
         if (matched[0].nextTabs) {
+          let newItems = [];
           for (let i = 0; i < matched[0].nextTabs.length; i++) {
-            matched[0].nextTabs[i].path = matched[0].path + matched[0].nextTabs[i].path;
+            let newItem: any = {};
+            newItem.path = matched[0].path + matched[0].nextTabs[i].path;
+            newItem.title = matched[0].nextTabs[i].title;
+            newItem.title = matched[0].nextTabs[i].title;
+            newItem.type = matched[0].nextTabs[i].type;
+            newItem.icontype = matched[0].nextTabs[i].icontype;
+            if (matched[0].nextTabs[i].collapse) {
+              newItem.collapse = matched[0].nextTabs[i].collapse;
+              newItem.children = [];
+              if (matched[0].nextTabs[i].api) {
+                this.dataservice.getData(matched[0].nextTabs[i].api).subscribe((resp: any) => {
+                  let childs = resp;
+                  for (let i = 0; i < childs.length; i++) {
+                    childs[i].path = newItem.path + '/' + childs[i].id;
+                    childs[i].title = childs[i].name;
+                    childs[i].ab = (i + 1);
+                    childs[i].api = true;
+                    childs[i].id = childs[i].id;
+                    if (i >= 1)
+                      childs[i].prevId = childs[i -1].id;
+                    else
+                      childs[i].prevId = 0;
+                    if (i < childs.length - 1)
+                      childs[i].nextId = childs[i + 1].id;
+                  }
+                  newItem.children = childs;
+                });
+              } else {
+                let childs = [];
+                for (let c = 0; c < matched[0].nextTabs[i].children.length; c++) {
+                  let child: any = {};
+                  child.path = newItem.path + matched[0].nextTabs[i].children[c].path;
+                  child.title = matched[0].nextTabs[i].children[c].title;
+                  child.ab = matched[0].nextTabs[i].children[c].ab;
+                  child.icontype = matched[0].nextTabs[i].children[c].icontype;
+                  childs.push(child);
+                }
+                newItem.children = childs;
+              }
+            }
+            newItems.push(newItem);
           }
-          this.menuItems = this.menuItems.concat(matched[0].nextTabs);
+          this.menuItems = this.menuItems.concat(newItems);
         }
       }
     }
@@ -331,5 +395,28 @@ export class SidebarComponent implements OnInit {
       bool = true;
     }
     return bool;
+  }
+
+  onDelete (event) {
+    if (event) {
+      var d = this.selection.delete;
+      this.dataservice.deleteData('/api/account-list/' + d.id)
+      .subscribe(resp => {
+        this.menuservice.subject.next({menu: 'update'});
+        if (d.prevId || d.nextId)
+          this.router.navigateByUrl('/accounts/accountlist/' + (d.prevId || d.nextId));
+        else
+          this.router.navigateByUrl('/accounts/list');
+      });
+    }
+  }
+  
+  onEdit (event) {
+    if (event) {
+      this.dataservice.putData('/api/account-list/' + this.selection.edit.id, {name: event})
+      .subscribe(resp => {
+        this.menuservice.subject.next({menu: 'update'});
+      });
+    }
   }
 }

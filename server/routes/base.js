@@ -5,6 +5,7 @@ module.exports = (modelName) => {
   const Model = require('../models')[modelName];
 
   router.get('/', async (req, res) => {
+    console.log(req);
     const items = await Model.findAll();
     res.json(items);
   });
@@ -29,7 +30,7 @@ module.exports = (modelName) => {
 
   router.post('/', async (req, res) => {
     const data = req.body;
-    const item = await Model.create(data);
+    const item = await Model.create(data, {include: [{all: true, nested: true}]});
     res.json(item.toJSON());
   });
 
@@ -48,7 +49,7 @@ module.exports = (modelName) => {
   });
 
   router.delete('/:id', async (req, res) => {
-    const {id} = req.parmas;
+    const {id} = req.params;
     let item = await Model.findById(id);
 
     if (item) {
