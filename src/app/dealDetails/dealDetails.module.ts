@@ -14,7 +14,8 @@ import { DealDetailsRoutes } from './dealDetails.routing';
         RouterModule.forChild(DealDetailsRoutes),
         CommonModule,
         FormsModule,
-        MaterialModule
+        MaterialModule,
+        WjGridModule
     ],
     declarations: [DealDetailsComponent]
 })
