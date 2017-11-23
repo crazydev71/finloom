@@ -1,0 +1,36 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-text" data-background-color="orange">
+                        <h4 class="card-title">{{listName}}</h4>                      
+                    </div>
+                    
+                    <div class="card-content table-responsive">
+                        <table class="table">
+                            <thead class="text-warning">
+                                <tr>
+                                    <th>Deal Name</th>
+                                    <th>Book</th>
+                                    <th>Position</th>
+                                    <th>WAC</th>
+                                    <th>PNL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr (click)="openPositionDetails(row.Id)" *ngFor="let row of lstPosition">
+                                    <td>{{row.DealName}}</td>
+                                    <td>{{row.Book}}</td>
+                                    <td>{{row.Position}}</td>
+                                    <td>{{row.WAC}}</td>
+                                    <td>{{row.PNL}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

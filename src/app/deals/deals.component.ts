@@ -11,8 +11,7 @@ declare const $: any;
 
 export class DealsComponent implements OnInit {
   public tableData: TableData;
-  public listName: string;
-  
+  public listName: string;  
   constructor(private router: Router) {
 
   }
@@ -40,5 +39,9 @@ export class DealsComponent implements OnInit {
 
   createDealWizard = function(){
     this.router.navigate(['/dealWizard']);
+  }
+
+  openDetailActivity = function(Id: any){
+    this.router.navigate(['/dealActivity/' + Id]);
   }
 }

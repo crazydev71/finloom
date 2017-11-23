@@ -1,3 +1,11 @@
 md-calendar {
-  width: 300px;
+    width: 300px;
+}
+
+.sup_required{
+    color: #ff0000;
+    font-size: 10pt;
+    line-height: 15px;
+    top: 0;
+    left: 4px;
 }
