@@ -11,8 +11,7 @@ declare const $: any;
 
 export class DealsComponent implements OnInit {
   public tableData: TableData;
-  public listName: string;
-  
+  public listName: string;  
   constructor(private router: Router) {
 
   }

@@ -28,6 +28,7 @@ export class PositionDetailComponent implements OnInit {
     public model: any = null;
     private sub: any;
 
+    
     constructor(private router: Router, private route: ActivatedRoute) {
         this.sub = this.route.params.subscribe(params => {
             this.selectedDealId = params['id'];

@@ -22,13 +22,14 @@
                             <th>Status</th>
                         </tr>
                     </thead>
+                    
                     <tbody>
                         <tr *ngFor="let item of positionDetailData | groupBy:'PostDate'| positiondetailfilter:'key':filter.PostDate; let i = index">
                             <td colspan="7" class="full-width">
                                 <b (click)="setCollId(i)" class="pointer">
                             <i aria-hidden="true" [ngClass]="(selectedPositionIndex == i && !isCollapsed)?'fa fa-caret-down':'fa fa-caret-right'"></i>
                             {{item.key}}
-                        </b>
+                        </b>                        
                                 <table class="table-bordered table table-sort">
                                     <tbody *ngIf="selectedPositionIndex == i && !isCollapsed">
                                         <tr *ngFor="let val of item.value">

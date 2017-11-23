@@ -10,7 +10,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class PositionComponent implements OnInit {
     public listName: string;
     public lstPosition: any = [];
-
     constructor(private router: Router) {
         
     }

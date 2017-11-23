@@ -21,7 +21,7 @@ export class DealActivityComponent implements OnInit {
             this.selectedDealId = params['id'];
         });
     }
-
+    
     public ngOnInit() {        
         this.listName = 'Deal Activity';
         this.lstActivity = [
