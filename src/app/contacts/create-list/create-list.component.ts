@@ -23,7 +23,7 @@ export class CreateListComponent implements OnInit {
           console.log(resp);
           this.toastrService.showNotification('List "' + list_name + '" is successfully created', 'success');
           this.menuservice.subject.next({menu: 'update'});
-          this.router.navigateByUrl('/contacts/contactlists/' + resp.id);
+          this.router.navigateByUrl('/contacts/contactlist/' + resp.id);
         },
         function (error) {
           console.log(error)

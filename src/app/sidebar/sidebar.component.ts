@@ -99,25 +99,25 @@ export const ROUTES: RouteInfo[] = [
     icontype: 'contacts',
     nextTabs: [
       {
-        path: '/contact',
-        title: 'Contacts',
+        path: '/browser',
+        title: 'Browser',
         type: 'link',
         icontype: 'contacts'
       },
       {
-        path: '/fqcontact',
-        title: 'Frequently contacted',
+        path: '/single',
+        title: 'Create Single',
         type: 'link',
         icontype: 'update'
       },
       {
-        path: '/duplicates',
-        title: 'Duplicates',
+        path: '/multiple',
+        title: 'Create Multiple',
         type: 'link',
         icontype: 'library_books',
       },
       {
-        path: '/contactlists',
+        path: '/contactlist',
         title: 'Contact Lists',
         type: 'sub',
         icontype: 'keyboard_arrow_down',
@@ -139,7 +139,7 @@ export const ROUTES: RouteInfo[] = [
         ]
       },
       {
-        path: '/createlist',
+        path: '/list',
         title: 'Create List',
         type: 'link',
         icontype: 'add_circle_outline'
@@ -358,13 +358,14 @@ export class SidebarComponent implements OnInit {
               newItem.collapse = matched[0].nextTabs[i].collapse;
               newItem.children = [];
               if (matched[0].nextTabs[i].api) {
+                let api = matched[0].nextTabs[i].api;
                 this.dataservice.getData(matched[0].nextTabs[i].api).subscribe((resp: any) => {
                   let childs = resp;
                   for (let i = 0; i < childs.length; i++) {
                     childs[i].path = newItem.path + '/' + childs[i].id;
                     childs[i].title = childs[i].name;
                     childs[i].ab = (i + 1);
-                    childs[i].api = true;
+                    childs[i].api = api;
                     childs[i].id = childs[i].id;
                     if (i >= 1)
                       childs[i].prevId = childs[i -1].id;
@@ -412,20 +413,21 @@ export class SidebarComponent implements OnInit {
   onDelete (event) {
     if (event) {
       var d = this.selection.delete;
-      this.dataservice.deleteData('/api/account-list/' + d.id)
+      this.dataservice.deleteData(this.selection.delete.api + '/' + d.id)
       .subscribe(resp => {
+        let status = this.selection.delete.api.search('account') != -1 ? 'account' : 'contact';
         this.menuservice.subject.next({menu: 'update'});
         if (d.prevId || d.nextId)
-          this.router.navigateByUrl('/accounts/accountlist/' + (d.prevId || d.nextId));
+          this.router.navigateByUrl('/' + status + 's/' + status + 'list/' + (d.prevId || d.nextId));
         else
-          this.router.navigateByUrl('/accounts/list');
+          this.router.navigateByUrl('/' + status + 's/list');
       });
     }
   }
   
   onEdit (event) {
     if (event) {
-      this.dataservice.putData('/api/account-list/' + this.selection.edit.id, {name: event})
+      this.dataservice.putData(this.selection.edit.api + '/' + this.selection.edit.id, {name: event})
       .subscribe(resp => {
         this.menuservice.subject.next({menu: 'update'});
       });
