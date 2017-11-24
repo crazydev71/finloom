@@ -26,7 +26,7 @@ require('./web_domain.routes.js')(router);
  * @param password
  * @returns authenticated contact
  */
-router.post('/login', passport.authenticate('local-login', {failureFlash: true}), (req, res) => {
+router.post('/login', passport.authenticate('local-login'), (req, res) => {
   if (req.user) {
     const contact = req.user;
     res.json(contact.toJSON());
@@ -42,11 +42,12 @@ router.post('/login', passport.authenticate('local-login', {failureFlash: true})
  * @param password
  * @returns Authenticated contact or error message
  */
-router.post('/signup', passport.authenticate('local-signup', {failureFlash: true}), (req, res) => {
+router.post('/signup', passport.authenticate('local-signup'), (req, res) => {
   if (req.user) {
-    req.login();
     const contact = req.user;
-    res.json(contact.toJSON());
+    req.login(contact, () => {
+      res.json(contact.toJSON());
+    });
   } else {
     res.status(413).json({msg: 'Invalid credentials'});
   }

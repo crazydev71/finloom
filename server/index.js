@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(session({ secret: process.env.SECRET || 'finloom' }));
+app.use(session({ secret: process.env.SECRET || 'finloom', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 

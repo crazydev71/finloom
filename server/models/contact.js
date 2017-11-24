@@ -39,11 +39,11 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'flm_contacts'
   });
 
-  Contact.prototype.validPassword = (password) => {
+  Contact.prototype.validPassword = function (password) {
     return bcrypt.compareSync(password, this.getDataValue('password'));
   }
 
-  Contact.prototype.generateHash = (password) => {
+  Contact.prototype.generateHash = function (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
   }
 

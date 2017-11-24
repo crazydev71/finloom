@@ -22,13 +22,12 @@ passport.use('local-login', new LocalStrategy(
     passReqToCallback : true
   },
   async (req, email, password, done) => {
-    email = eamil.toLowerCase();
+    email = email.toLowerCase();
     try {
-      const contact = await Contact.findOne({ primaryEmail: email });
+      const contact = await Contact.findOne({where: {primaryEmail: email}});
       if (!contact) {
         return done(null, false, {message: 'Invalid email or password.'});
       }
-
       if (!contact.validPassword(password)) {
         return done(null, false, {message: 'Invalide email or password.'})
       } 
@@ -46,15 +45,17 @@ passport.use('local-signup', new LocalStrategy(
     passReqToCallback : true
   },
   async (req, email, password, done) => {
-    email = eamil.toLowerCase();
+    email = email.toLowerCase();
     try {
-      const contact = await Contact.findOne({primaryEmail: email})
+      const contact = await Contact.findOne({where: {primaryEmail: email}});
       if (contact) {
         return done(null, false, {message: 'Email already exist.'})
       }
-
-      const hashPassword = Contact.generateHash(password);
-      const newContact = await Contact.create({primaryEmail: email, password: hashPassword, isRegistered: 1});
+      
+      const newContact = Contact.build({primaryEmail: email, isRegistered: 1});
+      newContact.password = newContact.generateHash(password);
+      
+      await newContact.save();
       return done(null, newContact);
 
     } catch (err) {
