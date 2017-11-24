@@ -23,7 +23,6 @@ export class CreateListComponent implements OnInit {
     if (list_name != '') {
       this.dataService.postData('/api/account-list', { name: list_name, createdBy: 1 })
         .subscribe((resp: any) => {
-          console.log(resp);
           this.toastrService.showNotification('List "' + list_name + '" is successfully created', 'success');
           this.menuservice.subject.next({menu: 'update'});
           this.router.navigateByUrl('/accounts/accountlist/' + resp.id);
