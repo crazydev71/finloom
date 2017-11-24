@@ -3,6 +3,18 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const Contact = require('../models').Contact;
 
+passport.serializeUser(function(contact, done) {
+  done(null, contact.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  Contact.findById(id).then(contact => {
+    done(null, contact);
+  }).catch(err => {
+    done(err);
+  });
+});
+
 passport.use('local-login', new LocalStrategy(
   {
     usernameField : 'email',
@@ -52,4 +64,4 @@ passport.use('local-signup', new LocalStrategy(
   }
 ));
 
-export default passport;
+module.exports = passport;
