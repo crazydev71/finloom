@@ -17,78 +17,124 @@ declare const $: any;
 
 @Injectable()
 export class AccountsComponent implements OnInit, AfterViewInit {
-  @ViewChild('flex') flexGrid: WjFlexGrid;
-  
+  @ViewChild('flex') flex: wjcGrid.FlexGrid;
+  private dataSource: any = [];
+  data: wjcCore.CollectionView;
+
   private default_title = "Group By MA,LOB and SA";
   private group_list = [{ title: 'No Grouping', value: null, checked: 'false' }, { title: 'Group By MA,LOB and SA', value: 'MA,LOB,SA', checked: 'true' }];
-  public data: any = {};
-  public selected: any = {account: {}};
+  private tempRows;
+  private accountList;
+  private selected: any = { account: {} };
+  private selectedList: string = "";
   private view;
-  private flex;
-  private accountFields: any[] = [{name: 'aka', title: 'AKA Name'}, {name: 'legalName', title: 'Legal Name'}, {name: 'shortCode', title: 'Short Code'}, {name: 'domain', title: 'Domain'}, {name: 'legalAddress', title: 'Legal Address'}];
-  constructor (private router: Router,
-               private dataservice: DataService) {
+  private accountFields: any[] = [{ name: 'aka', title: 'AKA Name' }, { name: 'legalName', title: 'Legal Name' }, { name: 'shortCode', title: 'Short Code' }, { name: 'emailDomain', title: 'Email Domain' }, { name: 'webDomain', title: 'WebDomain' }, { name: 'legalAddress', title: 'Legal Address' }];
+  private isEdit: boolean = false;
+
+  constructor(private router: Router,
+    private dataService: DataService) {
     this.router.navigateByUrl('/accounts/browser');
   }
 
   ngOnInit() {
-    this.getData();
-    this.initAccountsTable();
-  }
-
-  ngAfterViewInit() {}
-
-  private initAccountsTable () {
-    let parent = this;
-    this.view = new wjcCore.CollectionView(this.data.accounts, {
-      sortDescriptions: [new wjcCore.SortDescription('id', true)]
-    });
-    // initialize item count display
-    this.view.onCollectionChanged();
-
-    if (!this.flex) {
-      var flex = new wjcGrid.FlexGrid('#theGrid', {
-        itemsSource: this.view,
-        selectionChanged: function(s, e) {
-          var stats = flex.selection;
-          let newData = flex.selectedRows[0]._data || {};
-          parent.selected.account = newData;
-        },
-        allowAddNew: true
-      });
-
-      // this.group_By('MA,LOB,SA', this.default_title);
-      this.flex = flex;
-    }
-  }
-
-  public getData() {
-    let parent = this;
-    this.dataservice.getData('/api/account').subscribe((resp: any) => {
-      parent.data.accounts = resp;
-      for (let i = 0; i < parent.data.accounts.length; i++) {
-        let account = parent.data.accounts[i];
-        account.MA = account.parentId;
-        account.LOB = account.parentId;
+    this.dataSource = this.getData();
+    this.getAccountList();
+    this.getCollectionViewData(this.dataSource);
+    this.flex.hostElement.addEventListener('click',(e) => {
+      let ht = this.flex.hitTest(e);
+      if(ht.row != -1) {
+        let obj = JSON.parse(JSON.stringify(this.flex.rows[ht.row].dataItem));
+        this.selected.account = obj;
+        this.isEdit = false;
       }
-      parent.initAccountsTable();
+      console.log(this.flex.rows);
+      //let index = this.tempRows.findIndex(d => d.id === obj.id);
     });
-    parent.data.accountLists = [];
-    parent.data.bankTypes = [];
-    parent.data.industries = [];
+  }
+  
+  ngAfterViewInit() {
+    this.tempRows = new Array();
+    this.flex.rowHeaders.hostElement.addEventListener("click", (e) => {
+      let ht = this.flex.hitTest(e);
+      if(ht.row != -1) {
+        let obj = JSON.parse(JSON.stringify(this.flex.rows[ht.row].dataItem));
+        let index = this.tempRows.findIndex(d => d.id === obj.id);
+        if (index != -1) {
+          this.tempRows.splice(index, 1);
+        } else {
+          this.tempRows.push(obj);
+        }
+        console.log(this.tempRows);
+      }
+    });
+    
   }
 
-  public group_By(group_name: string, group_title: string) {
+  private getData(): wjcCore.ObservableArray {
+    var countries = 'US,Germany,UK,Japan,Italy,Greece'.split(','),
+      data = new wjcCore.ObservableArray();
+    this.dataService.getData('/api/account').subscribe((resp: any) => {
+      for (let i = 0; i < resp.length; i++) {
+        data.push({
+          checked: true,
+          id: resp[i].id,
+          aka: resp[i].aka,
+          legalAddress: resp[i].legalAddress,
+          legalName: resp[i].legalName,
+          shortCode: resp[i].shortCode,
+          emailDomain: resp[i].PrimaryEmailDomain,
+          webDomain: resp[i].primaryWebDomain,
+          accountType: resp[i].accountType
+        });
+      }
+    });
+    // parent.data.accountLists = [];
+    // parent.data.bankTypes = [];
+    // parent.data.industries = [];
+
+    return data;
+  }
+  
+  private getAccountList() {
+    this.dataService.getData('/api/account-list')
+      .subscribe((resp: any) => {
+        this.accountList = resp;
+      },
+      function (error) {
+        console.log(error)
+      });
+  }
+
+  private getCollectionViewData(data: any) {
+    this.view = new wjcCore.CollectionView(data);
+  }
+
+  private group_By(group_name: string, group_title: string) {
+    console.log(group_name);
     this.default_title = group_title;
     this.view.groupDescriptions.clear();
     if (group_name == null)
       return;
-		var props = group_name.split(',');
+    var props = group_name.split(',');
     for (var i = 0; i < props.length; i++) {
-    	var prop = props[i];
+      var prop = props[i];
       var gd;
       gd = new wjcCore.PropertyGroupDescription(prop);
       this.view.groupDescriptions.push(gd);
+    }
+  }
+
+  onChange(id): void {
+    console.log(id);
+  }
+  private detailStatus(status: string): void {
+    if (status == 'edit')
+      this.isEdit = !this.isEdit;
+    else if(status == 'cancel')
+      this.isEdit = false;
+    else {
+      console.log(this.selected.account);
+
     }
   }
 }

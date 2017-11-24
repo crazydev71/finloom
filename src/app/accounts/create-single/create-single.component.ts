@@ -68,8 +68,8 @@ export class CreateSingleComponent implements OnInit {
     }
   ];
   constructor(private router: Router,
-    private fb: FormBuilder,
-    private dataService: DataService) {
+              private fb: FormBuilder,
+              private dataService: DataService) {
   }
   private groupData: any;
   ngOnInit() {
