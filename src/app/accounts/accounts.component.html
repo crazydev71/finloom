@@ -8,21 +8,51 @@
           </div>
           <div class="card-content">
             <h4 class="card-title">Accounts</h4>
-            <div class="col-md-10 col-sm-12 col-xs-12 col-lg-8">
-              <div class="dropdown">
-                <button class="dropdown-toggle btn btn-primary btn-block" data-toggle="dropdown">{{default_title}}
-                    <b class="caret"></b>
-                  </button>
-                <ul class="dropdown-menu dropdown-menu-left">
-                  <li *ngFor="let group of group_list" (click)="group_By(group.value, group.title)">
-                    <a> {{group.title}} </a>
-                  </li>
-                </ul>
+            <div class="row">
+              <div class="col-md-10 col-sm-12 col-xs-12 col-lg-7">
+                <div class="dropdown">
+                  <button class="dropdown-toggle btn btn-primary btn-block" data-toggle="dropdown">{{default_title}}
+                      <b class="caret"></b>
+                    </button>
+                  <ul class="dropdown-menu dropdown-menu-left">
+                    <li *ngFor="let group of group_list" (click)="group_By(group.value, group.title)">
+                      <a> {{group.title}} </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-8 col-sm-12 col-xs-12 col-lg-5">
+                <div class="dropdown">
+                  <button class="dropdown-toggle btn btn-primary btn-block" data-toggle="dropdown">Account List
+                      <b class="caret"></b>
+                    </button>
+                  <ul class="dropdown-menu dropdown-menu-left">
+                    <li *ngFor="let list of accountList" (click)="onChange(list.id)">
+                      <a> {{ list.name }} </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div id="theGrid">
-              <div class="no-data" *ngIf="!(data.accounts && data.accounts.length)">
-                <h4>No Data Available</h4>
+            <div class="row">
+              <div class="content table-responsive col-md-12">
+                <wj-flex-grid #flex [itemsSource]="dataSource" [selectionMode]="'Row'">
+                  <ng-template wjFlexGridCellTemplate [cellType]="'RowHeader'" let-cell="item">
+                    <input type="checkbox" data-md-icheck />
+                  </ng-template>
+                  <wj-flex-grid-column [header]="''" [binding]="'checked'" >
+                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                      <input type="checkbox" data-md-icheck/>
+                    </template>
+                  </wj-flex-grid-column>
+                  <wj-flex-grid-column [header]="'AKA'" [binding]="'aka'"><input type="checkbox" data-md-icheck /></wj-flex-grid-column>
+                  <wj-flex-grid-column [header]="'LEGAL ADDRESS'" [binding]="'legalAddress'"></wj-flex-grid-column>
+                  <wj-flex-grid-column [header]="'LEGAL NAME'" [binding]="'legalName'"></wj-flex-grid-column>
+                  <wj-flex-grid-column [header]="'SHORT CODE'" [binding]="'shortCode'"></wj-flex-grid-column>
+                  <wj-flex-grid-column [header]="'PRIMARY EMAIL DOMAIN'" [binding]="'emailDomain'"></wj-flex-grid-column>
+                  <wj-flex-grid-column [header]="'PRIMARY WEB DOMAIN'" [binding]="'webDomain'"></wj-flex-grid-column>
+                  <wj-flex-grid-column [header]="'ACCOUNT TYPE'" [binding]="'accountType'"></wj-flex-grid-column>
+                </wj-flex-grid>
               </div>
             </div>
           </div>
@@ -39,14 +69,19 @@
               <div class="col-md-6 col-sm-6">
               </div>
               <div class="col-md-6 col-sm-6 account-edit">
-                <button class="btn btn-primary btn-just-icon"><i class="fa fa-edit  mr-1"></i></button>
+                <button *ngIf="!isEdit" class="btn btn-primary btn-just-icon" (click)="detailStatus('edit')"><i class="fa fa-edit  mr-1"></i></button>
+                <button *ngIf="isEdit" class="btn btn-success btn-just-icon" (click)="detailStatus('save')"><i class="fa fa-save  mr-1"></i></button>
+                <button *ngIf="isEdit" class="btn btn-danger btn-just-icon" (click)="detailStatus('cancel')"><i class="fa fa-close  mr-1"></i></button>
               </div>
             </div>
             <div class="row account-board">
               <div class="col-md-7 col-sm-7 account-detail">
                 <div *ngFor="let f of accountFields">
                   <h4 class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">{{f.title}}</h4>
-                  <h4 class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">{{selected.account[f.name]}}</h4>
+                  <h4 *ngIf="!isEdit" class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">{{selected.account[f.name]}}</h4>
+                  <mat-form-field *ngIf="isEdit" class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">
+                    <input matInput [(ngModel)]="selected.account[f.name]" >
+                  </mat-form-field>
                 </div>
               </div>
               <div class="col-md-5 col-sm-5">
