@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { ContactsComponent } from './contacts.component';
-import { FrequentContactComponent } from './frequent-contact/frequent-contact.component';
-import { ContactDuplicatesComponent } from './contact-duplicates/contact-duplicates.component';
+import { CreateSingleComponent } from './create-single/create-single.component';
+import { CreateMultipleComponent } from './create-multiple/create-multiple.component';
 import { ContactsListComponent } from './contacts-list/contacts-list.component';
 import { CreateListComponent } from './create-list/create-list.component';
 import { ContactMoreComponent } from './contact-more/contact-more.component';
@@ -16,23 +16,23 @@ export const ContactsRoutes: Routes = [
         component: ContactsComponent
       },
       {
-        path: 'contact',
+        path: 'browser',
         component: ContactsComponent
       },
       {
-        path: 'fqcontact',
-        component: FrequentContactComponent
+        path: 'single',
+        component: CreateSingleComponent
       },
       {
-        path: 'duplicates',
-        component: ContactDuplicatesComponent
+        path: 'multiple',
+        component: CreateMultipleComponent
       },
       {
-        path: 'contactlists/:id',
+        path: 'contactlist/:id',
         component: ContactsListComponent
       },
       {
-        path: 'createlist',
+        path: 'list',
         component: CreateListComponent
       },
       {

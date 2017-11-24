@@ -38,7 +38,7 @@ export class ContactsComponent implements OnInit {
   private view;
   
   constructor (private router: Router) { 
-    this.router.navigateByUrl('/contacts/contact');    
+    this.router.navigateByUrl('/contacts/browser');
   }
 
   ngOnInit() {

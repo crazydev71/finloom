@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FrequentContactComponent } from './frequent-contact.component';
+import { CreateSingleComponent } from './create-single.component';
 
-describe('FrequentContactComponent', () => {
-  let component: FrequentContactComponent;
-  let fixture: ComponentFixture<FrequentContactComponent>;
+describe('CreateSingleComponent', () => {
+  let component: CreateSingleComponent;
+  let fixture: ComponentFixture<CreateSingleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FrequentContactComponent ]
+      declarations: [ CreateSingleComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FrequentContactComponent);
+    fixture = TestBed.createComponent(CreateSingleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
