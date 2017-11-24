@@ -5,7 +5,9 @@ import * as wjcCore from 'wijmo/wijmo';
 import * as wjcGrid from 'wijmo/wijmo.grid';
 
 import { DataService } from '../_services/data.services';
+import { ToastrService } from '../_services/toastr.services';
 import { Account, AccountList, BankType, Industry } from '../shared/interfaces/model';
+import { debug } from 'util';
 
 declare const $: any;
 
@@ -31,18 +33,23 @@ export class AccountsComponent implements OnInit, AfterViewInit {
   private accountFields: any[] = [{ name: 'aka', title: 'AKA Name' }, { name: 'legalName', title: 'Legal Name' }, { name: 'shortCode', title: 'Short Code' }, { name: 'emailDomain', title: 'Email Domain' }, { name: 'webDomain', title: 'WebDomain' }, { name: 'legalAddress', title: 'Legal Address' }];
   private isEdit: boolean = false;
 
-  constructor(private router: Router,
-    private dataService: DataService) {
+  tableData: any = {
+    headerRow: ['#', '', 'AKA', 'Short Code', 'Type', ''],
+    dataRows: []
+  };
+
+  constructor(private router: Router, private dataService: DataService, private toastrService: ToastrService) {
     this.router.navigateByUrl('/accounts/browser');
   }
 
   ngOnInit() {
     this.dataSource = this.getData();
+    this.tableData.dataRows = this.getData();
     this.getAccountList();
     this.getCollectionViewData(this.dataSource);
-    this.flex.hostElement.addEventListener('click',(e) => {
+    this.flex.hostElement.addEventListener('click', (e) => {
       let ht = this.flex.hitTest(e);
-      if(ht.row != -1) {
+      if (ht.row != -1) {
         let obj = JSON.parse(JSON.stringify(this.flex.rows[ht.row].dataItem));
         this.selected.account = obj;
         this.isEdit = false;
@@ -51,12 +58,12 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       //let index = this.tempRows.findIndex(d => d.id === obj.id);
     });
   }
-  
+
   ngAfterViewInit() {
     this.tempRows = new Array();
     this.flex.rowHeaders.hostElement.addEventListener("click", (e) => {
       let ht = this.flex.hitTest(e);
-      if(ht.row != -1) {
+      if (ht.row != -1) {
         let obj = JSON.parse(JSON.stringify(this.flex.rows[ht.row].dataItem));
         let index = this.tempRows.findIndex(d => d.id === obj.id);
         if (index != -1) {
@@ -67,7 +74,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
         console.log(this.tempRows);
       }
     });
-    
+
   }
 
   private getData(): wjcCore.ObservableArray {
@@ -76,7 +83,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
     this.dataService.getData('/api/account').subscribe((resp: any) => {
       for (let i = 0; i < resp.length; i++) {
         data.push({
-          checked: true,
+          isChecked: false,
           id: resp[i].id,
           aka: resp[i].aka,
           legalAddress: resp[i].legalAddress,
@@ -94,7 +101,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
 
     return data;
   }
-  
+
   private getAccountList() {
     this.dataService.getData('/api/account-list')
       .subscribe((resp: any) => {
@@ -124,17 +131,35 @@ export class AccountsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onChange(id): void {
-    console.log(id);
+  onChange(id, name): void {
+    let checked = [];
+    for (let i = 0; i < this.tableData.dataRows.length; i++) {
+      let row = this.tableData.dataRows[i];
+      if (row.isChecked) {
+        checked.push(row.id);
+      }
+    }
+    if (checked.length) {
+      this.dataService.postData('/api/account-list/update/' + id, { data: { accountIds: checked } })
+        .subscribe(resp => {
+          this.toastrService.showNotification('Account successfully add to "' + name + '"', 'success');
+        });
+    } else {
+      alert('At least one account need to be selected!');
+    }
   }
+
+  onDetail (row): void {
+    this.selected.account = row;
+  }
+
   private detailStatus(status: string): void {
     if (status == 'edit')
       this.isEdit = !this.isEdit;
-    else if(status == 'cancel')
+    else if (status == 'cancel')
       this.isEdit = false;
     else {
       console.log(this.selected.account);
-
     }
   }
 }

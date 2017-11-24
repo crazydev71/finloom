@@ -12,8 +12,8 @@
               <div class="col-md-10 col-sm-12 col-xs-12 col-lg-7">
                 <div class="dropdown">
                   <button class="dropdown-toggle btn btn-primary btn-block" data-toggle="dropdown">{{default_title}}
-                      <b class="caret"></b>
-                    </button>
+                    <b class="caret"></b>
+                  </button>
                   <ul class="dropdown-menu dropdown-menu-left">
                     <li *ngFor="let group of group_list" (click)="group_By(group.value, group.title)">
                       <a> {{group.title}} </a>
@@ -24,28 +24,28 @@
               <div class="col-md-8 col-sm-12 col-xs-12 col-lg-5">
                 <div class="dropdown">
                   <button class="dropdown-toggle btn btn-primary btn-block" data-toggle="dropdown">Account List
-                      <b class="caret"></b>
-                    </button>
+                    <b class="caret"></b>
+                  </button>
                   <ul class="dropdown-menu dropdown-menu-left">
-                    <li *ngFor="let list of accountList" (click)="onChange(list.id)">
+                    <li *ngFor="let list of accountList" (click)="onChange(list.id, list.name)">
                       <a> {{ list.name }} </a>
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row" hidden>
               <div class="content table-responsive col-md-12">
                 <wj-flex-grid #flex [itemsSource]="dataSource" [selectionMode]="'Row'">
                   <ng-template wjFlexGridCellTemplate [cellType]="'RowHeader'" let-cell="item">
                     <input type="checkbox" data-md-icheck />
                   </ng-template>
-                  <wj-flex-grid-column [header]="''" [binding]="'checked'" >
+                  <wj-flex-grid-column [header]="''" [binding]="'checked'">
                     <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
-                      <input type="checkbox" data-md-icheck/>
+                      <input type="checkbox" data-md-icheck />
                     </template>
                   </wj-flex-grid-column>
-                  <wj-flex-grid-column [header]="'AKA'" [binding]="'aka'"><input type="checkbox" data-md-icheck /></wj-flex-grid-column>
+                  <wj-flex-grid-column [header]="'AKA'" [binding]="'aka'"></wj-flex-grid-column>
                   <wj-flex-grid-column [header]="'LEGAL ADDRESS'" [binding]="'legalAddress'"></wj-flex-grid-column>
                   <wj-flex-grid-column [header]="'LEGAL NAME'" [binding]="'legalName'"></wj-flex-grid-column>
                   <wj-flex-grid-column [header]="'SHORT CODE'" [binding]="'shortCode'"></wj-flex-grid-column>
@@ -53,6 +53,50 @@
                   <wj-flex-grid-column [header]="'PRIMARY WEB DOMAIN'" [binding]="'webDomain'"></wj-flex-grid-column>
                   <wj-flex-grid-column [header]="'ACCOUNT TYPE'" [binding]="'accountType'"></wj-flex-grid-column>
                 </wj-flex-grid>
+              </div>
+            </div>
+
+            <div class="">
+              <div class="card">
+                <div class="">
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th class="text-center" *ngFor="let header of tableData.headerRow">{{header}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let row of tableData.dataRows; let i = index">
+                          <td class="text-center">{{i + 1}}</td>
+                          <td class="text-center">
+                            <div>
+                              <div>
+                                <div class="checkbox">
+                                  <label>
+                                    <input type="checkbox" name="optionsCheckboxes1" [(ngModel)]="row.isChecked">
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="text-center">{{row.aka}}</td>
+                          <td class="text-center">{{row.shortCode}}</td>
+                          <td class="text-center">{{row.accountType}}</td>
+                          <td class="td-actions text-center" style="width: 30px;">
+                            <button type="button" class="btn btn-info" (click)="onDetail(row)">
+                              <i class="material-icons">person</i>
+                              <div class="ripple-container"></div>
+                            </button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="6" class="text-center" [hidden]="tableData.dataRows.length">No Available Date</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -69,9 +113,15 @@
               <div class="col-md-6 col-sm-6">
               </div>
               <div class="col-md-6 col-sm-6 account-edit">
-                <button *ngIf="!isEdit" class="btn btn-primary btn-just-icon" (click)="detailStatus('edit')"><i class="fa fa-edit  mr-1"></i></button>
-                <button *ngIf="isEdit" class="btn btn-success btn-just-icon" (click)="detailStatus('save')"><i class="fa fa-save  mr-1"></i></button>
-                <button *ngIf="isEdit" class="btn btn-danger btn-just-icon" (click)="detailStatus('cancel')"><i class="fa fa-close  mr-1"></i></button>
+                <button *ngIf="!isEdit" class="btn btn-primary btn-just-icon" (click)="detailStatus('edit')">
+                  <i class="fa fa-edit  mr-1"></i>
+                </button>
+                <button *ngIf="isEdit" class="btn btn-success btn-just-icon" (click)="detailStatus('save')">
+                  <i class="fa fa-save  mr-1"></i>
+                </button>
+                <button *ngIf="isEdit" class="btn btn-danger btn-just-icon" (click)="detailStatus('cancel')">
+                  <i class="fa fa-close  mr-1"></i>
+                </button>
               </div>
             </div>
             <div class="row account-board">
@@ -80,7 +130,7 @@
                   <h4 class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">{{f.title}}</h4>
                   <h4 *ngIf="!isEdit" class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">{{selected.account[f.name]}}</h4>
                   <mat-form-field *ngIf="isEdit" class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">
-                    <input matInput [(ngModel)]="selected.account[f.name]" >
+                    <input matInput [(ngModel)]="selected.account[f.name]">
                   </mat-form-field>
                 </div>
               </div>
