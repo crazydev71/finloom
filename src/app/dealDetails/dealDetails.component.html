@@ -20,18 +20,15 @@
                                         </a>
                   </li>
                   <li *ngFor="let row of facilitiesModel" class="">
-                    <a href="#fac{{row.facilityId}}" data-toggle="tab">
+                    <a (click)="getFacilityLenders()" href="#fac{{row.facilityId}}" data-toggle="tab">
                                               {{row.facilityName}}
                                             <div class="ripple-container"></div>
                                         </a>
                   </li>
-
-
                 </ul>
               </div>
             </div>
           </div>
-
           <div class="card-content">
             <div class="tab-content">
               <div class="tab-pane active" id="DealDetails">
@@ -106,6 +103,22 @@
                             <h4 class="col-md-6 col-sm-6">{{facilityheaders.CurrentCommitment}}</h4>
                             <h4 class="col-md-6 col-sm-6">{{row.currentCommitment}}</h4>
                           </div>
+                        </div>
+                        <div class="row account-board facilityLenderGrid">
+                            <wj-flex-grid #flex [itemsSource]="facilityLendersData" [selectionMode]="'Row'">
+                                <ng-template wjFlexGridCellTemplate [cellType]="'RowHeader'" let-cell="item">
+                                    <input type="checkbox" data-md-icheck  />
+                                </ng-template>
+                                <wj-flex-grid-column [header]="'Lender Name'" [binding]="'LenderName'"></wj-flex-grid-column>                              
+                                <wj-flex-grid-column [header]="'Interest Amount'" [binding]="'InterestAmount'" [format]="'n0'"></wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Allocated Amount'" [binding]="'AllocatedAmount'" [format]="'n0'"></wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Action'" [isReadOnly]="true">
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                                        <button class="btn btn-success btn-sm" (click)="onEdit(item)">Save</button>
+                                        <button class="btn btn-danger btn-sm" (click)="onDelete(item)">Delete</button>
+                                    </template>
+                                </wj-flex-grid-column>
+                            </wj-flex-grid>
                         </div>
                       </div>
                       <div class="tab-pane" id="facDues{{row.facilityId}}">

@@ -9,6 +9,7 @@ declare interface Task {
   title: string;
   checked: boolean;
 }
+declare var swal: any;
 @Component({
   selector: 'app-dealDetails',
   templateUrl: './dealDetails.component.html',
@@ -27,11 +28,11 @@ export class DealDetailsComponent implements OnInit {
   public data = [];
   private view;
   loadGrid: boolean = false;
-
   private account_name = 'Rechard Del,Sachie Clark,Trant Blarkey,Tae Carrilio,Ryone Cloke,Rahul Dickstein'.split(',');
   private account_email = 'Test1@gmail.com,Test2@gmail.com,Test3@gmail.com,Test4@gmail.com,Test5@gmail.com'.split(',');
   private contact_bank = 'Bank of America,Bank of United Kingdom'.split(',');
-
+  facilityLendersData: wjcCore.CollectionView;
+  private facilitylenderDataSource: any = [];
   constructor(private router: Router, private route: ActivatedRoute) {
     this.sub = this.route.params.subscribe(params => {
       this.selectedDealId = params['id'];
@@ -76,20 +77,7 @@ export class DealDetailsComponent implements OnInit {
       }
     ];
 
-    //     this.data = this.getData();
-    //     this.view = new wjcCore.CollectionView(this.data, {
-    //      // sortDescriptions: [new wjcCore.SortDescription('sales', false)]
-    //     });
 
-    //     // initialize item count display
-    //    // this.view.onCollectionChanged();
-    //     var theGrid = new wjcGrid.FlexGrid('.dealDuesGrid', {
-    //       itemsSource: this.view,
-    //       allowAddNew: true,
-    //       allowDelete: true,
-    //       showAlternatingRows: false,
-    //       headersVisibility: 'Row'
-    //     });
 
   }
   getDealDues() {
@@ -97,7 +85,6 @@ export class DealDetailsComponent implements OnInit {
       this.loadGrid = true;
       this.data = this.getData();
       this.view = new wjcCore.CollectionView(this.data, {
-        // sortDescriptions: [new wjcCore.SortDescription('sales', false)]
       });
       $(".dealDuesGrid").html("");
       var theGrid = new wjcGrid.FlexGrid('.dealDuesGrid', {
@@ -121,5 +108,66 @@ export class DealDetailsComponent implements OnInit {
       });
     }
     return data;
+  }
+
+
+  getCollectionViewData(data: any) {
+    this.facilityLendersData = new wjcCore.CollectionView(data);
+  }
+
+  getFacilityLendersData(count: number): wjcCore.ObservableArray {
+    var data = new wjcCore.ObservableArray();
+    for (var i = 1; i < count; i++) {
+      data.push({
+        id: i,
+        LenderName: "Lender" + i,
+        InterestAmount: i * 100,
+        AllocatedAmount: i * 100
+      });
+    }
+    return data;
+  }
+
+  getFacilityLenders() {
+    this.facilitylenderDataSource = this.getFacilityLendersData(10);
+    this.getCollectionViewData(this.facilitylenderDataSource);
+  }
+
+  onDelete(data: any) {
+    var that = this;
+    swal({
+      title: 'Are you sure? Do you want to delete this facility lender?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(function (result) {
+      let index = that.facilitylenderDataSource.findIndex(d => d.id === data.id);
+      that.facilitylenderDataSource.splice(index, 1);
+      that.showNotification('top', 'right', "Facility Lender deleted successfully.");
+    })
+  }
+
+  onEdit(data: any) {
+    let itemIndex = this.facilitylenderDataSource.findIndex(item => item.id == data.id);
+    this.facilitylenderDataSource[itemIndex] = data;
+    this.showNotification('top', 'right', "Facility Lender updated successfully.");
+  }
+
+  showNotification(from, align, message) {
+    $.notify({
+      icon: "add_alert",
+      message: message
+
+    }, {
+        type: 'success',
+        timer: 4000,
+        placement: {
+          from: from,
+          align: align
+        }
+      });
   }
 }

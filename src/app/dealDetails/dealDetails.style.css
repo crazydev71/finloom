@@ -2,7 +2,10 @@
     float: right;
     text-align: right;
 }
-
 .dealDuesGrid {
     width: auto;
+}
+
+.facilityLenderGrid{
+    width: 50% !important;
 }

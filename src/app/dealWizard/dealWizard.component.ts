@@ -25,6 +25,7 @@ export class DealWizardComponent implements OnInit {
     { value: '4', viewValue: 'Reliance Industries Limeted' },
     { value: '5', viewValue: 'Test Reliance 1' }
   ];
+  
   constructor() {
 
   }
