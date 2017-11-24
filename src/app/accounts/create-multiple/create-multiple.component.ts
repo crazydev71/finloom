@@ -118,8 +118,12 @@ export class CreateMultipleComponent implements OnInit {
 
           if (_.dataSource[i].accountType != undefined)
             _.dataSource[i]['accountType'] = _.accountTypes[_.dataSource[i].accountType - 1].name;
-
-          _.dataSource[i]['bankTypes'] = [_.bankTypes[_.dataSource[i].bankType]];
+          
+          if (_.dataSource[i].bankType != undefined)
+            _.dataSource[i]['bankTypes'] = [_.bankTypes[_.dataSource[i].bankType].id];
+          else {
+            _.dataSource[i]['bankTypes'] = [];
+          }
 
           _.dataService.postData('/api/account/create', _.dataSource[i])
             .subscribe((resp: any) => {
@@ -128,7 +132,7 @@ export class CreateMultipleComponent implements OnInit {
             },
             function (error) {
               console.log(error)
-            });
+            }); 
         }
         _.showNotification('top', 'right', "Accounts are saved successfully.");
       }).catch(function (err) {
