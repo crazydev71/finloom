@@ -4,25 +4,20 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { WjGridModule, WjFlexGrid } from 'wijmo/wijmo.angular2.grid';
 import * as wjcCore from 'wijmo/wijmo';
 import * as wjcGrid from 'wijmo/wijmo.grid';
-
-declare const $: any;
-
 declare var swal: any;
+declare const $: any;
 @Component({
-  selector: 'app-dealDetails',
-  templateUrl: './dealDetails.component.html',
-  styleUrls: ['./dealDetails.style.css']
+  selector: 'app-editFacility',
+  templateUrl: './editFacility.component.html',
+  styleUrls: ['./editFacility.style.css']
 })
 
-export class DealDetailsComponent implements OnInit {
+
+export class EditFacilityComponent implements OnInit {
   private sub: any;
-  selectedDealId: number = 0;
-  public dealHeaders: any = {};
-  public dueHeaders: any = [];
-  public dealModel: any = {};
+  selectedFacilityId: number = 0;
   public facilitiesModel: any = [];
   public facilityheaders: any = [];
-  public contractHeaders: any = [];
   public data = [];
   private view;
   loadGrid: boolean = false;
@@ -35,8 +30,9 @@ export class DealDetailsComponent implements OnInit {
   private DealEdit: any;
   private FacilityEdit: any;
   constructor(private router: Router, private route: ActivatedRoute) {
+    debugger;
     this.sub = this.route.params.subscribe(params => {
-      this.selectedDealId = params['id'];
+      this.selectedFacilityId = params['id'];
     });
   }
   public status: any[] = [
@@ -47,17 +43,9 @@ export class DealDetailsComponent implements OnInit {
   ];
 
   public ngOnInit() {
-    this.dealHeaders = { DealName: 'Deal Name', DealAlias: 'Deal Alias', AgentBank: 'Agent Bank', SyndicateBank: 'Syndicate Bank', DealStatus: 'Deal Status' };
-    this.dueHeaders = { DealDetails: 'Deal Details', DealDues: 'Deal Dues', DueType: 'Due Type', DueAmount: 'Due Amount', DueDate: 'Due Date', PaidAmount: 'Paid Amount' };
-    this.contractHeaders = { ContractName: 'Contract Name', ContractAlias: 'Contract Alias', CurrentAmount: 'Current Amount' };
+    debugger;
     this.facilityheaders = { FacilityDetails: 'Facility Details', FacilityDues: 'Facility Dues', FacilityName: 'Facility Name', FacilityAlias: 'Facility Alias', CurrentCommitment: 'Current Commitment' };
-    this.dealModel = {
-      DealName: 'Expedia Company 11/1/2017', DealAlias: 'Expedia Company 11/1/2017', AgentBank: 'JP Morgan Chase', SyndicateBank: 'JP Morgan Chase', DealStatus: 'Pending', DealStatusId: 'Active', DealSyndicateBankId: '1', DealAgentBankId: '1',
-      dealDues: [
-        { dueType: 'Admin', dueAmount: '100', dueDate: '11/17/2017', paidAmount: '50' },
-        { dueType: 'Admin', dueAmount: '200', dueDate: '11/17/2017', paidAmount: '130' }
-      ]
-    };
+
 
     this.facilitiesModel = [
       {
@@ -83,40 +71,12 @@ export class DealDetailsComponent implements OnInit {
         ]
       }
     ];
+    debugger;
+    this.FacilityEdit = {facilityId: '1', facilityName: 'facility 1', href: 'fac1', facilityAlias: 'faility 1', currentCommitment: '100'};
 
-
+    this.getFacilityLenders();
 
   }
-  getDealDues() {
-    if (this.loadGrid == false) {
-      this.loadGrid = true;
-      this.data = this.getData();
-      this.view = new wjcCore.CollectionView(this.data, {
-      });
-      $(".dealDuesGrid").html("");
-      var theGrid = new wjcGrid.FlexGrid('.dealDuesGrid', {
-        itemsSource: this.view,
-        allowAddNew: true,
-        allowDelete: true,
-        showAlternatingRows: false,
-        headersVisibility: 'Row'
-      });
-    }
-  }
-
-  public getData() {
-    var data = [];
-    for (var i = 0; i < this.dealModel.dealDues.length; i++) {
-      data.push({
-        dueType: this.dealModel.dealDues[i].dueType,
-        dueAmount: this.dealModel.dealDues[i].dueAmount,
-        dueDate: this.dealModel.dealDues[i].dueDate,
-        paidAmount: this.dealModel.dealDues[i].paidAmount,
-      });
-    }
-    return data;
-  }
-
 
   getCollectionViewData(data: any) {
     this.facilityLendersData = new wjcCore.CollectionView(data);
@@ -238,10 +198,8 @@ export class DealDetailsComponent implements OnInit {
   }
 
   editFacility(data: any) {
-    // this.FacilityEdit = JSON.parse(JSON.stringify(data));
-    // $("#editFacilityModal").modal('show');
-
-    this.router.navigateByUrl('/editFacility/'+ data.facilityId);
+    this.FacilityEdit = JSON.parse(JSON.stringify(data));
+    $("#editFacilityModal").modal('show');
   }
 
   saveDeal(f: NgForm) {
@@ -253,11 +211,15 @@ export class DealDetailsComponent implements OnInit {
 
   saveFacility(f: NgForm) {
     if (f.valid) {
-      $("#editFacilityModal").modal('hide');
+      this.router.navigateByUrl('/deals');
     } else {
     }
   }
+   cancelFacility(){
+     this.router.navigateByUrl('/deals');
+   }
 
 
 
 }
+

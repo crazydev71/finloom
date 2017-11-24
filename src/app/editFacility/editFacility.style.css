@@ -1,16 +1,3 @@
-.account-edit{
-    float: right;
-    text-align: right;
-}
-.dealDuesGrid {
-    width: auto;
-}
-
-.facilityLenderGrid{
-    width: 36% !important;
-}
-
-
 :host /deep/ .table-button select, :host /deep/ .mydp {
     border: 1px solid #a9a9a9 !important;
     width: 44% !important;
