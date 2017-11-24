@@ -10,6 +10,7 @@ import { Account, AccountList, BankType, Industry } from '../shared/interfaces/m
 import { debug } from 'util';
 
 declare const $: any;
+declare var swal: any;
 
 @Component({
   selector: 'app-accounts',
@@ -157,6 +158,29 @@ export class AccountsComponent implements OnInit, AfterViewInit {
     this.selected.account = Object.assign({}, row);
   }
 
+  onDelete(id: number, rowNum: number): void {
+    let _ = this;
+    swal({
+      title: 'Do you want to delete account?',
+      text: "",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes Delete it'
+    }).then(function (result) {
+      _.tableData.dataRows.splice(rowNum, 1);
+      _.dataService.deleteData('/api/account/' + id)
+        .subscribe((resp: any) => {
+          _.toastrService.showNotification('Account successfully deleted', 'success');
+        },
+        function (error) {
+          _.toastrService.showNotification('Server Error', 'danger');
+        });
+    }).catch(function (err) {
+      
+    });
+  }
   private detailStatus(status: string): void {
     if (status == 'edit')
       this.isEdit = !this.isEdit;
@@ -179,7 +203,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
           this.toastrService.showNotification('Account successfully updated', 'success');
         },
         function (error) {
-          this.toastrService.showNotification('Account successfully updated', 'danger');
+          this.toastrService.showNotification('Server error', 'danger');
         });
     }
   }

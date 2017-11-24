@@ -5,6 +5,7 @@ import { FormsModule, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { MdModule } from '../creative/md/md.module';
 import { MaterialModule } from '../app.module';
 import { WjGridModule } from 'wijmo/wijmo.angular2.grid';
+import { WjInputModule } from 'wijmo/wijmo.angular2.input';
 
 import { AccountsComponent } from './accounts.component';
 import { AccountsRoutes } from './accounts.routing';
@@ -20,7 +21,8 @@ import { AccountsListComponent } from './accounts-list/accounts-list.component';
     ReactiveFormsModule,
     MdModule,
     MaterialModule,
-    WjGridModule
+    WjGridModule,
+    WjInputModule
   ],
   exports: [
     FormsModule
