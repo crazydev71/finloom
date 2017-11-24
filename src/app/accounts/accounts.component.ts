@@ -34,8 +34,9 @@ export class AccountsComponent implements OnInit, AfterViewInit {
   private isEdit: boolean = false;
 
   tableData: any = {
-    headerRow: ['#', '', 'AKA', 'Short Code', 'Type', ''],
-    dataRows: []
+    headerRow: ['#', '', 'AKA', 'Short Code', 'Type', '...'],
+    dataRows: [],
+    domains: []
   };
 
   constructor(private router: Router, private dataService: DataService, private toastrService: ToastrService) {
@@ -43,8 +44,6 @@ export class AccountsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.dataSource = this.getData();
-    this.tableData.dataRows = this.getData();
     this.getAccountList();
     this.getCollectionViewData(this.dataSource);
     this.flex.hostElement.addEventListener('click', (e) => {
@@ -57,6 +56,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       console.log(this.flex.rows);
       //let index = this.tempRows.findIndex(d => d.id === obj.id);
     });
+    this.getData();
   }
 
   ngAfterViewInit() {
@@ -77,29 +77,31 @@ export class AccountsComponent implements OnInit, AfterViewInit {
 
   }
 
-  private getData(): wjcCore.ObservableArray {
-    var countries = 'US,Germany,UK,Japan,Italy,Greece'.split(','),
-      data = new wjcCore.ObservableArray();
-    this.dataService.getData('/api/account').subscribe((resp: any) => {
-      for (let i = 0; i < resp.length; i++) {
-        data.push({
-          isChecked: false,
-          id: resp[i].id,
-          aka: resp[i].aka,
-          legalAddress: resp[i].legalAddress,
-          legalName: resp[i].legalName,
-          shortCode: resp[i].shortCode,
-          emailDomain: resp[i].PrimaryEmailDomain,
-          webDomain: resp[i].primaryWebDomain,
-          accountType: resp[i].accountType
-        });
-      }
+  private getData() {
+    this.dataService.getData('/api/account/get/all').subscribe((resp: any) => {
+      this.tableData.domains = resp.domains;
+      this.tableData.dataRows = resp.items;
+      this.matchEmails();
     });
-    // parent.data.accountLists = [];
-    // parent.data.bankTypes = [];
-    // parent.data.industries = [];
+  }
 
-    return data;
+  private matchEmails() {
+    let domains = this.tableData.domains;
+    for (let i = 0; i < this.tableData.dataRows.length; i++) {
+      let item = this.tableData.dataRows[i];
+      if (item.primaryEmailDomain) {
+        item.emailDomain = domains.email.filter(domain => {
+          return item.primaryEmailDomain == domain.id;
+        });
+        item.emailDomain = item.emailDomain[0].name;
+      }
+      if (item.primaryWebDomain) {
+        item.webDomain = domains.web.filter(domain => {
+          return item.primaryWebDomain == domain.id;
+        });
+        item.webDomain = item.webDomain[0].name;
+      }
+    }
   }
 
   private getAccountList() {
@@ -143,14 +145,16 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       this.dataService.postData('/api/account-list/update/' + id, { data: { accountIds: checked } })
         .subscribe(resp => {
           this.toastrService.showNotification('Account successfully add to "' + name + '"', 'success');
+          this.router.navigateByUrl('/accounts/accountlist/' + id);
         });
     } else {
       alert('At least one account need to be selected!');
     }
   }
 
-  onDetail (row): void {
-    this.selected.account = row;
+  onDetail(row): void {
+    console.log(this.tableData.dataRows);
+    this.selected.account = Object.assign({}, row);
   }
 
   private detailStatus(status: string): void {
@@ -159,7 +163,24 @@ export class AccountsComponent implements OnInit, AfterViewInit {
     else if (status == 'cancel')
       this.isEdit = false;
     else {
-      console.log(this.selected.account);
+      // delete this.selected.account.isChecked;
+      // delete this.selected.account.emailDomain;
+      // delete this.selected.account.webDomain;
+      this.dataService.putData('/api/account/' + this.selected.account.id, this.selected.account)
+        .subscribe((resp: any) => {
+          this.selected.accountRef = this.tableData.dataRows.filter(row => {
+            return row.id == this.selected.account.id;
+          })[0];
+          for (let key in this.selected.accountRef) {
+            this.selected.accountRef[key] = this.selected.account[key];
+          }
+          this.isEdit = false;
+          this.matchEmails();
+          this.toastrService.showNotification('Account successfully updated', 'success');
+        },
+        function (error) {
+          this.toastrService.showNotification('Account successfully updated', 'danger');
+        });
     }
   }
 }

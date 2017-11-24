@@ -65,9 +65,9 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div class="" *ngIf="selectedType=='sub'">
+                  <div class="" *ngIf="selectedType=='sub' || selectedType=='lob'">
                     <mat-form-field>
-                      <mat-select placeholder="Parent Account" name="account">
+                      <mat-select placeholder="Parent Account" name="account" [(ngModel)]="parentId" [ngModelOptions]="{standalone: true}">
                         <mat-option *ngFor="let account of data.accounts" [value]="account.id">
                           {{ account.aka }}
                         </mat-option>
@@ -76,8 +76,8 @@
                   </div>
                   <div class="">
                     <mat-form-field>
-                      <mat-select multiple placeholder="Bank Types" name="bankType">
-                        <mat-option *ngFor="let bankType of bankTypes" [value]="bankType.name">
+                      <mat-select multiple placeholder="Bank Types" name="bankType" [(ngModel)]="bankType" [ngModelOptions]="{standalone: true}">
+                        <mat-option *ngFor="let bankType of bankTypes" [value]="bankType.id">
                           {{ bankType.name }}
                         </mat-option>
                       </mat-select>
