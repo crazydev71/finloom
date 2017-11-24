@@ -6,11 +6,25 @@
       </div>
       <div class="card-content">
         <h4 class="card-title">Create Multiple</h4>
+        <div class="row">
+          <div class="content table-responsive col-md-12">
+            <wj-flex-grid #flex class="sGrid" [itemsSource]="data" [selectionMode]="'Row'" [allowAddNew]="true" [allowDelete]="true">
+              <wj-flex-grid-column [header]="'AKA'" [binding]="'aka'"></wj-flex-grid-column>
+              <wj-flex-grid-column [header]="'LEGAL NAME'" [binding]="'legalName'"></wj-flex-grid-column>
+              <wj-flex-grid-column [header]="'SHORT CODE'" [binding]="'shortCode'"></wj-flex-grid-column>
+              <wj-flex-grid-column [header]="'PRIMARY EMAIL DOMAIN'" [binding]="'primaryEmailDomain'"></wj-flex-grid-column>
+              <wj-flex-grid-column [header]="'PRIMARY WEB DOMAIN'" [binding]="'primaryWebDomain'"></wj-flex-grid-column>
+              <wj-flex-grid-column [header]="'ACCOUNT TYPE'" [binding]="'accountType'" [dataMap]="dataMapAccountType"></wj-flex-grid-column>
+              <wj-flex-grid-column [header]="'PARENT ACCOUNT'" [binding]="'parentId'" [dataMap]="dataMapParentAcc"></wj-flex-grid-column>
+              <wj-flex-grid-column [header]="'BANK TYPE'" [binding]="'bankType'" [dataMap]="dataMapBankType"></wj-flex-grid-column>
+            </wj-flex-grid>
+          </div>
+        </div>
       </div>
       <div class="card-footer row">
         <div [ngStyle]="{'max-width': '500px', 'margin': '0 auto', 'text-align': 'center', 'display': 'flex'}">
-          <button type="submit" class="btn btn-success btn-block" [ngStyle]="{'max-width': '50%', 'margin': '5px', 'display': 'inline'}">Save All</button>
-          <button type="submit" class="btn btn-danger btn-block" [ngStyle]="{'max-width': '50%', 'margin': '5px', 'display': 'inline'}">Cancel</button>
+          <button type="submit" class="btn btn-success btn-block" [ngStyle]="{'max-width': '50%', 'margin': '5px', 'display': 'inline'}" (click)="onMultiSave()">Save All</button>
+          <button type="submit" class="btn btn-danger btn-block" [ngStyle]="{'max-width': '50%', 'margin': '5px', 'display': 'inline'}" (click)="onReset()">Reset</button>
         </div>
       </div>
     </div>

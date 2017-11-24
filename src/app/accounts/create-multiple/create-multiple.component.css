@@ -8,3 +8,10 @@
 .mat-card-footer {
   padding: 0 20px;
 }
+.sGrid {
+  background-color: #fff;
+  box-shadow: 4px 4px 10px 0 rgba(50, 50, 50, 0.75);
+  height: 300px;
+  margin-bottom: 12px;
+  overflow: auto;
+}

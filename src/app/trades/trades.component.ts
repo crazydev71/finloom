@@ -99,6 +99,7 @@ export class TradesComponent implements OnInit, AfterViewInit {
         this.dataMapSalesperson = new wjGrid.DataMap(this.getSalesperson(), 'id', 'name');
         this.dataMapBroker = new wjGrid.DataMap(this.getBroker(), 'id', 'name');
         this.dataMapCurrency = new wjGrid.DataMap(this.getCurrency(), 'id', 'name');
+        console.log(this.dataMapCurrency);
         this.filter = { 'TradeDate': this.model };
     }
 
