@@ -58,8 +58,9 @@ router.post('/delete/:id', async (req, res) => {
 
 router.get('/detail/:id', async (req, res) => {
   let { id } = req.params;
-  const data = await AccountListEntry.findAll({ where: { accountListId: id }, include: [Account, AccountList] });
-  res.json({ data });
+  const accountList = await AccountList.findOne({ where: { id } });
+  const accounts = await AccountListEntry.findAll({ where: { accountListId: id }, include: [Account] });
+  res.json({ accountList, accounts });
 });
 
 router.delete('/destroy/:id', async (req, res) => {
@@ -67,7 +68,7 @@ router.delete('/destroy/:id', async (req, res) => {
   const failedCount = await AccountListEntry.destroy({ where: { accountListId: id } });
   const failed = await AccountList.destroy({ where: { id } });
   res.json({ failed, failedCount });
-})
+});
 
 module.exports = function (rootRouter) {
   rootRouter.use('/account-list', router)

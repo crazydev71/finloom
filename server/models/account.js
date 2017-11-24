@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     shortCode: DataTypes.STRING,  // short code
     legalAddress: DataTypes.STRING, // address
     primaryWebDomain: DataTypes.INTEGER,
-    PrimaryEmailDomain: DataTypes.INTEGER,
+    primaryEmailDomain: DataTypes.INTEGER,
     accountStatus: { // status, should be verified by admin
       type: DataTypes.ENUM('active', 'pending', 'inactive'),
       defaultValue: 'active' 

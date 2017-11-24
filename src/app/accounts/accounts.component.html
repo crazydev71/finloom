@@ -91,7 +91,7 @@
                           </td>
                         </tr>
                         <tr>
-                          <td colspan="6" class="text-center" [hidden]="tableData.dataRows.length">No Available Date</td>
+                          <td [attr.colspan]="tableData.headerRow.length" class="text-center" [hidden]="tableData.dataRows.length">No Available Date</td>
                         </tr>
                       </tbody>
                     </table>
