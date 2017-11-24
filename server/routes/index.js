@@ -14,7 +14,7 @@ require('./contact.routes.js')(router);
 require('./contact_list.routes.js')(router);
 require('./contact_email.routes.js')(router);
 require('./banktype.routes.js')(router);
-require('./eamil_domain.routes.js')(router);
+require('./email_domain.routes.js')(router);
 require('./web_domain.routes.js')(router);
 
 module.exports = router;
