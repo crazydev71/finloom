@@ -10,32 +10,41 @@
           <table class="table">
             <thead>
               <tr>
-                <th class="text-center">{{ tableData.headerRow[0] }}</th>
-                <th>{{ tableData.headerRow[1] }}</th>
-                <th>{{ tableData.headerRow[2] }}</th>
-                <th>{{ tableData.headerRow[3] }}</th>
-                <th class="text-right">{{ tableData.headerRow[4] }}</th>
-                <th class="text-right">{{ tableData.headerRow[5] }}</th>
+                <th class="text-center {{header==' ' ? 'td-actions' : ''}}" *ngFor="let header of tableData.headerRow">
+                  {{header}}
+                  <button type="button" class="btn btn-danger btn-round" *ngIf="header==' '" (click)="onDeleteSelected();">
+                    <i class="material-icons">delete</i>
+                  </button>
+                </th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let row of tableData.dataRows">
-                <td class="text-center">{{row[0]}}</td>
-                <td>{{row[1]}}</td>
-                <td>{{row[2]}}</td>
-                <td>{{row[3]}}</td>
-                <td class="text-right">&euro; {{row[4]}}</td>
-                <td class="td-actions text-right">
-                  <button type="button" class="btn btn-info btn-round">
-                    <i class="material-icons">person</i>
-                  </button>
-                  <button type="button" class="btn btn-success btn-round">
-                    <i class="material-icons">edit</i>
-                  </button>
-                  <button type="button" class="btn btn-danger btn-round">
+              <tr *ngFor="let row of tableData.dataRows; let i = index">
+                <td class="text-center">{{i + 1}}</td>
+                <td class="text-center">
+                  <div>
+                    <div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="optionsCheckboxes1" [(ngModel)]="row.isChecked">
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-center">{{row.aka}}</td>
+                <td class="text-center">{{row.shortCode}}</td>
+                <td class="text-center">{{row.accountType}}</td>
+                <td class="text-center">{{row.primaryWebDomain}}</td>
+                <td class="text-center">{{row.primaryEmailDomain}}</td>
+                <td class="td-actions text-center" style="width: 30px;">
+                  <button type="button" class="btn btn-danger btn-round" (click)="onDelete(row.id, row.name);">
                     <i class="material-icons">close</i>
                   </button>
                 </td>
+              </tr>
+              <tr>
+                <td [attr.colspan]="tableData.headerRow.length" class="text-center" [hidden]="tableData.dataRows.length">No Available Date</td>
               </tr>
             </tbody>
           </table>

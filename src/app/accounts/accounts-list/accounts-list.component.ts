@@ -13,16 +13,10 @@ export class AccountsListComponent implements OnInit {
   private list: any = {};
   private tableData: any;
 
-  constructor(private route: ActivatedRoute, private dataservice: DataService) {
+  constructor(private route: ActivatedRoute, private dataservice: DataService, private toastrservice: ToastrService) {
     this.tableData = {
-      headerRow: ['#', 'Name', 'Job Position', 'Since', 'Salary', 'Actions'],
-      dataRows: [
-        ['1', 'Andrew Mike', 'Develop', '2013', '99,225', ''],
-        ['2', 'John Doe', 'Design', '2012', '89,241', 'btn-round'],
-        ['3', 'Alex Mike', 'Design', '2010', '92,144', 'btn-simple'],
-        ['4', 'Mike Monday', 'Marketing', '2013', '49,990', 'btn-round'],
-        ['5', 'Paul Dickens', 'Communication', '2015', '69,201', '']
-      ]
+      headerRow: ['#', '', 'AKA', 'Short Code', 'Type', 'Primary Web Domain', 'Primary Email Domain', ' '],
+      dataRows: []
     };
   }
 
@@ -30,10 +24,43 @@ export class AccountsListComponent implements OnInit {
     let vm = this;
     this.route.params.subscribe(params => {
       vm.listId = params['id'];
-      this.dataservice.getData('/api/account-list/' + vm.listId).subscribe((resp: any) => {
-        vm.list = resp;
+      this.dataservice.getData('/api/account-list/detail/' + vm.listId).subscribe((resp: any) => {
+        vm.list = resp.accountList;
+        vm.tableData.dataRows = resp.accounts.map(account => {
+          return account.Account;
+        });
       });
     })
   }
 
+  onDeleteSelected() {
+    let checked = [];
+    for (let i = 0; i < this.tableData.dataRows.length; i++) {
+      let row = this.tableData.dataRows[i];
+      if (row.isChecked) {
+        checked.push(row.id);
+      }
+    }
+    if (checked.length) {
+      this.dataservice.postData('/api/account-list/delete/' + this.listId, { data: { accountIds: checked } })
+        .subscribe(resp => {
+          this.tableData.dataRows = this.tableData.dataRows.filter(row => {
+            return checked.indexOf(row.id) == -1;
+          })
+          this.toastrservice.showNotification('Accounts successfully deleted', 'success');
+        });
+    } else {
+      alert('At least one account need to be selected!');
+    }
+  }
+
+  onDelete(id, name) {
+    this.dataservice.postData('/api/account-list/delete/' + this.listId, { data: { accountIds: [id] } })
+      .subscribe(resp => {
+        this.tableData.dataRows = this.tableData.dataRows.filter(row => {
+          return id != row.id;
+        })
+        this.toastrservice.showNotification('Account successfully add to "' + name + '"', 'success');
+      });
+  }
 }
