@@ -37,4 +37,9 @@ router.post('/signup', passport.authenticate('local-signup', {failureFlash: true
   }
 })
 
+router.post('/logout', (req, res) => {
+  req.logout();
+  res.json({msg: 'Logout success'});
+})
+
 module.exports = router;
