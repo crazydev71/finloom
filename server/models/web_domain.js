@@ -2,6 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   var WebDomain = sequelize.define('WebDomain', {
     name: DataTypes.STRING,
+    accountId: DataTypes.INTEGER,
     status: DataTypes.INTEGER
   }, {
     classMethods: {

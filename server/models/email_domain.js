@@ -2,6 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   var EmailDomain = sequelize.define('EmailDomain', {
     name: DataTypes.STRING,
+    accountId: DataTypes.INTEGER,
     status: DataTypes.INTEGER
   }, {
     classMethods: {

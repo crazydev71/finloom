@@ -83,9 +83,13 @@
                           <td class="text-center">{{row.aka}}</td>
                           <td class="text-center">{{row.shortCode}}</td>
                           <td class="text-center">{{row.accountType}}</td>
-                          <td class="td-actions text-center" style="width: 30px;">
+                          <td class="td-actions text-center" style="width: 80px;">
                             <button type="button" class="btn btn-info" (click)="onDetail(row)">
                               <i class="material-icons">person</i>
+                              <div class="ripple-container"></div>
+                            </button>
+                            <button type="button" class="btn btn-info" (click)="onDelete(row.id, i)">
+                              <i class="material-icons">delete</i>
                               <div class="ripple-container"></div>
                             </button>
                           </td>

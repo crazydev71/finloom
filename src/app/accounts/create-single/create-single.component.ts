@@ -53,6 +53,8 @@ export class CreateSingleComponent implements OnInit {
   ];
   private accountTypes = [{ name: 'master', title: 'Master Account' }, { name: 'lob', title: 'Line of business' }, { name: 'sub', title: 'Sub Account' }];
   private selectedType: string = "master";
+  private parentId: any;
+  private bankType: any;
   private bankTypes;
   private accountType: number = 0;
   private data: any = {};
@@ -67,11 +69,13 @@ export class CreateSingleComponent implements OnInit {
       id: 1
     }
   ];
-  constructor(private router: Router,
-              private fb: FormBuilder,
-              private dataService: DataService) {
-  }
   private groupData: any;
+
+  constructor(private router: Router,
+    private fb: FormBuilder,
+    private dataService: DataService) {
+  }
+  
   ngOnInit() {
     this.groupData = this.formBuilder();
     this.modelForm = this.fb.group(this.groupData);
@@ -129,31 +133,38 @@ export class CreateSingleComponent implements OnInit {
     if (this.modelForm.invalid) {
       return;
     }
-    let accData = {};
+    let accData: any = {};
+    accData.domains = {};
     for (var i = 0; i < this.fields.length; i++) {
       if (this.fields[i].id == 'emailDomain') {
-        accData['emailDomains'] = [];
-        accData['PrimaryEmailDomain'] = this.modelForm.controls[this.fields[i].id + '0'].value;
+        accData.domains.email = {domains: []};
+        accData.domains.email.primary = this.modelForm.controls[this.fields[i].id + '0'].value;
         for (var j = 1; j < this.emailDomain.length; j++) {
-          accData['emailDomains'] = accData['emailDomains'].concat({ name: this.modelForm.controls[this.fields[i].id + '' + j].value });
+          accData.domains.email.domains.push({ name: this.modelForm.controls[this.fields[i].id + '' + j].value });
         }
       } else if (this.fields[i].id == 'webDomain') {
-        accData['webDomains'] = [];
-        accData['primaryWebDomain'] = this.modelForm.controls[this.fields[i].id + '0'].value;
+        accData.domains.web = {domains: []};
+        accData.domains.web.primary = this.modelForm.controls[this.fields[i].id + '0'].value;
         for (var j = 1; j < this.webDomain.length; j++) {
-          accData['webDomains'] = accData['webDomains'].concat({ name: this.modelForm.controls[this.fields[i].id + '' + j].value });
+          accData.domains.web.domains.push({ name: this.modelForm.controls[this.fields[i].id + '' + j].value });
         }
       } else
         accData[this.fields[i].id] = this.modelForm.controls[this.fields[i].id].value;
     }
     accData['accountType'] = this.selectedType;
-    this.dataService.postData('/api/account', accData)
-      .subscribe((resp: any) => {
-        this.router.navigateByUrl('/accounts/browser');
-      },
-      function (error) {
-        console.log(error)
-      });
+    accData['parentId'] = this.parentId;
+    accData['bankTypes'] = this.bankType;
+
+    console.log(accData);
+    if (accData) {
+      this.dataService.postData('/api/account/create', accData)
+        .subscribe((resp: any) => {
+          this.router.navigateByUrl('/accounts/browser');
+        },
+        function (error) {
+          console.log(error)
+        });
+    }
   }
 
   private changeFormData(index, key): void {
