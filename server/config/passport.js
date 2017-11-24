@@ -60,7 +60,6 @@ passport.use('local-signup', new LocalStrategy(
     } catch (err) {
       return done(err);
     }
-    return done(null, contact)
   }
 ));
 
