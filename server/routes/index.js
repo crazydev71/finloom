@@ -18,6 +18,14 @@ require('./banktype.routes.js')(router);
 require('./email_domain.routes.js')(router);
 require('./web_domain.routes.js')(router);
 
+
+/**
+ * @description User login
+ * @method POST
+ * @param email
+ * @param password
+ * @returns authenticated contact
+ */
 router.post('/login', passport.authenticate('local-login', {failureFlash: true}), (req, res) => {
   if (req.user) {
     const contact = req.user;
@@ -27,6 +35,13 @@ router.post('/login', passport.authenticate('local-login', {failureFlash: true})
   }
 });
 
+/**
+ * @description User sign up
+ * @method POST
+ * @param email
+ * @param password
+ * @returns Authenticated contact or error message
+ */
 router.post('/signup', passport.authenticate('local-signup', {failureFlash: true}), (req, res) => {
   if (req.user) {
     req.login();
@@ -37,6 +52,11 @@ router.post('/signup', passport.authenticate('local-signup', {failureFlash: true
   }
 })
 
+/**
+ * @description User log out
+ * @method GET
+ * @returns log out success message
+ */
 router.post('/logout', (req, res) => {
   req.logout();
   res.json({msg: 'Logout success'});
