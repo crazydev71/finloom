@@ -1,0 +1,29 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header card-header-icon" data-background-color="orange">
+        <i class="material-icons">assignment</i>
+      </div>
+      <div class="card-content">
+        <h4 class="card-title">Create Multiple</h4>
+        <div class="row">
+          <div class="content table-responsive col-md-12">
+            <wj-flex-grid #flex class="sGrid" [itemsSource]="data" [selectionMode]="'Row'" [allowAddNew]="true" [allowDelete]="true">
+              <wj-flex-grid-column [header]="'FIRST NAME'" [binding]="'firstName'"></wj-flex-grid-column>
+              <wj-flex-grid-column [header]="'LAST NAME'" [binding]="'lastName'"></wj-flex-grid-column>
+              <wj-flex-grid-column [header]="'PRIMARY EMAIL'" [binding]="'primaryEmail'"></wj-flex-grid-column>
+              <wj-flex-grid-column [header]="'PHONE NUMBER'" [binding]="'phoneNumber'" [inputType]="'number'"></wj-flex-grid-column>
+              <wj-flex-grid-column [header]="'PASSWORD'" [binding]="'password'" [inputType]="'password'"></wj-flex-grid-column>
+            </wj-flex-grid>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer row">
+        <div [ngStyle]="{'max-width': '500px', 'margin': '0 auto', 'text-align': 'center', 'display': 'flex'}">
+          <button type="submit" class="btn btn-success btn-block" [ngStyle]="{'max-width': '50%', 'margin': '5px', 'display': 'inline'}" (click)="onMultiSave()">Save All</button>
+          <button type="submit" class="btn btn-danger btn-block" [ngStyle]="{'max-width': '50%', 'margin': '5px', 'display': 'inline'}" (click)="onReset()">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

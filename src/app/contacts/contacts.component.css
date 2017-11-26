@@ -5,3 +5,30 @@
 .dropdown-menu {
   width: 100%;
 }
+.contact-edit {
+  text-align: right;
+}
+.contact-list i {
+  margin-right: 10px;
+}
+.dropdown-menu {
+  width: 100%;
+}
+.dropdown-header {
+  padding-top: 10px;
+}
+label {
+  width: 100%;
+}
+.contact-detail h4 {
+  white-space: pre;
+}
+.contact-detail h4:nth-child(even),
+.contact-active {
+  color: slateblue;
+  font-weight: bold;
+  font-style: italic;
+}
+.contact-active {
+  color: lightgreen;
+}

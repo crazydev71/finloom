@@ -151,8 +151,8 @@
                   <i class="material-icons">{{childitem.icontype}}</i>
                 </span>
                 <span class="sidebar-normal">{{childitem.title}}</span>
-                <i *ngIf="childitem.api" class="material-icons" data-toggle="modal" data-target="#deleteModal" (click)="selection.delete = childitem">close</i>
-                <i *ngIf="childitem.api" class="material-icons" data-toggle="modal" data-target="#editModal" (click)="selection.edit = childitem">edit</i>
+                <i *ngIf="childitem.api && childitem.api!=''" class="material-icons" data-toggle="modal" data-target="#deleteModal" (click)="selection.delete = childitem">close</i>
+                <i *ngIf="childitem.api && childitem.api!=''" class="material-icons" data-toggle="modal" data-target="#editModal" (click)="selection.edit = childitem">edit</i>
               </a>
             </li>
             <li *ngIf="!menuitem.children.length">
