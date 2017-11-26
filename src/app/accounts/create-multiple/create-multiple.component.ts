@@ -30,6 +30,18 @@ export class CreateMultipleComponent implements OnInit {
   constructor(private dataService: DataService) {
     this.dataSource = this.initTable(3);
     this.getCollectionViewData(this.dataSource);
+    this.checkValidation();
+  }
+
+  ngOnInit() {
+    this.getAccountData();
+    this.getBankType();
+    this.dataMapAccountType = new wjcGrid.DataMap(this.accountTypes, 'id', 'name');
+  }
+  getCollectionViewData(data: any) {
+    this.data = new wjcCore.CollectionView(data);
+  }
+  private checkValidation(): void {
     let _ = this;
     let validationField = ['aka', 'legalName', 'shortCode', 'primaryEmailDomain', 'primaryWebDomain'];
     this.data = new wjcCore.CollectionView(this.dataSource, {
@@ -45,16 +57,6 @@ export class CreateMultipleComponent implements OnInit {
       }
     });
   }
-
-  ngOnInit() {
-    this.getAccountData();
-    this.getBankType();
-    this.dataMapAccountType = new wjcGrid.DataMap(this.accountTypes, 'id', 'name');
-  }
-  getCollectionViewData(data: any) {
-    this.data = new wjcCore.CollectionView(data);
-  }
-
   private getBankType() {
     this.dataService.getData('/api/banktype')
       .subscribe((resp: any) => {
@@ -144,6 +146,7 @@ export class CreateMultipleComponent implements OnInit {
   private onReset() {
     this.dataSource = this.initTable(3);
     this.getCollectionViewData(this.dataSource);
+    this.checkValidation();
   }
 
   showNotification(from, align, message) {

@@ -6,6 +6,8 @@ import { ContactsListComponent } from './contacts-list/contacts-list.component';
 import { CreateListComponent } from './create-list/create-list.component';
 import { ContactMoreComponent } from './contact-more/contact-more.component';
 import { ContactSettingComponent } from './contact-setting/contact-setting.component';
+import { ContactProfileComponent } from './contact-profile/contact-profile.component';
+import { ContactEditComponent } from './contact-edit/contact-edit.component';
 
 export const ContactsRoutes: Routes = [
   {
@@ -42,6 +44,14 @@ export const ContactsRoutes: Routes = [
       {
         path: 'setting',
         component: ContactSettingComponent
+      },
+      {
+        path: 'view',
+        component: ContactProfileComponent
+      },
+      {
+        path: 'edit',
+        component: ContactEditComponent
       }
     ]
   }
