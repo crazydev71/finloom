@@ -37,14 +37,7 @@ export class CreateSingleComponent implements OnInit {
       id: 'phoneNumber',
       ele: 'input',
       mode: 'single'
-    },
-    {
-      name: 'Password',
-      id: 'password',
-      ele: 'password',
-      mode: 'single'
     }
-
   ];
 
   private data: any = {};
@@ -88,10 +81,7 @@ export class CreateSingleComponent implements OnInit {
 
     let contactData: any = {};
     for (var i = 0; i < this.fields.length; i++) {
-      if(this.fields[i].id == 'password')
-        contactData[this.fields[i].id] = Md5.hashStr(this.modelForm.controls[this.fields[i].id].value);  
-      else
-        contactData[this.fields[i].id] = this.modelForm.controls[this.fields[i].id].value;
+      contactData[this.fields[i].id] = this.modelForm.controls[this.fields[i].id].value;
     }
     this.dataService.postData('/api/contact', contactData)
     .subscribe((resp: any) => {

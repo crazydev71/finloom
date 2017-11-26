@@ -2,6 +2,8 @@ import { Component, OnInit, Renderer, ViewChild, ElementRef, Directive } from '@
 import { ROUTES } from '../.././sidebar/sidebar.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { DataService } from '../../_services/data.services';
+
 const misc: any = {
   navbar_menu_visible: 0,
   active_collapse: true,
@@ -24,7 +26,7 @@ export class NavbarComponent implements OnInit {
 
   @ViewChild('app-navbar-cmp') button: any;
 
-  constructor(location: Location, private renderer: Renderer, private element: ElementRef, private router: Router) {
+  constructor(location: Location, private renderer: Renderer, private element: ElementRef, private router: Router, private dataService: DataService) {
     this.location = location;
     this.nativeElement = element.nativeElement;
     this.sidebarVisible = false;
@@ -95,7 +97,13 @@ export class NavbarComponent implements OnInit {
     });
   }
   logout() {
-    this.router.navigateByUrl('/auth/login');
+    this.dataService.getData('/api/logout')
+    .subscribe((resp: any) => {
+      this.router.navigateByUrl('/auth/login');
+    },
+    function (error) {
+      
+    });
   }
   isMobileMenu() {
     if ($(window).width() < 991) {
