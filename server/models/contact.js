@@ -36,7 +36,10 @@ module.exports = (sequelize, DataTypes) => {
         models['Contact'].hadMany(models['ContactEmail']);
       }
     },
-    tableName: 'flm_contacts'
+    tableName: 'flm_contacts',
+    defaultScope: {
+      include: [{all: true}]
+    }
   });
 
   Contact.prototype.validPassword = function (password) {
