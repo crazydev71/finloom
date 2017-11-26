@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
 import { DataService } from '../../_services/data.services';
 import { Account, AccountList, BankType, Industry } from '../../shared/interfaces/model';
 
@@ -71,8 +70,8 @@ export class CreateSingleComponent implements OnInit {
   ];
   private groupData: any;
   constructor(private router: Router,
-    private fb: FormBuilder,
-    private dataService: DataService) {
+              private fb: FormBuilder,
+              private dataService: DataService) {
   }
   
   ngOnInit() {
@@ -155,7 +154,6 @@ export class CreateSingleComponent implements OnInit {
     accData['parentId'] = this.parentId;
     accData['bankTypes'] = this.bankType;
 
-    console.log(accData);
     if (accData) {
       this.dataService.postData('/api/account/create', accData)
         .subscribe((resp: any) => {

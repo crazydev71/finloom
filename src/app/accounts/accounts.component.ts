@@ -181,6 +181,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       
     });
   }
+  
   private detailStatus(status: string): void {
     if (status == 'edit')
       this.isEdit = !this.isEdit;

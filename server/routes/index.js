@@ -58,7 +58,7 @@ router.post('/signup', passport.authenticate('local-signup'), (req, res) => {
  * @method GET
  * @returns log out success message
  */
-router.post('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
   req.logout();
   res.json({msg: 'Logout success'});
 })

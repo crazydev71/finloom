@@ -14,9 +14,6 @@
                   <mat-form-field *ngIf="field.ele=='input' && field.mode=='single'">
                     <input matInput placeholder="{{field.name}}" [(ngModel)]="field.value" class="form-group" formControlName="{{field.id}}">
                   </mat-form-field>
-                  <mat-form-field *ngIf="field.ele=='password' && field.mode=='single'">
-                    <input type="password" matInput placeholder="{{field.name}}" [(ngModel)]="field.value" class="form-group" formControlName="{{field.id}}">
-                  </mat-form-field>
                   <mat-form-field *ngIf="field.ele=='textarea'">
                     <textarea matInput placeholder="{{field.name}}" matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="5" class="form-group"
                       formControlName="{{field.id}}"></textarea>
