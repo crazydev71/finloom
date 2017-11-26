@@ -60,7 +60,7 @@ export class AccountsListComponent implements OnInit {
         this.tableData.dataRows = this.tableData.dataRows.filter(row => {
           return id != row.id;
         })
-        this.toastrservice.showNotification('Account successfully add to "' + name + '"', 'success');
+        this.toastrservice.showNotification('Account successfully deleted', 'success');
       });
   }
 }

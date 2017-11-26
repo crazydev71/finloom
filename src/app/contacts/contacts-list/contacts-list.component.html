@@ -1,15 +1,52 @@
 <div class="main-content">
-  <div class="container-fluid">
+  <div class="col-md-12">
     <div class="card">
-      <div class="card-header card-header-icon" data-background-color="orange">
-        <i class="material-icons">assignment</i>
+      <div class="card-header card-header-icon" data-background-color="rose">
+        <i class="material-icons">group</i>
       </div>
       <div class="card-content">
-        <h4 class="card-title">List</h4>
-      </div>
-      <div class="card-footer row">
-        <div [ngStyle]="{'max-width': '500px', 'margin': '0 auto', 'text-align': 'center', 'display': 'flex'}">
-          
+        <h4 class="card-title">{{list.name}}</h4>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="text-center {{header==' ' ? 'td-actions' : ''}}" *ngFor="let header of tableData.headerRow">
+                  {{header}}
+                  <button type="button" class="btn btn-danger btn-round" *ngIf="header==' '" (click)="onDeleteSelected();">
+                    <i class="material-icons">delete</i>
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of tableData.dataRows; let i = index">
+                <td class="text-center">{{i + 1}}</td>
+                <td class="text-center">
+                  <div>
+                    <div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="optionsCheckboxes1" [(ngModel)]="row.isChecked">
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-center">{{row.firstName}}</td>
+                <td class="text-center">{{row.lastName}}</td>
+                <td class="text-center">{{row.primaryEmail}}</td>
+                <td class="text-center">{{row.phoneNumber}}</td>
+                <td class="td-actions text-center" style="width: 30px;">
+                  <button type="button" class="btn btn-danger btn-round" (click)="onDelete(row.id, row.aka);">
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td [attr.colspan]="tableData.headerRow.length" class="text-center" [hidden]="tableData.dataRows.length">No Available Date</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

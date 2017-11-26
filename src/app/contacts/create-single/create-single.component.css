@@ -1,0 +1,59 @@
+.container-fluid {
+  display: grid;
+}
+.mat-card {
+  margin: 0 auto;
+}
+.mat-card-title {
+  color: gray;
+}
+.mat-card-footer {
+  padding: 0 20px;
+}
+.mat-form-field {
+  width: 100% !important;
+}
+.mat-card-footer .row {
+  display: grid;
+}
+.mat-card-footer .col-md-6 {
+  margin: 0 auto;
+}
+.status h3 {
+  color: blue;
+}
+.status span {
+  color: gray;
+  font-size: 16px;
+  line-height: 35px;
+}
+.dropdown-menu {
+  min-width: 100%;
+}
+.dropdown-header {
+  padding-top: 10px;
+}
+.dropdown *:not(b) {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.dropdown-default {
+  font-style: italic;
+  opacity: 0.8;
+}
+.row.status p {
+  opacity: 0.8;
+}
+b.caret {
+  color: white;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+}
+.domain-multi {
+  display: flex;
+}
+.multi {
+  width: calc(100% - 50px);
+}
