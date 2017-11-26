@@ -23,22 +23,10 @@ export class CreateMultipleComponent implements OnInit {
   constructor(private dataService: DataService) {
     this.dataSource = this.initTable(3);
     this.getCollectionViewData(this.dataSource);
-    let _ = this;
-    let validationField = ['firstName', 'lastName', 'primaryEmail', 'phoneNumber', 'password'];
-    this.data = new wjcCore.CollectionView(this.dataSource, {
-      getError(item, prop) {
-        for (let field of validationField) {
-          if (prop == field && item[field] === "") {
-            _.isValid = false;
-            return true;
-          } else {
-            _.isValid = true;
-          }
-        }
-      }
-    });
+    this.checkValidation();
   }
-
+  
+  
   ngOnInit() {
             
   }
@@ -60,6 +48,22 @@ export class CreateMultipleComponent implements OnInit {
     return data;
   }
 
+  private checkValidation(): void {
+    let _ = this;
+    let validationField = ['firstName', 'lastName', 'primaryEmail', 'phoneNumber', 'password'];
+    this.data = new wjcCore.CollectionView(this.dataSource, {
+      getError(item, prop) {
+        for (let field of validationField) {
+          if (prop == field && item[field] === "") {
+            _.isValid = false;
+            return true;
+          } else {
+            _.isValid = true;
+          }
+        }
+      }
+    });
+  }
   private onMultiSave() {
     var _ = this;
     if (!_.isValid)
@@ -74,8 +78,19 @@ export class CreateMultipleComponent implements OnInit {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Save all'
       }).then(function (result) {
-        
-        _.showNotification('top', 'right', "Accounts are saved successfully.");
+        for (var i = 0; i < _.dataSource.length; i++) {
+          let contactData: any = {};
+          console.log(_.dataSource[i]);
+          _.dataService.postData('/api/contact', _.dataSource[i])
+          .subscribe((resp: any) => {
+            console.log(resp);
+          },
+          function (error) {
+            console.log(error)
+          });
+        }
+        //this.router.navigateByUrl('/contacts/browser');
+        _.showNotification('top', 'right', "Contacts are saved successfully.");
       }).catch(function (err) {
         
       });
@@ -85,6 +100,7 @@ export class CreateMultipleComponent implements OnInit {
   private onReset() {
     this.dataSource = this.initTable(3);
     this.getCollectionViewData(this.dataSource);
+    this.checkValidation();
   }
 
   showNotification(from, align, message) {
