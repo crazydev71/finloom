@@ -18,17 +18,119 @@
         </div>
       </div>
       <div class="col-md-3 col-sm-3 col-lg-2">
-        <button class="btn btn-success btn-block">New Contact</button>
+        <button class="btn btn-success btn-block" [routerLink]="['/contacts/single']">New Contact</button>
       </div>
     </div>
-    <div class="card">
-        <div class="card-header card-header-icon" data-background-color="orange">
-          <i class="material-icons">assignment</i>
+    <div class="row">
+      <div class="col-md-6 col-sm-6">
+        <div class="card">
+          <div class="card-header card-header-icon" data-background-color="orange">
+            <i class="material-icons">assignment</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">Contacts</h4>
+            <div class="row">
+              <div class="col-md-8 col-sm-12 col-xs-12 col-lg-5">
+                <div class="dropdown">
+                  <button class="dropdown-toggle btn btn-primary btn-block" data-toggle="dropdown">Contact List
+                    <b class="caret"></b>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-left">
+                    <li *ngFor="let list of contactList" (click)="onChange(list.id, list.name)">
+                      <a> {{ list.name }} </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>              
+            <div class="">
+              <div class="card">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th class="text-center" *ngFor="let header of tableData.headerRow">{{header}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of tableData.dataRows; let i = index">
+                        <td class="text-center">{{i + 1}}</td>
+                        <td class="text-center">
+                          <div>
+                            <div>
+                              <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="optionsCheckboxes1" [(ngModel)]="row.isChecked">
+                                  </label>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="text-center">{{row.firstName}}</td>
+                        <td class="text-center">{{row.lastName}}</td>
+                        <td class="text-center">{{row.primaryEmail}}</td>
+                        <td class="text-center">{{row.phoneNumber}}</td>
+                        <td class="td-actions text-center" style="width: 80px;">
+                          <button type="button" class="btn btn-info" (click)="onDetail(row)">
+                              <i class="material-icons">person</i>
+                              <div class="ripple-container"></div>
+                            </button>
+                          <button type="button" class="btn btn-danger" (click)="onDelete(row.id, i)">
+                              <i class="material-icons">delete</i>
+                              <div class="ripple-container"></div>
+                            </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td [attr.colspan]="tableData.headerRow.length" class="text-center" [hidden]="tableData.dataRows.length">No Available Date</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card-content">
-          <h4 class="card-title">Contacts</h4> 
-          <div id="theGrid"></div>          
+      </div>
+      <div class="col-md-6 col-sm-6" *ngIf="selected.contact.id">
+        <div class="card">
+          <div class="card-header card-header-icon" data-background-color="orange">
+            <i class="material-icons">assignment</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">Detail</h4>
+            <div class="row">
+              <div class="col-md-6 col-sm-6">
+              </div>
+              <div class="col-md-6 col-sm-6 contact-edit">
+                <button *ngIf="!isEdit" class="btn btn-primary btn-just-icon" (click)="detailStatus('edit')">
+                  <i class="fa fa-edit  mr-1"></i>
+                </button>
+                <button *ngIf="isEdit" class="btn btn-success btn-just-icon" (click)="detailStatus('save')">
+                  <i class="fa fa-save  mr-1"></i>
+                </button>
+                <button *ngIf="isEdit" class="btn btn-danger btn-just-icon" (click)="detailStatus('cancel')">
+                  <i class="fa fa-close  mr-1"></i>
+                </button>
+              </div>
+            </div>
+            <div class="row contact-board">
+              <div class="col-md-7 col-sm-7 contact-detail">
+                <div *ngFor="let f of contactFields">
+                  <h4 class="col-md-6 col-sm-6">{{f.title}}</h4>
+                  <h4 *ngIf="!isEdit" class="col-md-6 col-sm-6">{{selected.contact[f.name]}}</h4>
+                  <mat-form-field *ngIf="isEdit" class="col-md-6 col-sm-6">
+                    <input matInput [(ngModel)]="selected.contact[f.name]">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-md-5 col-sm-5">
+
+              </div>
+            </div>
+          </div>
         </div>
-    </div>        
+      </div>
+    </div>
   </div>
-</div>
