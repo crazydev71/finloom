@@ -28,27 +28,26 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0
     }
   }, {
-    classMethods: {
-      associate: function(models) {
-        models['Contact'].belongsTo(models['Role']);
-        models['Contact'].belongsTo(models['Account']);
-        models['Contact'].belongsToMany(models['ContactList'],{through: models['ContactXList']});
-        models['Contact'].hadMany(models['ContactEmail']);
-      }
-    },
     tableName: 'flm_contacts',
     defaultScope: {
       include: [{all: true}]
     }
   });
 
+  Contact.associate = function(models) {
+    models['Contact'].belongsTo(models['Role']);
+    models['Contact'].belongsTo(models['Account']);
+    models['Contact'].belongsToMany(models['ContactList'],{through: models['ContactXList']});
+    models['Contact'].hasMany(models['ContactEmail']);
+  };
+
   Contact.prototype.validPassword = function (password) {
     return bcrypt.compareSync(password, this.getDataValue('password'));
-  }
+  };
 
   Contact.prototype.generateHash = function (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-  }
+  };
 
   return Contact;
 };

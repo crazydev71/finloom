@@ -4,13 +4,12 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     createdBy: DataTypes.INTEGER
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-        models['AccountList'].belongsToMany(models['Account'], {through: models['AccountListEntry']});
-      }
-    },
     tableName: 'flm_account_lists'
   });
+
+  AccountList.associate = function(models) {
+    models['AccountList'].belongsToMany(models['Account'], {through: models['AccountListEntry']});
+  };
+
   return AccountList;
 };

@@ -1,26 +1,30 @@
 'use strict';
-
+var Account = require('../models').Account;
+var WebDomain = require('../models').WebDomain;
+var EmailDomain = require('../models').EmailDomain;
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkInsert('Person', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
+    return Account.create({
+      aka: 'FinLoom',
+      legalName: 'FinLoom Inc',
+      shortCode: 'FLM',
+      legalAddress: 'Park Ave, NY, 10020, US',
+      accountStatus: 'active',
+      isClient: 0,
+      parentId: 0,
+      accountType: 'master',
+      webDomains: [{
+        name: 'finloom.com',
+      }],
+      EmailDomains: [{
+        name: 'finloom.com'
+      }]
+    }, {
+      include: [WebDomain, EmailDomain]
+    });
   },
 
   down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('Person', null, {});
-    */
+    return queryInterface.bulkDelete('flm_accounts', null, {});
   }
 };

@@ -5,13 +5,12 @@ module.exports = (sequelize, DataTypes) => {
     isVerified: DataTypes.INTEGER,
     isPrimary: DataTypes.INTEGER
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-        models['ContactEmail'].belongsTo(models['Contact']);
-      }
-    },
     tableName: 'flm_contact_emails'
   });
+
+  ContactEmail.associate = function(models) {
+    models['ContactEmail'].belongsTo(models['Contact']);
+  };
+
   return ContactEmail;
 };

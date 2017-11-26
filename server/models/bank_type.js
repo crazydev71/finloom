@@ -7,13 +7,12 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0
     }
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-        models['BankType'].belongsToMany(models['Account'], {through: models['AccountBankType']});
-      }
-    },
     tableName: 'flm_bank_types'
   });
+
+  BankType.associate = function(models) {
+    models['BankType'].belongsToMany(models['Account'], {through: models['AccountBankType']});
+  };
+  
   return BankType;
 };
