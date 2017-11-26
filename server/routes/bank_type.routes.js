@@ -6,5 +6,5 @@ const baseAPI = require('./base');
 router.use(baseAPI('BankType'));
 
 module.exports = function (rootRouter) {
-  rootRouter.use('/bank-type', router)
+  rootRouter.use('/banktype', router)
 }
