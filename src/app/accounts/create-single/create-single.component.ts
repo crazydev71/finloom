@@ -70,6 +70,7 @@ export class CreateSingleComponent implements OnInit {
     }
   ];
   private groupData: any;
+
   constructor(private router: Router,
     private fb: FormBuilder,
     private dataService: DataService) {

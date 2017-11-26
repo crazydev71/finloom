@@ -14,7 +14,7 @@ require('./role.routes.js')(router);
 require('./contact.routes.js')(router);
 require('./contact_list.routes.js')(router);
 require('./contact_email.routes.js')(router);
-require('./banktype.routes.js')(router);
+require('./bank_type.routes.js')(router);
 require('./email_domain.routes.js')(router);
 require('./web_domain.routes.js')(router);
 
