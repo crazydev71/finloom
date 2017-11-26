@@ -5,15 +5,12 @@ module.exports = (modelName) => {
   const Model = require('../models')[modelName];
 
   router.get('/', async (req, res) => {
-    console.log(req);
     const items = await Model.findAll();
     res.json(items);
   });
 
   router.get('/by', async (req, res) => {
     const where = req.params || req.query;
-    console.log(req.params);
-    console.log(req.query);
     const items = await Model.findAll({where});
     res.json(items);
   })
