@@ -3,7 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('flm_contacts', [
-      { primaryEmail: 'admin@finloom.com', password: '$2a$08$d/YAW4BBHR0V662/eaAkLeDh9syggrTPaNUFLXWsSwIwPuyD1wes6'}
+      { primaryEmail: 'admin@finloom.com', password: '$2a$08$d/YAW4BBHR0V662/eaAkLeDh9syggrTPaNUFLXWsSwIwPuyD1wes6', createdAt: new Date(), updatedAt: new Date() }
     ], {});
   },
 
