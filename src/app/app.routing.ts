@@ -106,6 +106,7 @@ export const AppRoutes: Routes = [
       loadChildren: './positionDetail/positionDetail.module#PositionDetailModule'
     }]
   }, {
+    canActivate: [AuthGuard],
     path: 'editFacility',
     component: AdminLayoutComponent,
     children: [{
@@ -113,6 +114,7 @@ export const AppRoutes: Routes = [
       loadChildren: './editFacility/editFacility.module#EditFacilityModule'
     }]
   }
+
   /*{
     path: 'creative',
     component: AdminLayoutComponent,
