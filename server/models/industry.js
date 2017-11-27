@@ -7,12 +7,13 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 1
     }
   }, {
-    tableName: 'flm_industries'
+    tableName: 'flm_industries',
+    timestamps: false
   });
 
   Industry.associate = function(models) {
     models['Industry'].belongsToMany(models['Account'], {through: models['AccountIndustry']});
-  }
+  };
 
   return Industry;
 };

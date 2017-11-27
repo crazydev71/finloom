@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0
     }
   }, {
-    tableName: 'flm_bank_types'
+    tableName: 'flm_bank_types',
+    timestamps: false
   });
 
   BankType.associate = function(models) {
