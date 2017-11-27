@@ -153,7 +153,7 @@ export class CreateSingleComponent implements OnInit {
     }
     accData['accountType'] = this.selectedType;
     accData['parentId'] = this.parentId;
-    accData['bankTypes'] = this.bankType;
+    accData['bankTypes'] = this.bankType || [];
 
     if (accData) {
       this.dataService.postData('/api/account/create', accData)
