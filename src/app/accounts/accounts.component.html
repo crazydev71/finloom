@@ -30,6 +30,9 @@
                     <li *ngFor="let list of accountList" (click)="onChange(list.id, list.name)">
                       <a> {{ list.name }} </a>
                     </li>
+                    <li *ngIf="accountList && accountList.length==0"  [class.disabled]="true">
+                      <a>No data</a>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -132,7 +135,7 @@
               <div class="col-md-7 col-sm-7 account-detail">
                 <div *ngFor="let f of accountFields">
                   <h4 class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">{{f.title}}</h4>
-                  <h4 *ngIf="!isEdit" class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">{{selected.account[f.name]}}</h4>
+                  <h4 *ngIf="!isEdit" class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">{{selected.account[f.name]}}&nbsp;</h4>
                   <mat-form-field *ngIf="isEdit" class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">
                     <input matInput [(ngModel)]="selected.account[f.name]">
                   </mat-form-field>

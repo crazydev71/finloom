@@ -26,7 +26,7 @@ export class ContactsComponent implements OnInit {
     dataRows: [],
     domains: []
   };
-  private contactFields: any[] = [ { name: 'firstName', title: 'First Name' }, { name: 'lastName', title: 'Last Name' }, { name: 'primaryEmail', title: 'Primary Email' }, { name: 'phoneNumber', title: 'Phone Number' }, { name: 'password', title: 'Old Password' }];
+  private contactFields: any[] = [ { name: 'firstName', title: 'First Name' }, { name: 'lastName', title: 'Last Name' }, { name: 'primaryEmail', title: 'Primary Email' }, { name: 'phoneNumber', title: 'Phone Number' }];
   private contact_bank = 'Bank of America,Bank of United Kingdom'.split(',');
   private selected: any = { contact: {} };
   private isEdit: boolean = false;

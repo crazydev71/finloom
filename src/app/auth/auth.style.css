@@ -7,3 +7,9 @@
 .login-page .card-login {
   padding-bottom: 0;
 }
+.error-msg {
+  text-align: center;
+}
+.error-msg > span {
+  color: red;
+}

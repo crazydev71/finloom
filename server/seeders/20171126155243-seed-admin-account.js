@@ -52,9 +52,7 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return Account.findOne({aka: 'Finloom', accountType: 'master'}).then(account => {
-      if (account)
-        account.destroy();
-    });
+    return queryInterface.bulkDelete('flm_contacts', null, {});
+
   }
 };

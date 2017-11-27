@@ -46,6 +46,7 @@ passport.use('local-signup', new LocalStrategy(
   },
   async (req, email, password, done) => {
     email = email.toLowerCase();
+    console.log(req.body);
     try {
       const contact = await Contact.findOne({where: {primaryEmail: email}});
       if (contact) {

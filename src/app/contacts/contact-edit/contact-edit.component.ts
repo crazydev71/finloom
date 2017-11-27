@@ -2,17 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../_services/data.services';
-import { MenuService } from '../../_services/menu.service';
 import { ToastrService } from '../../_services/toastr.services';
-import { Md5 } from "ts-md5/dist/md5";
 
 @Component({
-  selector: 'app-create-single',
-  templateUrl: './create-single.component.html',
-  styleUrls: ['./create-single.component.css']
+  selector: 'app-contact-edit',
+  templateUrl: './contact-edit.component.html',
+  styleUrls: ['./contact-edit.component.css']
 })
-export class CreateSingleComponent implements OnInit {
+export class ContactEditComponent implements OnInit {
   private modelForm: FormGroup;
+  private groupData: any;
   private fields = [
     {
       name: 'First Name',
@@ -27,7 +26,7 @@ export class CreateSingleComponent implements OnInit {
       mode: 'single'
     },
     {
-      name: 'Primary Email',
+      name: 'Email Address',
       id: 'primaryEmail',
       ele: 'input',
       mode: 'single'
@@ -37,21 +36,28 @@ export class CreateSingleComponent implements OnInit {
       id: 'phoneNumber',
       ele: 'input',
       mode: 'single'
+    },
+    {
+      name: 'Old Password',
+      id: 'password',
+      ele: 'password',
+      mode: 'single'
+    },
+    {
+      name: 'Confirm Password',
+      id: 'confirm',
+      ele: 'password',
+      mode: 'single'
     }
   ];
 
-  private data: any = {};
-
-  private groupData: any;
-
   constructor(private router: Router,
-              private fb: FormBuilder,
-              private dataService: DataService,
-              private menuservice: MenuService, 
-              private toastrService: ToastrService) {
+    private fb: FormBuilder,
+    private dataService: DataService,
+    private toastrService: ToastrService) {
 
   }
-  
+
   ngOnInit() {
     this.groupData = this.formBuilder();
     this.modelForm = this.fb.group(this.groupData);
@@ -72,24 +78,6 @@ export class CreateSingleComponent implements OnInit {
       data[this.fields[i].id] = arr2;
     }
     return data;
-  }
-
-  private createAccount(): void {
-    if (this.modelForm.invalid) {
-      return;
-    }
-
-    let contactData: any = {};
-    for (var i = 0; i < this.fields.length; i++) {
-      contactData[this.fields[i].id] = this.modelForm.controls[this.fields[i].id].value;
-    }
-    this.dataService.postData('/api/contact', contactData)
-    .subscribe((resp: any) => {
-      this.router.navigateByUrl('/contacts/browser');
-    },
-    function (error) {
-      console.log(error)
-    });
   }
 
 }
