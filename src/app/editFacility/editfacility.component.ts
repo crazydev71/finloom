@@ -29,8 +29,9 @@ export class EditFacilityComponent implements OnInit {
   private facilitylenderDataSource: any = [];
   private DealEdit: any;
   private FacilityEdit: any;
+  showFacilityError: boolean = false;
+  facilityBorrowers: any = [];
   constructor(private router: Router, private route: ActivatedRoute) {
-    debugger;
     this.sub = this.route.params.subscribe(params => {
       this.selectedFacilityId = params['id'];
     });
@@ -43,7 +44,6 @@ export class EditFacilityComponent implements OnInit {
   ];
 
   public ngOnInit() {
-    debugger;
     this.facilityheaders = { FacilityDetails: 'Facility Details', FacilityDues: 'Facility Dues', FacilityName: 'Facility Name', FacilityAlias: 'Facility Alias', CurrentCommitment: 'Current Commitment' };
 
 
@@ -71,8 +71,14 @@ export class EditFacilityComponent implements OnInit {
         ]
       }
     ];
-    debugger;
-    this.FacilityEdit = {facilityId: '1', facilityName: 'facility 1', href: 'fac1', facilityAlias: 'faility 1', currentCommitment: '100'};
+    this.FacilityEdit = { facilityId: '1', facilityName: 'facility 1', href: 'fac1', facilityAlias: 'faility 1', currentCommitment: '100' };
+
+    if (this.facilityBorrowers.length > 0) {
+      this.DealEdit.DealBorrowers = this.facilityBorrowers;
+    } else {
+      this.addFacilityBorrower();
+      this.FacilityEdit.FacilityBorrowers = this.facilityBorrowers;
+    }
 
     this.getFacilityLenders();
 
@@ -192,32 +198,42 @@ export class EditFacilityComponent implements OnInit {
     });
   }
 
-  editDeal(data: any) {
-    this.DealEdit = JSON.parse(JSON.stringify(data));
-    $("#editDealModal").modal('show');
-  }
-
   editFacility(data: any) {
     this.FacilityEdit = JSON.parse(JSON.stringify(data));
-    $("#editFacilityModal").modal('show');
-  }
-
-  saveDeal(f: NgForm) {
-    if (f.valid) {
-      $("#editFacilityModal").modal('hide');
+    if (this.facilityBorrowers.length > 0) {
+      this.DealEdit.DealBorrowers = this.facilityBorrowers;
     } else {
+      this.addFacilityBorrower();
+      this.FacilityEdit.FacilityBorrowers = this.facilityBorrowers;
     }
+    $("#editFacilityModal").modal('show');
   }
 
   saveFacility(f: NgForm) {
     if (f.valid) {
       this.router.navigateByUrl('/deals');
     } else {
+      this.showFacilityError = true;
     }
   }
-   cancelFacility(){
-     this.router.navigateByUrl('/deals');
-   }
+
+  cancelFacility() {
+    this.router.navigateByUrl('/deals');
+  }
+
+  addFacilityBorrower() {
+    let facilityBorrower = {
+      'isChecked': false,
+      'accountId': ''
+    }
+    this.facilityBorrowers.push(facilityBorrower);
+  }
+
+  removeFacilityBorrower(index: number) {
+    if (index > -1) {
+      this.facilityBorrowers.splice(index, 1);
+    }
+  }
 
 
 

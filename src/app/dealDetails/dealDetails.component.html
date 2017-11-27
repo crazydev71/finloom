@@ -52,8 +52,55 @@
                 </div>
               </div>
               <div class="tab-pane" id="DealDues">
-                <div class="card-content table-responsive">
-                  <div class="dealDuesGrid">
+                <div class="card">
+                  <div class="card-header card-header-icon" data-background-color="orange">
+                    <i class="material-icons">assignment</i>
+                  </div>
+                  <div class="card-content">
+                    <h4 class="card-title">Add Due</h4>
+                    <div class="content table-responsive">
+                      <wj-flex-grid #flex1 [itemsSource]="newDealDueData">
+                        <wj-flex-grid-column [header]="'Due Type'" [binding]="'DueType'"></wj-flex-grid-column>
+                        <wj-flex-grid-column [header]="'Due Amount'" [format]="'n2'" [binding]="'DueAmount'"></wj-flex-grid-column>
+                        <wj-flex-grid-column [header]="'Due Date'" [format]="MM/dd/yyyy" [binding]="'DueDate'"></wj-flex-grid-column>
+
+                        <wj-flex-grid-column [header]="'Action'" [isReadOnly]="true">
+                          <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                            <button class="btn btn-success btn-sm" (click)="saveNewDealDue(item)">Save</button>
+                            <button class="btn btn-default btn-sm" (click)="clearNewDealDue()">Clear</button>
+                          </template>
+                        </wj-flex-grid-column>
+                      </wj-flex-grid>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header card-header-icon" data-background-color="orange">
+                    <i class="material-icons">assignment</i>
+                  </div>
+                  <div class="card-content">
+                    <h4 class="card-title">Deal Dues</h4>
+
+                    <div class="row account-board facilityLenderGrid">
+                      <div class="content table-responsive col-md-12">
+
+                        <wj-flex-grid #flex [itemsSource]="dealDueData" [selectionMode]="'Row'">
+                          <ng-template wjFlexGridCellTemplate [cellType]="'RowHeader'" let-cell="item">
+                            <input type="checkbox" data-md-icheck />
+                          </ng-template>
+                          <wj-flex-grid-column [header]="'Due Type'" [binding]="'DueType'"></wj-flex-grid-column>
+                          <wj-flex-grid-column [header]="'Due Amount'" [binding]="'DueAmount'" [format]="'n2'"></wj-flex-grid-column>
+                          <wj-flex-grid-column [header]="'Due Date'" [binding]="'DueDate'" [format]="MM/dd/yyyy"></wj-flex-grid-column>
+                          <wj-flex-grid-column [header]="'Action'" [isReadOnly]="true">
+                            <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                              <button class="btn btn-success btn-sm" (click)="onDealDueEdit(item)">Save</button>
+                              <button class="btn btn-danger btn-sm" (click)="onDealDueDelete(item)">Delete</button>
+                            </template>
+                          </wj-flex-grid-column>
+                        </wj-flex-grid>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -71,7 +118,7 @@
                                                         </a>
                           </li>
                           <li class="">
-                            <a href="#facDues{{row.facilityId}}" data-toggle="tab">
+                            <a (click)="getFacilityDues(row.facilityId)" href="#facDues{{row.facilityId}}" data-toggle="tab">
                                                              {{facilityheaders.FacilityDues}}
                                                             <div class="ripple-container"></div>
                                                         </a>
@@ -103,29 +150,6 @@
                             <h4 class="col-md-6 col-sm-6">{{row.currentCommitment}}</h4>
                           </div>
                         </div>
-                        <!-- <div class="card">
-                          <div class="card-header card-header-icon" data-background-color="orange">
-                            <i class="material-icons">assignment</i>
-                          </div>
-                          <div class="card-content">
-                            <h4 class="card-title">Add Facility Lender</h4>
-                            <div class="content table-responsive">
-                              <wj-flex-grid #flex1 [itemsSource]="newFacilityLenderData">
-                                <wj-flex-grid-column [header]="'Lender Name'" [binding]="'LenderName'"></wj-flex-grid-column>
-                                <wj-flex-grid-column [header]="'Interest Amount'" [format]="'n2'" [binding]="'InterestAmount'"></wj-flex-grid-column>
-                                <wj-flex-grid-column [header]="'Allocated Amount'" [format]="'n2'" [binding]="'AllocatedAmount'"></wj-flex-grid-column>
-
-                                <wj-flex-grid-column [header]="'Action'" [isReadOnly]="true">
-                                  <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
-                                    <button class="btn btn-success btn-sm" (click)="saveNewFacilityLender(item)">Save</button>
-                                    <button class="btn btn-default btn-sm" (click)="clearNewFacilityLender()">Clear</button>
-                                  </template>
-                                </wj-flex-grid-column>
-                              </wj-flex-grid>
-
-                            </div>
-                          </div>
-                        </div> -->
                         <div class="card">
                           <div class="card-header card-header-icon" data-background-color="orange">
                             <i class="material-icons">assignment</i>
@@ -143,12 +167,6 @@
                                   <wj-flex-grid-column [header]="'Lender Name'" [binding]="'LenderName'"></wj-flex-grid-column>
                                   <wj-flex-grid-column [header]="'Interest Amount'" [binding]="'InterestAmount'" [format]="'n2'"></wj-flex-grid-column>
                                   <wj-flex-grid-column [header]="'Allocated Amount'" [binding]="'AllocatedAmount'" [format]="'n2'"></wj-flex-grid-column>
-                                  <!-- <wj-flex-grid-column [header]="'Action'" [isReadOnly]="true">
-                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
-                                      <button class="btn btn-success btn-sm" (click)="onEdit(item)">Save</button>
-                                      <button class="btn btn-danger btn-sm" (click)="onDelete(item)">Delete</button>
-                                    </template>
-                                  </wj-flex-grid-column> -->
                                 </wj-flex-grid>
                               </div>
                             </div>
@@ -158,25 +176,56 @@
 
                       </div>
                       <div class="tab-pane" id="facDues{{row.facilityId}}">
-                        <div class="card-content table-responsive">
-                          <table class="table">
-                            <thead class="text-warning">
-                              <tr>
-                                <th>{{dueHeaders.DueType}}</th>
-                                <th>{{dueHeaders.DueAmount}}</th>
-                                <th>{{dueHeaders.DueDate}}</th>
-                                <th>{{dueHeaders.PaidAmount }}</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr *ngFor="let rowDue of row.facilityDues">
-                                <td>{{rowDue.dueType}}</td>
-                                <td>{{rowDue.dueAmount}}</td>
-                                <td>{{rowDue.dueDate}}</td>
-                                <td>{{rowDue.paidAmount}}</td>
-                              </tr>
-                            </tbody>
-                          </table>
+                        <div class="card">
+                          <div class="card-header card-header-icon" data-background-color="orange">
+                            <i class="material-icons">assignment</i>
+                          </div>
+                          <div class="card-content">
+                            <h4 class="card-title">Add Due</h4>
+                            <div class="content table-responsive">
+                              <wj-flex-grid #flex1 [itemsSource]="newFacilityDueData">
+                                <wj-flex-grid-column [header]="'Due Type'" [binding]="'DueType'"></wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Due Amount'" [format]="'n2'" [binding]="'DueAmount'"></wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Due Date'" [format]="MM/dd/yyyy" [binding]="'DueDate'"></wj-flex-grid-column>
+
+                                <wj-flex-grid-column [header]="'Action'" [isReadOnly]="true">
+                                  <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                                    <button class="btn btn-success btn-sm" (click)="saveNewFacilityDue(item)">Save</button>
+                                    <button class="btn btn-default btn-sm" (click)="clearNewFacilityDue()">Clear</button>
+                                  </template>
+                                </wj-flex-grid-column>
+                              </wj-flex-grid>
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card">
+                          <div class="card-header card-header-icon" data-background-color="orange">
+                            <i class="material-icons">assignment</i>
+                          </div>
+                          <div class="card-content">
+                            <h4 class="card-title">Facility Dues</h4>
+
+                            <div class="row account-board facilityLenderGrid">
+                              <div class="content table-responsive col-md-12">
+
+                                <wj-flex-grid #flex [itemsSource]="facilityDueData" [selectionMode]="'Row'">
+                                  <ng-template wjFlexGridCellTemplate [cellType]="'RowHeader'" let-cell="item">
+                                    <input type="checkbox" data-md-icheck />
+                                  </ng-template>
+                                  <wj-flex-grid-column [header]="'Due Type'" [binding]="'DueType'"></wj-flex-grid-column>
+                                  <wj-flex-grid-column [header]="'Due Amount'" [binding]="'DueAmount'" [format]="'n2'"></wj-flex-grid-column>
+                                  <wj-flex-grid-column [header]="'Due Date'" [binding]="'DueDate'" [format]="MM/dd/yyyy"></wj-flex-grid-column>
+                                  <wj-flex-grid-column [header]="'Action'" [isReadOnly]="true">
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                                      <button class="btn btn-success btn-sm" (click)="onFacilityDueEdit(item)">Save</button>
+                                      <button class="btn btn-danger btn-sm" (click)="onFacilityDueDelete(item)">Delete</button>
+                                    </template>
+                                  </wj-flex-grid-column>
+                                </wj-flex-grid>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
 
@@ -243,13 +292,14 @@
               </div>
 
               <div class="form-group  is-empty row">
-                <label class="control-label" for="DealStatus">
+                <label [ngClass]="showDealError && DealEdit.DealStatusId ==''?'has-error':''" class="control-label" for="DealStatus">
                                           Deal Status
                                           <span class="star">*</span>
                                       </label>
 
-                <select required class="form-control ng-untouched ng-pristine ng-invalid" name="DealStatus" [(ngModel)]="DealEdit.DealStatusId">
-                                           <option disabled="true" value= "0">Select</option>
+                <select required [ngClass]="showDealError && DealEdit.DealStatusId ==''?'has-error-back':''" class="form-control label-floating ng-untouched ng-pristine ng-invalid"
+                  name="DealStatus" [(ngModel)]="DealEdit.DealStatusId">
+                                           <option disabled="true" value= "">Select</option>
                                             <option *ngFor="let lst of status" value= {{lst.value}}>
                                               {{lst.text}}
                                              </option>                      
@@ -257,38 +307,110 @@
               </div>
 
               <div class="form-group is-empty row">
-                <label class="control-label" for="DealSyndicateBank">
+                <label [ngClass]="showDealError && DealEdit.DealSyndicateBankId ==''?'has-error-back':''" class="control-label" for="DealSyndicateBank">
                                               Lead Arranger
                                               <span class="star">*</span>
                                           </label>
 
                 <select required class="form-control ng-untouched ng-pristine ng-invalid" name="DealSyndicateBank" [(ngModel)]="DealEdit.DealSyndicateBankId">
-                                <option disabled="true" value= "0">Select</option>
+                                <option disabled="true" value= "">Select</option>
                                 <option value="1">Expedia Company</option>
                                 <option value="2">Home Depot Inc </option>                       
                                           </select>
               </div>
               <div class="form-group is-empty row">
-                <label class="control-label" for="DealAgentBank">
+                <label [ngClass]="showDealError && DealEdit.DealAgentBankId ==''?'has-error':''" class="control-label" for="DealAgentBank">
                                                   Admin Agent
                                                   <span class="star">*</span>
                                               </label>
 
-                <select required class="form-control ng-untouched ng-pristine ng-invalid" name="DealAgentBank" [(ngModel)]="DealEdit.DealAgentBankId">
-                                    <option disabled="true" value= "0">Select</option>
+                <select [ngClass]="showDealError && DealEdit.DealAgentBankId ==''?'has-error-back':''" required class="form-control ng-untouched ng-pristine ng-invalid"
+                  name="DealAgentBank" [(ngModel)]="DealEdit.DealAgentBankId">
+                                    <option disabled="true" value= "">Select</option>
                                     <option value="1">Expedia Company</option>
                                     <option value="2">Home Depot Inc </option>                       
                                               </select>
               </div>
             </div>
 
+            <div class="col-sm-4">
+              <div class="form-group is-empty row" *ngFor="let db of DealEdit.DealBorrowers;let i='index'">
+                <label [ngClass]="showDealError && db.accountId ==''?'has-error':''" class="control-label" for="DealBorrower{{i}}">
+                   Deal Borrower
+                    <span class="star">*</span>
+                </label>
+                <select [ngClass]="showDealError && db.accountId ==''?'has-error-back':''" required class="form-control ng-untouched ng-pristine ng-invalid"
+                  name="DealAgentBank{{i}}" [(ngModel)]="db.accountId">
+                <option disabled="true"  value= "">Select</option>
+                <option value="1">Expedia Company</option>
+                <option value="2">Home Depot Inc </option>                       
+                </select>
+                <button type="button" *ngIf="i==0" class="btn flt-btn btn-success btn-round btn-fab btn-fab-mini" (click)="addDealBorrower()">
+                  <i class="material-icons">add</i>
+                  <div class="ripple-container"></div>
+                </button>
+                <button type="button" *ngIf="i>0" class="btn flt-btn btn-success btn-round btn-fab btn-fab-mini" (click)="removeDealBorrower(i)">
+                  <i class="material-icons">delete</i>
+                  <div class="ripple-container"></div>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer modal-footer1">
+            <div class="form-group">
+              <button class="btn btn-rose btn-fill btn-wd" type="submit">Save</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 
+<div aria-labelledby="myModalLabel" class="modal fade " id="editFacilityModal" role="dialog" style="padding-left: 17px;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
+                      <i class="material-icons">clear</i>
+                  </button>
+        <h4 class="modal-title">Edit Facility</h4>
+      </div>
+      <div class="modal-body">
+        <form #f="ngForm" (ngSubmit)="saveFacility(f)" novalidate="" class="ng-untouched ng-pristine ng-invalid" *ngIf="FacilityEdit">
 
+          <div class="card-content">
+            <div class="col-sm-4">
+              <div class="form-group is-empty row">
+                <label class="control-label" for="DealName">
+                                        Facility Name
+                                        <span class="star">*</span>
+                                    </label>
+                <input class="form-control ng-untouched ng-pristine ng-invalid" required name="FacilityName" [(ngModel)]="FacilityEdit.facilityName"
+                  type="text">
 
+              </div>
+              <div class="form-group is-empty row">
+                <label class="control-label">
+                                          Facility Alias
+                                          <span class="star">*</span>
+                                      </label>
+                <input class="form-control ng-untouched ng-pristine ng-invalid" required name="FacilityAlias" [(ngModel)]="FacilityEdit.FacilityAlias"
+                  type="text">
 
+              </div>
 
+              <div class="form-group is-empty row">
+                <label class="control-label">
+                                            Facility Amount
+                                            <span class="star">*</span>
+                                        </label>
+                <input class="form-control ng-untouched ng-pristine ng-invalid" required name="FacilityAlias" [(ngModel)]="FacilityEdit.currentCommitment"
+                  type="number">
 
+              </div>
+            </div>
           </div>
 
           <div class="modal-footer modal-footer1">
@@ -303,14 +425,14 @@
 </div>
 
 
-<div aria-labelledby="myModalLabel" class="modal fade " id="editFacilityModal" role="dialog" style="padding-left: 17px;">
+<!-- <div aria-labelledby="myModalLabel" class="modal fade " id="editContractModal" role="dialog" style="padding-left: 17px;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
                       <i class="material-icons">clear</i>
                   </button>
-          <h4 class="modal-title">Edit Facility</h4>
+          <h4 class="modal-title">Edit Contract</h4>
         </div>
         <div class="modal-body">
           <form #f="ngForm" (ngSubmit)="saveFacility(f)" novalidate="" class="ng-untouched ng-pristine ng-invalid" *ngIf="FacilityEdit">
@@ -357,4 +479,4 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->

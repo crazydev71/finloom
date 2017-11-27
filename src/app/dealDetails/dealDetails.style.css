@@ -59,3 +59,19 @@ button.btn-xsl, .btn.btn-success.btn-sm, .btn-danger.btn-sm, .btn-default.btn-sm
 :host .cdk-overlay-container {
     z-index: 99999 !important;
 }
+
+.has-error{
+    color: #f44336 !important;
+}
+
+.has-error-back{
+    background-image: linear-gradient(#f44336, #f44336), linear-gradient(#D2D2D2, #D2D2D2) !important; 
+    background-size: 100% 2px, 100% 1px !important;
+     transition-duration: 0.3s !important;
+}
+
+.flt-btn{
+    position: absolute;
+    right: 0;
+    top: 27px;
+}

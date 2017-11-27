@@ -29,9 +29,17 @@ export class DealDetailsComponent implements OnInit {
   private account_name = 'Rechard Del,Sachie Clark,Trant Blarkey,Tae Carrilio,Ryone Cloke,Rahul Dickstein'.split(',');
   private account_email = 'Test1@gmail.com,Test2@gmail.com,Test3@gmail.com,Test4@gmail.com,Test5@gmail.com'.split(',');
   private contact_bank = 'Bank of America,Bank of United Kingdom'.split(',');
+  dealBorrowers: any = [];
+  showDealError: boolean = false;
   facilityLendersData: wjcCore.CollectionView;
+  dealDueData: wjcCore.CollectionView;
+  facilityDueData: wjcCore.CollectionView;
   private newFacilityLenderData: wjcCore.CollectionView;
+  private newDealDueData: wjcCore.CollectionView;
+  private newFacilityDueData: wjcCore.CollectionView;
   private facilitylenderDataSource: any = [];
+  private dealDuesDataSource: any = [];
+  private facilityDuesDataSource: any = [];
   private DealEdit: any;
   private FacilityEdit: any;
   constructor(private router: Router, private route: ActivatedRoute) {
@@ -83,26 +91,7 @@ export class DealDetailsComponent implements OnInit {
         ]
       }
     ];
-
-
-
-  }
-  getDealDues() {
-    if (this.loadGrid == false) {
-      this.loadGrid = true;
-      this.data = this.getData();
-      this.view = new wjcCore.CollectionView(this.data, {
-      });
-      $(".dealDuesGrid").html("");
-      var theGrid = new wjcGrid.FlexGrid('.dealDuesGrid', {
-        itemsSource: this.view,
-        allowAddNew: true,
-        allowDelete: true,
-        showAlternatingRows: false,
-        headersVisibility: 'Row'
-      });
-    }
-  }
+  }  
 
   public getData() {
     var data = [];
@@ -233,7 +222,14 @@ export class DealDetailsComponent implements OnInit {
   }
 
   editDeal(data: any) {
+    this.showDealError = false;
     this.DealEdit = JSON.parse(JSON.stringify(data));
+    if (this.dealBorrowers.length > 0) {
+      this.DealEdit.DealBorrowers = this.dealBorrowers;
+    } else {
+      this.addDealBorrower();
+      this.DealEdit.DealBorrowers = this.dealBorrowers;
+    }
     $("#editDealModal").modal('show');
   }
 
@@ -241,13 +237,14 @@ export class DealDetailsComponent implements OnInit {
     // this.FacilityEdit = JSON.parse(JSON.stringify(data));
     // $("#editFacilityModal").modal('show');
 
-    this.router.navigateByUrl('/editFacility/'+ data.facilityId);
+    this.router.navigateByUrl('/editFacility/' + data.facilityId);
   }
 
   saveDeal(f: NgForm) {
     if (f.valid) {
-      $("#editFacilityModal").modal('hide');
+      $("#editDealModal").modal('hide');
     } else {
+      this.showDealError = true;
     }
   }
 
@@ -258,6 +255,220 @@ export class DealDetailsComponent implements OnInit {
     }
   }
 
+  addDealBorrower() {
+    let dealBorrower = {
+      'isChecked': false,
+      'accountId': ''
+    }
+    this.dealBorrowers.push(dealBorrower);
+  }
 
+  removeDealBorrower(index: number) {
+    if (index > -1) {
+      this.dealBorrowers.splice(index, 1);
+    }
+  }
+
+  // Deal Dues
+  getDealDues() {
+    this.dealDuesDataSource = this.getDealDuesData(10);
+    this.getDealDueCollectionViewData(this.dealDuesDataSource);
+    this.createDealDuesRowData();
+  }
+
+  createDealDuesRowData() {
+    this.newDealDueData = new wjcCore.CollectionView(this.getNewDealDue(1), {
+      getError(item, prop) {
+        if (prop == 'DueType' && item.DueType === "") {
+          return true;
+        }
+        if (prop == 'DueAmount' && item.DueAmount === null) {
+          return true;
+        }
+        if (prop == 'DueDate' && item.DueDate === null) {
+          return true;
+        }
+      }
+    });
+  }
+
+  getNewDealDue(count: number): wjcCore.ObservableArray {
+    let data = new wjcCore.ObservableArray();
+    for (var i = 0; i < count; i++) {
+      data.push({
+        DueType: "",
+        DueAmount: 0,
+        DueDate: new Date()
+      });
+    }
+    return data;
+  }
+
+  getDealDueCollectionViewData(data: any) {
+    this.dealDueData = new wjcCore.CollectionView(data);
+  }
+
+
+  onDealDueDelete(data: any) {
+    var that = this;
+    swal({
+      title: 'Are you sure? Do you want to delete this deal due?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(function (result) {
+      let index = that.dealDuesDataSource.findIndex(d => d.id === data.id);
+      that.dealDuesDataSource.splice(index, 1);
+      that.showNotification('top', 'right', "Deal Due deleted successfully.");
+    })
+  }
+
+  onDealDueEdit(data: any) {
+    let itemIndex = this.dealDuesDataSource.findIndex(item => item.id == data.id);
+    this.dealDuesDataSource[itemIndex] = data;
+    this.showNotification('top', 'right', "Deal Dues updated successfully.");
+  }
+
+  saveNewDealDue(item: any) {
+    let flag = false;
+    let prop = ['DueType', 'DueAmount', 'DueDate'];
+    for (let val of prop) {
+      let isError = this.newDealDueData.getError(item, val);
+      if (isError == true) {
+        flag = true;
+        alert("Please fill all required fields.")
+        break;
+      }
+      else {
+        flag = false;
+      }
+    }
+    if (!flag) {
+      this.dealDuesDataSource.push(item);
+      this.createDealDuesRowData();
+      this.showNotification('top', 'right', "Deal Due added successfully.");
+    }
+  }
+
+  clearNewDealDue() {
+    this.createDealDuesRowData();
+  }
+
+  getDealDuesData(count: number): wjcCore.ObservableArray {
+    var data = new wjcCore.ObservableArray();
+    for (var i = 1; i < count; i++) {
+      data.push({
+        id: i,
+        DueType: "Type" + i,
+        DueAmount: i * 100,
+        DueDate: new Date()
+      });
+    }
+    return data;
+  }
+
+  // Facility Dues
+  getFacilityDues(Id: number) {
+    this.facilityDuesDataSource = this.getFacilityDuesData(10);
+    this.getFacilityDueCollectionViewData(this.facilityDuesDataSource);
+    this.createFacilityDuesRowData();
+  }
+
+  createFacilityDuesRowData() {
+    this.newFacilityDueData = new wjcCore.CollectionView(this.getNewFacilityDue(1), {
+      getError(item, prop) {
+        if (prop == 'DueType' && item.DueType === "") {
+          return true;
+        }
+        if (prop == 'DueAmount' && item.DueAmount === null) {
+          return true;
+        }
+        if (prop == 'DueDate' && item.DueDate === null) {
+          return true;
+        }
+      }
+    });
+  }
+
+  getNewFacilityDue(count: number): wjcCore.ObservableArray {
+    let data = new wjcCore.ObservableArray();
+    for (var i = 0; i < count; i++) {
+      data.push({
+        DueType: "",
+        DueAmount: 0,
+        DueDate: new Date()
+      });
+    }
+    return data;
+  }
+
+  getFacilityDueCollectionViewData(data: any) {
+    this.facilityDueData = new wjcCore.CollectionView(data);
+  }
+
+
+  onFacilityDueDelete(data: any) {
+    var that = this;
+    swal({
+      title: 'Are you sure? Do you want to delete this facility due?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(function (result) {
+      let index = that.facilityDuesDataSource.findIndex(d => d.id === data.id);
+      that.facilityDuesDataSource.splice(index, 1);
+      that.showNotification('top', 'right', "Facility Due deleted successfully.");
+    })
+  }
+
+  onFacilityDueEdit(data: any) {
+    let itemIndex = this.facilityDuesDataSource.findIndex(item => item.id == data.id);
+    this.facilityDuesDataSource[itemIndex] = data;
+    this.showNotification('top', 'right', "Facility Dues updated successfully.");
+  }
+
+  saveNewFacilityDue(item: any) {
+    let flag = false;
+    let prop = ['DueType', 'DueAmount', 'DueDate'];
+    for (let val of prop) {
+      let isError = this.newFacilityDueData.getError(item, val);
+      if (isError == true) {
+        flag = true;
+        alert("Please fill all required fields.")
+        break;
+      }
+      else {
+        flag = false;
+      }
+    }
+    if (!flag) {
+      this.facilityDuesDataSource.push(item);
+      this.createFacilityDuesRowData();
+      this.showNotification('top', 'right', "Facility Due added successfully.");
+    }
+  }
+
+  clearNewFacilityDue() {
+    this.createFacilityDuesRowData();
+  }
+
+  getFacilityDuesData(count: number): wjcCore.ObservableArray {
+    var data = new wjcCore.ObservableArray();
+    for (var i = 1; i < count; i++) {
+      data.push({
+        id: i,
+        DueType: "Type" + i,
+        DueAmount: i * 100,
+        DueDate: new Date()
+      });
+    }
+    return data;
+  }
 
 }

@@ -20,79 +20,99 @@
                                                     </label>
               <input class="form-control ng-untouched ng-pristine ng-invalid" required name="FacilityAlias" [(ngModel)]="FacilityEdit.facilityAlias"
                 type="text">
-
             </div>
-
-
-          </div>
-          <div class="col-sm-4">
             <div class="form-group is-empty row">
               <label class="control-label">
-                                                              Facility Amount
-                                                              <span class="star">*</span>
-                                                          </label>
+                                                                Facility Amount
+                                                                <span class="star">*</span>
+                                                            </label>
               <input class="form-control ng-untouched ng-pristine ng-invalid" required name="FacilityAlias" [(ngModel)]="FacilityEdit.currentCommitment"
                 type="number">
+            </div>
 
+          </div>
+         
+
+          <div class="col-sm-4">
+            <div class="form-group is-empty row" *ngFor="let db of FacilityEdit.FacilityBorrowers;let i='index'">
+              <label [ngClass]="showFacilityError && db.accountId ==''?'has-error':''" class="control-label" for="FacilityBorrower{{i}}">
+                   Facility Borrower
+                    <span class="star">*</span>
+                </label>
+              <select [ngClass]="showFacilityError && db.accountId ==''?'has-error-back':''" required class="form-control ng-untouched ng-pristine ng-invalid"
+                name="FacilityBorrower{{i}}" [(ngModel)]="db.accountId">
+                <option disabled="true"  value= "">Select</option>
+                <option value="1">Expedia Company</option>
+                <option value="2">Home Depot Inc </option>                       
+                </select>
+              <button type="button" *ngIf="i==0" class="btn flt-btn btn-success btn-round btn-fab btn-fab-mini" (click)="addFacilityBorrower()">
+                  <i class="material-icons">add</i>
+                  <div class="ripple-container"></div>
+                </button>
+              <button type="button" *ngIf="i>0" class="btn flt-btn btn-success btn-round btn-fab btn-fab-mini" (click)="removeFacilityBorrower(i)">
+                  <i class="material-icons">delete</i>
+                  <div class="ripple-container"></div>
+                </button>
             </div>
           </div>
-        </div>
-       
-      <div class="card">
-        <div class="card-header card-header-icon" data-background-color="orange">
-          <i class="material-icons">assignment</i>
-        </div>
-        <div class="card-content">
-          <h4 class="card-title">Add Facility Lender</h4>
-          <div class="content table-responsive">
-            <wj-flex-grid #flex1 [itemsSource]="newFacilityLenderData">
-              <wj-flex-grid-column [header]="'Lender Name'" [binding]="'LenderName'"></wj-flex-grid-column>
-              <wj-flex-grid-column [header]="'Interest Amount'" [format]="'n2'" [binding]="'InterestAmount'"></wj-flex-grid-column>
-              <wj-flex-grid-column [header]="'Allocated Amount'" [format]="'n2'" [binding]="'AllocatedAmount'"></wj-flex-grid-column>
 
-              <wj-flex-grid-column [header]="'Action'" [isReadOnly]="true">
-                <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
-                  <button class="btn btn-success btn-sm" (click)="saveNewFacilityLender(item)">Save</button>
-                  <button class="btn btn-default btn-sm" (click)="clearNewFacilityLender()">Clear</button>
-                </template>
-              </wj-flex-grid-column>
-            </wj-flex-grid>
+        </div>
 
+        <div class="card">
+          <div class="card-header card-header-icon" data-background-color="orange">
+            <i class="material-icons">assignment</i>
           </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header card-header-icon" data-background-color="orange">
-          <i class="material-icons">assignment</i>
-        </div>
-        <div class="card-content">
-          <h4 class="card-title">Facility Lenders</h4>
-
-          <div class="row account-board facilityLenderGrid">
-            <div class="content table-responsive col-md-12">
-
-              <wj-flex-grid #flex [itemsSource]="facilityLendersData" [selectionMode]="'Row'">
-                <ng-template wjFlexGridCellTemplate [cellType]="'RowHeader'" let-cell="item">
-                  <input type="checkbox" data-md-icheck />
-                </ng-template>
+          <div class="card-content">
+            <h4 class="card-title">Add Facility Lender</h4>
+            <div class="content table-responsive">
+              <wj-flex-grid #flex1 [itemsSource]="newFacilityLenderData">
                 <wj-flex-grid-column [header]="'Lender Name'" [binding]="'LenderName'"></wj-flex-grid-column>
-                <wj-flex-grid-column [header]="'Interest Amount'" [binding]="'InterestAmount'" [format]="'n2'"></wj-flex-grid-column>
-                <wj-flex-grid-column [header]="'Allocated Amount'" [binding]="'AllocatedAmount'" [format]="'n2'"></wj-flex-grid-column>
+                <wj-flex-grid-column [header]="'Interest Amount'" [format]="'n2'" [binding]="'InterestAmount'"></wj-flex-grid-column>
+                <wj-flex-grid-column [header]="'Allocated Amount'" [format]="'n2'" [binding]="'AllocatedAmount'"></wj-flex-grid-column>
+
                 <wj-flex-grid-column [header]="'Action'" [isReadOnly]="true">
                   <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
-                    <button class="btn btn-success btn-sm" (click)="onEdit(item)">Save</button>
-                    <button class="btn btn-danger btn-sm" (click)="onDelete(item)">Delete</button>
+                    <button class="btn btn-success btn-sm" (click)="saveNewFacilityLender(item)">Save</button>
+                    <button class="btn btn-default btn-sm" (click)="clearNewFacilityLender()">Clear</button>
                   </template>
                 </wj-flex-grid-column>
               </wj-flex-grid>
+
             </div>
           </div>
-
         </div>
-      </div>
-      <div class="modal-footer modal-footer1">
+        <div class="card">
+          <div class="card-header card-header-icon" data-background-color="orange">
+            <i class="material-icons">assignment</i>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">Facility Lenders</h4>
+
+            <div class="row account-board facilityLenderGrid">
+              <div class="content table-responsive col-md-12">
+
+                <wj-flex-grid #flex [itemsSource]="facilityLendersData" [selectionMode]="'Row'">
+                  <ng-template wjFlexGridCellTemplate [cellType]="'RowHeader'" let-cell="item">
+                    <input type="checkbox" data-md-icheck />
+                  </ng-template>
+                  <wj-flex-grid-column [header]="'Lender Name'" [binding]="'LenderName'"></wj-flex-grid-column>
+                  <wj-flex-grid-column [header]="'Interest Amount'" [binding]="'InterestAmount'" [format]="'n2'"></wj-flex-grid-column>
+                  <wj-flex-grid-column [header]="'Allocated Amount'" [binding]="'AllocatedAmount'" [format]="'n2'"></wj-flex-grid-column>
+                  <wj-flex-grid-column [header]="'Action'" [isReadOnly]="true">
+                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-item="item">
+                      <button class="btn btn-success btn-sm" (click)="onEdit(item)">Save</button>
+                      <button class="btn btn-danger btn-sm" (click)="onDelete(item)">Delete</button>
+                    </template>
+                  </wj-flex-grid-column>
+                </wj-flex-grid>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer modal-footer1">
           <div class="form-group">
-            <button (click)="saveFacility()" class="btn btn-rose btn-fill btn-wd" type="submit">Save</button>
+            <button class="btn btn-rose btn-fill btn-wd" type="submit">Save</button>
             <button (click)="cancelFacility()" class="btn btn-default btn-fill btn-wd">Cancel</button>
           </div>
         </div>
