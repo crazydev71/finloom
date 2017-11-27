@@ -27,25 +27,29 @@
     </div>
     <div class="info">
       <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-        <span>
-          Jane Doe
+        <span *ngIf="currentUser.firstName == null || currentUser.lastName == null">
+          {{currentUser.primaryEmail}}
+          <b class="caret"></b>
+        </span>
+        <span *ngIf="currentUser.firstName != null && currentUser.lastName != null">
+          {{currentUser.firstName}} &nbsp; {{currentUser.lastName}}
           <b class="caret"></b>
         </span>
       </a>
       <div class="collapse" id="collapseExample">
         <ul class="nav">
           <li>
-            <a (click)="router.navigateByUrl('/contacts/view')">
+            <a (click)="router.navigateByUrl('/contacts/profile')">
               <span class="sidebar-mini">MP</span>
               <span class="sidebar-normal">My Profile</span>
             </a>
           </li>
-          <li>
+          <!-- <li>
             <a (click)="router.navigateByUrl('/contacts/edit')">
               <span class="sidebar-mini">EP</span>
               <span class="sidebar-normal">Edit Profile</span>
             </a>
-          </li>
+          </li> -->
           <li>
             <a href="javascript:void(0)">
               <span class="sidebar-mini">S</span>

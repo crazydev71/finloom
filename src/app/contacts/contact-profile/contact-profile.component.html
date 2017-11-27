@@ -9,8 +9,8 @@
           <h4 class="card-title">My Profile</h4>
           <div class="card-content">
             <div *ngFor="let f of contactFields" class="row">
-              <h4 class="col-md-6 col-sm-6">{{f.title}}</h4>
-              <h4 class="col-md-6 col-sm-6">aaaa</h4>        
+              <h4 *ngIf="currentUser[f.name] != null" class="col-md-6 col-sm-6">{{f.title}}</h4>
+              <h4 *ngIf="currentUser[f.name] != null" class="col-md-6 col-sm-6">{{currentUser[f.name]}}</h4>        
             </div>
           </div>
         </div>

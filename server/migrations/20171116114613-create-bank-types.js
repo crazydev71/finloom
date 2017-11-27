@@ -14,14 +14,6 @@ module.exports = {
       parentId: {
         type: Sequelize.INTEGER,
         defaultValue: 0
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
       }
     });
   },

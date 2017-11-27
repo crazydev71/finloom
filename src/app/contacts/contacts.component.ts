@@ -69,15 +69,16 @@ export class ContactsComponent implements OnInit {
       }
     }
     console.log(checked);
-    // if (checked.length) {
-    //   this.dataService.postData('/api/contact-list/update/' + id, { data: { accountIds: checked } })
-    //     .subscribe(resp => {
-    //       this.toastrService.showNotification('Account successfully add to "' + name + '"', 'success');
-    //       this.router.navigateByUrl('/accounts/accountlist/' + id);
-    //     });
-    // } else {
-    //   alert('At least one account need to be selected!');
-    // }
+    if (checked.length) {
+      this.dataService.putData('/api/contact-list/' + id, {ContactIds: checked})
+        .subscribe(resp => {
+          console.log(resp);
+          this.toastrService.showNotification('Contacts successfully add to "' + name + '"', 'success');
+          this.router.navigateByUrl('/contacts/contactlist/' + id);
+        });
+    } else {
+      alert('At least one account need to be selected!');
+    }
   }
 
   onDelete(id: number, rowNum: number): void {
@@ -115,6 +116,10 @@ export class ContactsComponent implements OnInit {
     else if (status == 'cancel')
       this.isEdit = false;
     else {      
+      if(!this.validateEmail(this.selected.contact.primaryEmail)) {
+        alert("Email format is not correct");
+        return;
+      }
       this.dataService.putData('/api/contact/' + this.selected.contact.id, this.selected.contact)
         .subscribe((resp: any) => {
           this.selected.contactRef = this.tableData.dataRows.filter(row => {
@@ -131,7 +136,10 @@ export class ContactsComponent implements OnInit {
         });
     }
   }
-
+  public validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
   public group_By(group_name: string) {
     
   }

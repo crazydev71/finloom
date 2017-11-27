@@ -7,55 +7,73 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class AuthenticationService {
   @Output() authChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  private redirectUrl: string = '/';
+  private isloggedIn: boolean = false;
+  private loginUrl: string = '/auth/login';
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(private http: Http, private router: Router) {
+    if(localStorage.getItem('currentUser')) {
+      this.isloggedIn = true;
+    } else {
+      this.isloggedIn = false;
+    }
+  }
+  isUserLoggedIn(): boolean {
+		return this.isloggedIn;
+  }
+  setRedirectUrl(url: string): void {
+		this.redirectUrl = url;
+  }
+  getLoginUrl(): string {
+		return this.loginUrl;
+  }
+  isUserAuthenticated(email: string, password:string): Observable<boolean> {
+    let postData = {
+      email: email,
+      password: password
+    }
+    return this.http.post('/api/login', postData)
+      .map((user: Response) => {
+        if(user) {
+          this.isloggedIn = true;
+          console.log(user);
+          localStorage.setItem('currentUser', JSON.stringify(user));
+				} else {
+					this.isloggedIn = false;
+				}
+				return this.isloggedIn;     
+      });
+  }
 
-  login(email: string, password: string) {
+  signup(email: string, password: string) {
     var postData = {
       email: email,
       password: password
     }
-    return this.http.post('/api/users/login', postData)
-      .map((res: Response) => {
-        let result = res.json();
-        console.log(result);
-        if (result.status == "error") {
-          return result;
-        }
-        else if (result.status == "success") {
-          let user = result.info[0];
-          console.log(user);
-          // localStorage.setItem('currentUser', JSON.stringify({username: user.Email,firstName:user.firstName, lastName:user.lastName}));
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.userAuthChanged(true);
-          return result;
-        }
-
-      });
-  }
-  signup(firstName: string, lastName: string, email: string, password: string) {
-    var postData = {
-      firstName: firstName,
-      lastName: lastName,
-      Email: email,
-      Password: password
-    }
-    console.log(postData);
-    return this.http.post('/api/users/signup', postData)
-      .map((res: Response) => {
-        let result = res.json();
-        //localStorage.setItem('currentUser', JSON.stringify({username: username}));
-        //this.userAuthChanged(true);
-        console.log(result);
-        return result;
-      });
+    return this.http.post('/api/signup', postData)
+    .map((user: Response) => {
+      if(user) {
+        this.isloggedIn = true;
+        console.log(user);
+        localStorage.setItem('currentUser', JSON.stringify(user));
+      } else {
+        this.isloggedIn = false;
+      }
+      return this.isloggedIn;     
+    });
   }
   private userAuthChanged(status: boolean) {
     this.authChanged.emit(status); //Raise changed event
   }
 
   logout() {
-    localStorage.removeItem('currentUser');
-    this.router.navigateByUrl('/auth/signin');
+    this.http.get('/api/logout')
+    .subscribe((resp: any) => {
+      localStorage.removeItem('currentUser');
+      this.router.navigateByUrl('/auth/login');
+    },
+    function (error) {
+      
+    });
   }
 }

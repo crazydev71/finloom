@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../_services/data.services';
+import { AuthenticationService } from '../../_services/authentication.service';
 
 declare var $: any;
 
@@ -37,7 +38,8 @@ export class LoginComponent implements OnInit {
   constructor(private element: ElementRef,
               private router: Router,
               private fb: FormBuilder,
-              private dataService: DataService) {
+              private dataService: DataService,
+              private authService: AuthenticationService) {
 
     this.nativeElement = element.nativeElement;
     this.sidebarVisible = false;
@@ -80,16 +82,16 @@ export class LoginComponent implements OnInit {
       this.isValidConfirm = true;
     }
     let _ = this;
-    this.dataService.postData('/api/login', {email: this.modelForm.controls['emailAddr'].value, password: this.modelForm.controls['password'].value})
-        .subscribe((resp: any) => {
-          console.log(resp);
-          _.router.navigateByUrl('/dashboard');
-        },
-        function (error) {
-          _.errorMsg = "Email or Password is not correct. Please try again";
-          _.isValidConfirm = false;
-          console.log(error)
-        });
+    this.authService.isUserAuthenticated(this.modelForm.controls['emailAddr'].value, this.modelForm.controls['password'].value)
+      .subscribe((resp: any) => {
+        _.router.navigateByUrl('/dashboard');
+      },
+      function (error) {
+        _.errorMsg = "Email or Password is not correct. Please try again";
+        _.isValidConfirm = false;
+        console.log(error)
+      });
+
   }
 
   onSlide(value) {

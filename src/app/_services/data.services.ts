@@ -10,7 +10,9 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class DataService {
+  
   constructor(private http: Http) {
+  
   }
 
   delete(url: string): Observable<boolean> {
@@ -74,7 +76,14 @@ export class DataService {
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
-
+  isLoggedIn(): Observable<boolean> {
+    return this.http.get('/api/auth')
+    .map((res: Response) => {
+      console.log(res);
+      return res.json();
+    })
+    .catch(this.handleError);
+  }
   handleError(error: any) {
     console.error('server error:', error);
     if (error instanceof Response) {
