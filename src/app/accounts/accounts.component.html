@@ -134,10 +134,10 @@
             <div class="row account-board">
               <div class="col-md-7 col-sm-7 account-detail">
                 <div *ngFor="let f of accountFields">
-                  <h4 class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">{{f.title}}</h4>
+                  <h4 *ngIf="!isEdit" class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">{{f.title}}</h4>
                   <h4 *ngIf="!isEdit" class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">{{selected.account[f.name]}}&nbsp;</h4>
-                  <mat-form-field *ngIf="isEdit" class="col-md-{{f.name == 'legalAddress' ? 12 : 6}} col-sm-{{f == 'legalAddress' ? 12 : 6}}">
-                    <input matInput [(ngModel)]="selected.account[f.name]">
+                  <mat-form-field *ngIf="isEdit" class="col-md-12 col-sm-12">
+                    <input matInput [(ngModel)]="selected.account[f.name]" placeholder="{{f.title}}">
                   </mat-form-field>
                 </div>
               </div>

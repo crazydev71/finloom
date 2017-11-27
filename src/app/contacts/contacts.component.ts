@@ -114,20 +114,17 @@ export class ContactsComponent implements OnInit {
       this.isEdit = !this.isEdit;
     else if (status == 'cancel')
       this.isEdit = false;
-    else {
-      // delete this.selected.account.isChecked;
-      // delete this.selected.account.emailDomain;
-      // delete this.selected.account.webDomain;
+    else {      
       this.dataService.putData('/api/contact/' + this.selected.contact.id, this.selected.contact)
         .subscribe((resp: any) => {
           this.selected.contactRef = this.tableData.dataRows.filter(row => {
             return row.id == this.selected.contact.id;
           })[0];
-          for (let key in this.selected.accountRef) {
+          for (let key in this.selected.contactRef) {
             this.selected.contactRef[key] = this.selected.contact[key];
           }
           this.isEdit = false;
-          this.toastrService.showNotification('Account successfully updated', 'success');
+          this.toastrService.showNotification('Contact successfully updated', 'success');
         },
         function (error) {
           this.toastrService.showNotification('Server error', 'danger');

@@ -117,12 +117,12 @@
             <div class="row contact-board">
               <div class="col-md-7 col-sm-7 contact-detail">
                 <div *ngFor="let f of contactFields">
-                  <h4 class="col-md-6 col-sm-6">{{f.title}}</h4>
+                  <h4 *ngIf="!isEdit" class="col-md-6 col-sm-6">{{f.title}}</h4>
                   <h4 *ngIf="!isEdit" class="col-md-6 col-sm-6">{{selected.contact[f.name]}}&nbsp;</h4>
                   <mat-form-field *ngIf="isEdit" class="col-md-6 col-sm-6">
-                    <input matInput [(ngModel)]="selected.contact[f.name]">
+                    <input matInput [(ngModel)]="selected.contact[f.name]" placeholder="{{f.title}}">
                   </mat-form-field>
-                </div>
+                </div>  
               </div>
               <div class="col-md-5 col-sm-5">
 
