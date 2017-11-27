@@ -2,8 +2,14 @@
 module.exports = (sequelize, DataTypes) => {
   var ContactEmail = sequelize.define('ContactEmail', {
     email: DataTypes.STRING,
-    isVerified: DataTypes.INTEGER,
-    isPrimary: DataTypes.INTEGER
+    isVerified: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    isPrimary: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    }
   }, {
     tableName: 'flm_contact_emails'
   });

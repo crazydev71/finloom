@@ -26,12 +26,12 @@ module.exports = (sequelize, DataTypes) => {
     models['Account'].belongsToMany(models['BankType'], {through: models['AccountBankType']});
     models['Account'].belongsToMany(models['AccountList'], {through: models['AccountListEntry']});
     models['Account'].belongsToMany(models['Industry'], {through: models['AccountIndustry']});
-    models['Account'].hasMany(models['Contact']);
-    models['Account'].hasMany(models['ContactList']);
-    models['Account'].hasMany(models['WebDomain']);
-    models['Account'].belongsTo(models['WebDomain'], {as: 'primaryWebDomain'});
-    models['Account'].hasMany(models['EmailDomain']);
-    models['Account'].belongsTo(models['EmailDomain'], {as: 'primaryEmailDomain'});
+    models['Account'].hasMany(models['Contact'], {as: 'contacts', onDelete: 'CASCADE'});
+    models['Account'].hasMany(models['ContactList'], {as: 'contactLists', onDelete: 'CASCADE'});
+    models['Account'].hasMany(models['WebDomain'], {as: 'webDomains', onDelete: 'CASCADE'});
+    models['Account'].belongsTo(models['WebDomain'], {foreignKey: 'primaryWebDomain'});
+    models['Account'].hasMany(models['EmailDomain'], {as: 'emailDomains', onDelete: 'CASCADE'});
+    models['Account'].belongsTo(models['EmailDomain'], {foreignKey: 'primaryWebDomain'});
   };
 
   return Account;

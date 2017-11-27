@@ -7,8 +7,14 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     primaryEmail: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
-    isAdminAccount: DataTypes.INTEGER,
-    isPublic: DataTypes.INTEGER,
+    isAdminAccount: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    isPublic: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1
+    },
     defaultInvitee: {
       type: DataTypes.INTEGER(1),
       defaultValue: 0
@@ -38,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     models['Contact'].belongsTo(models['Role']);
     models['Contact'].belongsTo(models['Account']);
     models['Contact'].belongsToMany(models['ContactList'],{through: models['ContactXList']});
-    models['Contact'].hasMany(models['ContactEmail']);
+    models['Contact'].hasMany(models['ContactEmail'], {as: 'contactEmails', onDelete: 'CASCADE'});
   };
 
   Contact.prototype.validPassword = function (password) {

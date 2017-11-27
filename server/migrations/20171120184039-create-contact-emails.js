@@ -19,10 +19,12 @@ module.exports = {
         }
       },
       isVerified: {
-        type: Sequelize.INTEGER(1)
+        type: Sequelize.INTEGER(1),
+        defaultValue: 0,
       },
       isPrimary: {
-        type: Sequelize.INTEGER(1)
+        type: Sequelize.INTEGER(1),
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,
