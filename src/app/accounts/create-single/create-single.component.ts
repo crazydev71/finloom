@@ -121,7 +121,6 @@ export class CreateSingleComponent implements OnInit {
   private getBankType() {
     this.dataService.getData('/api/banktype')
         .subscribe((resp: any) => {
-          console.log(resp);
           this.bankTypes = resp;
         },
         function (error) {
