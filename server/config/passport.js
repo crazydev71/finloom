@@ -9,6 +9,7 @@ passport.serializeUser(function(contact, done) {
 
 passport.deserializeUser(function(id, done) {
   Contact.findById(id).then(contact => {
+    contact.password = null;
     done(null, contact);
   }).catch(err => {
     done(err);
@@ -30,7 +31,8 @@ passport.use('local-login', new LocalStrategy(
       }
       if (!contact.validPassword(password)) {
         return done(null, false, {message: 'Invalide email or password.'})
-      } 
+      }
+      contact.password = null;
       return done(null, contact);
     } catch (err) {
       return done(err);
@@ -55,8 +57,9 @@ passport.use('local-signup', new LocalStrategy(
       
       const newContact = Contact.build({primaryEmail: email, isRegistered: 1});
       newContact.password = newContact.generateHash(password);
-      
       await newContact.save();
+
+      newContact.password = null;
       return done(null, newContact);
 
     } catch (err) {
