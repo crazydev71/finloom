@@ -19,6 +19,14 @@ require('./email_domain.routes.js')(router);
 require('./web_domain.routes.js')(router);
 
 
+const isAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated) {
+    next();
+  } else {
+    res.status(413).json({msg: 'Authentication Error'});
+  }
+};
+
 /**
  * @description User login
  * @method POST
@@ -51,7 +59,15 @@ router.post('/signup', passport.authenticate('local-signup'), (req, res) => {
   } else {
     res.status(413).json({msg: 'Invalid credentials'});
   }
-})
+});
+
+/**
+ * 
+ */
+router.get('/auth', isAuthenticated, (req, res) => {
+  if (req.user)
+    res.json(req.user.toJSON());
+});
 
 /**
  * @description User log out
@@ -61,6 +77,6 @@ router.post('/signup', passport.authenticate('local-signup'), (req, res) => {
 router.get('/logout', (req, res) => {
   req.logout();
   res.json({msg: 'Logout success'});
-})
+});
 
 module.exports = router;
