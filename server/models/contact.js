@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER(1),
       defaultValue: 0
     },
-    
     password: DataTypes.STRING,
     status: {
       type: DataTypes.INTEGER,
@@ -34,16 +33,13 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0
     }
   }, {
-    tableName: 'flm_contacts',
-    defaultScope: {
-      include: [{all: true}]
-    }
+    tableName: 'flm_contacts'
   });
 
   Contact.associate = function(models) {
-    models['Contact'].belongsTo(models['Role']);
-    models['Contact'].belongsTo(models['Account']);
-    models['Contact'].belongsToMany(models['ContactList'],{through: models['ContactXList']});
+    models['Contact'].belongsTo(models['Role'], {foreignKey: 'accountId'});
+    models['Contact'].belongsTo(models['Account'], {foreignKey: 'accountId'});
+    models['Contact'].belongsToMany(models['ContactList'], {through: models['ContactXList']});
     models['Contact'].hasMany(models['ContactEmail'], {as: 'contactEmails', onDelete: 'CASCADE'});
   };
 

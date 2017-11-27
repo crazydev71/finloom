@@ -4,7 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     status: DataTypes.INTEGER
   }, {
+    tableName: 'flm_roles',
     timestamps: false
   });
+  
   return Role;
 };

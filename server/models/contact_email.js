@@ -9,13 +9,16 @@ module.exports = (sequelize, DataTypes) => {
     isPrimary: {
       type: DataTypes.INTEGER,
       defaultValue: 0
+    },
+    contactId: {
+      type: DataTypes.INTEGER
     }
   }, {
     tableName: 'flm_contact_emails'
   });
 
   ContactEmail.associate = function(models) {
-    models['ContactEmail'].belongsTo(models['Contact']);
+    models['ContactEmail'].belongsTo(models['Contact'], {foreignKey: 'contactId'});
   };
 
   return ContactEmail;

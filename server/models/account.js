@@ -28,8 +28,10 @@ module.exports = (sequelize, DataTypes) => {
     models['Account'].belongsToMany(models['Industry'], {through: models['AccountIndustry']});
     models['Account'].hasMany(models['Contact'], {as: 'contacts', onDelete: 'CASCADE'});
     models['Account'].hasMany(models['ContactList'], {as: 'contactLists', onDelete: 'CASCADE'});
+
     models['Account'].hasMany(models['WebDomain'], {as: 'webDomains', onDelete: 'CASCADE'});
     models['Account'].belongsTo(models['WebDomain'], {foreignKey: 'primaryWebDomain'});
+    
     models['Account'].hasMany(models['EmailDomain'], {as: 'emailDomains', onDelete: 'CASCADE'});
     models['Account'].belongsTo(models['EmailDomain'], {foreignKey: 'primaryWebDomain'});
   };

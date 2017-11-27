@@ -4,12 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     code: DataTypes.STRING,
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    },
-    tableName: 'flm_currencies'
+    tableName: 'flm_currencies',
+    timestamps: false
   });
   return Currency;
 };
