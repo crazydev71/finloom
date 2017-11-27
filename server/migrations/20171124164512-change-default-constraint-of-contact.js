@@ -4,7 +4,6 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.changeColumn('flm_contacts', 'roleId', {
       type: Sequelize.INTEGER,
-      defaultValue: null
     });
   },
 

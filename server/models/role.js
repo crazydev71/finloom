@@ -4,11 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     status: DataTypes.INTEGER
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
+    tableName: 'flm_roles',
+    timestamps: false
   });
+  
   return Role;
 };

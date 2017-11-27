@@ -12,14 +12,12 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'flm_accounts',
-          allowNull: false
         }
       },
       industryId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'flm_industries',
-          allowNull: false
         }
       },
       createdAt: {

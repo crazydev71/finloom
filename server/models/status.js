@@ -10,12 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     trade: DataTypes.INTEGER,
     event: DataTypes.INTEGER,
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    },
-    tableName: 'flm_statuses'
+    tableName: 'flm_statuses',
+    timestamps: false
   });
   return Status;
 };

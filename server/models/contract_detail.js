@@ -29,20 +29,17 @@ module.exports = (sequelize, DataTypes) => {
     amortizationPeriod: DataTypes.INTEGER,
     lastRolloverDate: DataTypes.DATE,
     nextRolloverDate: DataTypes.DATE,
-    // createdBy: DataTypes.INTEGER,
-    // updatedBy: DataTypes.INTEGER,
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-        models['ContractDetail'].belongsTo(models['Currency'], {foreignKey: 'currency', targetKey: 'code'});
-        models['ContractDetail'].belongsTo(models['Status'], {foreignKey: 'status', targetKey: 'status'});
-        models['ContractDetail'].belongsTo(models['ExtensionTerm'], {foreignKey: 'extensionTerm', targetKey: 'name'});
-        models['ContractDetail'].belongsTo(models['Contact'], {foreignKey: 'createdBy', as: 'creator'});
-        models['ContractDetail'].belongsTo(models['Contact'], {foreignKey: 'updatedBy', as: 'updater'});
-      }
-    },
     tableName: 'flm_contract_details'
   });
+
+  ContractDetail.associate = function(models) {
+    models['ContractDetail'].belongsTo(models['Currency'], {foreignKey: 'currency', targetKey: 'code'});
+    models['ContractDetail'].belongsTo(models['Status'], {foreignKey: 'status', targetKey: 'status'});
+    models['ContractDetail'].belongsTo(models['ExtensionTerm'], {foreignKey: 'extensionTerm', targetKey: 'name'});
+    models['ContractDetail'].belongsTo(models['Contact'], {foreignKey: 'createdBy', as: 'creator'});
+    models['ContractDetail'].belongsTo(models['Contact'], {foreignKey: 'updatedBy', as: 'updater'});
+  };
+
   return ContractDetail;
 };

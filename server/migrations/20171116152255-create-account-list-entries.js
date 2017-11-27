@@ -11,15 +11,13 @@ module.exports = {
       accountListId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'flm_account_lists',
-          key: 'id'
+          model: 'flm_account_lists'
         }
       },
       accountId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'flm_accounts',
-          key: 'id'
+          model: 'flm_accounts'
         }
       },
       createdAt: {

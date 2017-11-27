@@ -14,15 +14,16 @@ module.exports = {
       contactId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'flm_contacts',
-          allowNull: false
+          model: 'flm_contacts'
         }
       },
       isVerified: {
-        type: Sequelize.INTEGER(1)
+        type: Sequelize.INTEGER(1),
+        defaultValue: 0,
       },
       isPrimary: {
-        type: Sequelize.INTEGER(1)
+        type: Sequelize.INTEGER(1),
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,

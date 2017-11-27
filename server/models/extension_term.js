@@ -5,12 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     unit: DataTypes.ENUM('year', 'month', 'day'),
     value: DataTypes.INTEGER
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    },
-    tableName: 'flm_extension_terms'
+    tableName: 'flm_extension_terms',
+    timestamps: false
   });
+
   return ExtensionTerm;
 };
