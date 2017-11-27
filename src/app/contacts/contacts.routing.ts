@@ -46,7 +46,7 @@ export const ContactsRoutes: Routes = [
         component: ContactSettingComponent
       },
       {
-        path: 'view',
+        path: 'profile',
         component: ContactProfileComponent
       },
       {

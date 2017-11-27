@@ -17,6 +17,7 @@ export const AppRoutes: Routes = [
       loadChildren: './auth/auth.module#AuthModule'
     }]
   }, {
+    canActivate: [AuthGuard],
     path: 'dashboard',
     component: AdminLayoutComponent,
     children: [{
@@ -24,6 +25,7 @@ export const AppRoutes: Routes = [
       loadChildren: './dashboard/dashboard.module#DashboardModule'
     }]
   }, {
+    canActivate: [AuthGuard],
     path: 'accounts',
     component: AdminLayoutComponent,
     children: [{
@@ -32,6 +34,7 @@ export const AppRoutes: Routes = [
     }
     ]
   }, {
+    canActivate: [AuthGuard],
     path: 'contacts',
     component: AdminLayoutComponent,
     children: [{
@@ -39,6 +42,7 @@ export const AppRoutes: Routes = [
       loadChildren: './contacts/contacts.module#ContactsModule'
     }]
   }, {
+    canActivate: [AuthGuard],
     path: 'deals',
     component: AdminLayoutComponent,
     children: [{
@@ -46,6 +50,7 @@ export const AppRoutes: Routes = [
       loadChildren: './deals/deals.module#DealsModule'
     }]
   }, {
+    canActivate: [AuthGuard],
     path: 'dealDetails',
     component: AdminLayoutComponent,
     children: [{
@@ -53,6 +58,7 @@ export const AppRoutes: Routes = [
       loadChildren: './dealDetails/dealDetails.module#DealDetailsModule'
     }]
   }, {
+    canActivate: [AuthGuard],
     path: 'dealWizard',
     component: AdminLayoutComponent,
     children: [{
@@ -60,6 +66,7 @@ export const AppRoutes: Routes = [
       loadChildren: './dealWizard/dealWizard.module#DealWizardModule'
     }]
   }, {
+    canActivate: [AuthGuard],
     path: 'addDeal',
     component: AdminLayoutComponent,
     children: [{
@@ -67,6 +74,7 @@ export const AppRoutes: Routes = [
       loadChildren: './addDeal/addDeal.module#AddDealModule'
     }]
   }, {
+    canActivate: [AuthGuard],
     path: 'trades',
     component: AdminLayoutComponent,
     children: [{
@@ -74,6 +82,7 @@ export const AppRoutes: Routes = [
       loadChildren: './trades/trades.module#TradesModule'
     }]
   },{
+    canActivate: [AuthGuard],
     path: 'dealActivity',
     component: AdminLayoutComponent,
     children: [{
@@ -81,6 +90,7 @@ export const AppRoutes: Routes = [
       loadChildren: './dealActivity/dealActivity.module#DealActivityModule'
     }]
   }, {
+    canActivate: [AuthGuard],
     path: 'position',
     component: AdminLayoutComponent,
     children: [{
@@ -88,6 +98,7 @@ export const AppRoutes: Routes = [
       loadChildren: './position/position.module#PositionModule'
     }]
   }, {
+    canActivate: [AuthGuard],
     path: 'positionDetail',
     component: AdminLayoutComponent,
     children: [{
@@ -95,6 +106,7 @@ export const AppRoutes: Routes = [
       loadChildren: './positionDetail/positionDetail.module#PositionDetailModule'
     }]
   }, {
+    canActivate: [AuthGuard],
     path: 'editFacility',
     component: AdminLayoutComponent,
     children: [{
@@ -102,6 +114,7 @@ export const AppRoutes: Routes = [
       loadChildren: './editFacility/editFacility.module#EditFacilityModule'
     }]
   }
+
   /*{
     path: 'creative',
     component: AdminLayoutComponent,

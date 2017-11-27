@@ -69,15 +69,16 @@ export class ContactsComponent implements OnInit {
       }
     }
     console.log(checked);
-    // if (checked.length) {
-    //   this.dataService.postData('/api/contact-list/update/' + id, { data: { accountIds: checked } })
-    //     .subscribe(resp => {
-    //       this.toastrService.showNotification('Account successfully add to "' + name + '"', 'success');
-    //       this.router.navigateByUrl('/accounts/accountlist/' + id);
-    //     });
-    // } else {
-    //   alert('At least one account need to be selected!');
-    // }
+    if (checked.length) {
+      this.dataService.putData('/api/contact-list/' + id, {ContactIds: checked})
+        .subscribe(resp => {
+          console.log(resp);
+          this.toastrService.showNotification('Contacts successfully add to "' + name + '"', 'success');
+          this.router.navigateByUrl('/contacts/contactlist/' + id);
+        });
+    } else {
+      alert('At least one account need to be selected!');
+    }
   }
 
   onDelete(id: number, rowNum: number): void {
@@ -114,27 +115,31 @@ export class ContactsComponent implements OnInit {
       this.isEdit = !this.isEdit;
     else if (status == 'cancel')
       this.isEdit = false;
-    else {
-      // delete this.selected.account.isChecked;
-      // delete this.selected.account.emailDomain;
-      // delete this.selected.account.webDomain;
+    else {      
+      if(!this.validateEmail(this.selected.contact.primaryEmail)) {
+        alert("Email format is not correct");
+        return;
+      }
       this.dataService.putData('/api/contact/' + this.selected.contact.id, this.selected.contact)
         .subscribe((resp: any) => {
           this.selected.contactRef = this.tableData.dataRows.filter(row => {
             return row.id == this.selected.contact.id;
           })[0];
-          for (let key in this.selected.accountRef) {
+          for (let key in this.selected.contactRef) {
             this.selected.contactRef[key] = this.selected.contact[key];
           }
           this.isEdit = false;
-          this.toastrService.showNotification('Account successfully updated', 'success');
+          this.toastrService.showNotification('Contact successfully updated', 'success');
         },
         function (error) {
           this.toastrService.showNotification('Server error', 'danger');
         });
     }
   }
-
+  public validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
   public group_By(group_name: string) {
     
   }

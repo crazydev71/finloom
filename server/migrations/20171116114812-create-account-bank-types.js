@@ -19,6 +19,14 @@ module.exports = {
         references: {
           model: 'flm_bank_types',
         }
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       }
     });
   },

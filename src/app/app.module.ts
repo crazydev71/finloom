@@ -52,6 +52,7 @@ import { AppRoutes } from './app.routing';
 import { DataService } from './_services/data.services';
 import { ToastrService } from './_services/toastr.services';
 import { MenuService } from './_services/menu.service';
+import { AuthenticationService } from './_services/authentication.service';
 
 @NgModule({
   exports: [
@@ -113,7 +114,8 @@ export class MaterialModule { }
     AuthGuard,
     DataService,
     ToastrService,
-    MenuService
+    MenuService,
+    AuthenticationService
   ]
 })
 export class AppModule { }
