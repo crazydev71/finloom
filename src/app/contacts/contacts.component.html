@@ -23,6 +23,9 @@
                     <li *ngFor="let list of contactList" (click)="onChange(list.id, list.name)">
                       <a> {{ list.name }} </a>
                     </li>
+                    <li *ngIf="contactList && contactList.length==0"  [class.disabled]="true">
+                      <a>No data</a>
+                    </li>
                   </ul>
                 </div>
               </div>
