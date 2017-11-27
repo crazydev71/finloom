@@ -14,8 +14,7 @@ module.exports = {
       contactId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'flm_contacts',
-          allowNull: false
+          model: 'flm_contacts'
         }
       },
       isVerified: {
