@@ -7,14 +7,13 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 1
     }
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-        models['Industry'].belongsToMany(models['Account'], {through: models['AccountIndustry']});
-      }
-    },
-
-    tableName: 'flm_industries'
+    tableName: 'flm_industries',
+    timestamps: false
   });
+
+  Industry.associate = function(models) {
+    models['Industry'].belongsToMany(models['Account'], {through: models['AccountIndustry']});
+  };
+
   return Industry;
 };

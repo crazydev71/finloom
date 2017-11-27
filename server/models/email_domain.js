@@ -5,13 +5,12 @@ module.exports = (sequelize, DataTypes) => {
     accountId: DataTypes.INTEGER,
     status: DataTypes.INTEGER
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-        models['EmailDomain'].belongsTo(models['Account']);
-      }
-    },
     tableName: 'flm_email_domains'
   });
+
+  EmailDomain.associate = function(models) {
+    models['EmailDomain'].belongsTo(models['Account']);
+  };
+
   return EmailDomain;
 };

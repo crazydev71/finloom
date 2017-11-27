@@ -5,13 +5,12 @@ module.exports = (sequelize, DataTypes) => {
     accountId: DataTypes.INTEGER,
     status: DataTypes.INTEGER
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-        models['WebDomain'].belongsTo(models['Account']);
-      }
-    },
     tableName: 'flm_web_domains'
   });
+
+  WebDomain.associate = function (models) {
+    models['WebDomain'].belongsTo(models['Account']);
+  };
+
   return WebDomain;
 };

@@ -16,8 +16,7 @@ module.exports = {
       accountId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'flm_accounts',
-          allowNull: false
+          model: 'flm_accounts'
         }
       },
       status: {

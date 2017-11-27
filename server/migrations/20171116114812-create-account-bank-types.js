@@ -12,17 +12,13 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'flm_accounts',
-          key: 'id'
-        },
-        allowNull: false
+        }
       },
       bankTypeId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'flm_bank_types',
-          key: 'id'
-        },
-        allowNull: false
+        }
       }
     });
   },
