@@ -105,6 +105,13 @@ export const AppRoutes: Routes = [
       path: ':id',
       loadChildren: './positionDetail/positionDetail.module#PositionDetailModule'
     }]
+  }, {
+    path: 'editFacility',
+    component: AdminLayoutComponent,
+    children: [{
+      path: ':id',
+      loadChildren: './editFacility/editFacility.module#EditFacilityModule'
+    }]
   }
   /*{
     path: 'creative',
