@@ -8,6 +8,9 @@ const Domain = {
 };
 const baseAPI = require('./base');
 
+const emailTypes = ['email', 'web'];
+const emailPrimaryTypes = ['primaryEmailDomain', 'primaryWebDomain'];
+
 router.use(baseAPI('Account'));
 
 router.get('/get/all', async (req, res) => {
@@ -37,8 +40,6 @@ router.post('/create', async (req, res) => {
     itemBankTypes.push(bt);
   }
 
-  const emailTypes = ['email', 'web'];
-  const emailPrimaryTypes = ['primaryEmailDomain', 'primaryWebDomain'];
   let itemDomains = {};
 
   for (let i = 0; i < emailTypes.length; i++) {
@@ -60,6 +61,30 @@ router.post('/create', async (req, res) => {
   item.domains = itemDomains;
   item.bankTypes = itemBankTypes;
   res.json({item});
+});
+
+router.put('/update/:id', async (req, res) => {
+  const {id} = req.params;
+  const data = req.body;
+
+  let item = await Account.findById(id);
+
+  if (item) {
+    let domains = {};
+    for (let i = 0; i < emailPrimaryTypes.length; i++) {
+      let param = emailTypes[i] + 'Domain';
+      let postData = {
+        id: data[emailPrimaryTypes[i]],
+        name: data[param]
+      }
+      await Domain[emailTypes[i]].upsert(postData);
+    }
+    
+    await item.update(data);
+    return res.json(item.toJSON());
+  } else {
+    return res.status(404).json({msg: "Invalid request"});
+  }
 });
 
 module.exports = function (rootRouter) {

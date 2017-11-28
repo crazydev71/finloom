@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Account.associate = function (models) {
-    models['Account'].belongsToMany(models['BankType'], {through: models['AccountBankType']});
+    // models['Account'].belongsToMany(models['BankType'], {through: models['AccountBankType']});
     models['Account'].belongsToMany(models['AccountList'], {through: models['AccountListEntry']});
     models['Account'].belongsToMany(models['Industry'], {through: models['AccountIndustry']});
     models['Account'].hasMany(models['Contact'], {as: 'contacts', onDelete: 'CASCADE'});
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     models['Account'].belongsTo(models['WebDomain'], {foreignKey: 'primaryWebDomain'});
     
     models['Account'].hasMany(models['EmailDomain'], {as: 'emailDomains', onDelete: 'CASCADE'});
-    models['Account'].belongsTo(models['EmailDomain'], {foreignKey: 'primaryWebDomain'});
+    models['Account'].belongsTo(models['EmailDomain'], {foreignKey: 'primaryEmailDomain'});
   };
 
   return Account;
