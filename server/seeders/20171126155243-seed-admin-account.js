@@ -32,7 +32,7 @@ module.exports = {
         lastName: 'Admin',
         primaryEmail: 'admin@finloom.com',
         phoneNumber: '123456789',
-        isPublice: 0,
+        isPublic: 0,
         isAdminAccount: 1,
         isRegistered: 1,
         hasProfile: 1,
