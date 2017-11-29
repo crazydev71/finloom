@@ -1,2 +1,2 @@
-<wj-tree-view #tvImg [ngClass]="'custom-tree'" [itemsSource]="items" [displayMemberPath]="'header'" [childItemsPath]="'items'" [imageMemberPath]="'img'">
+<wj-tree-view id="tvCmp" [ngClass]="'custom-tree'" [itemsSource]="items" [displayMemberPath]="'header'" [childItemsPath]="'items'" [imageMemberPath]="'img'" (itemClicked)="itemClicked($event)">
 </wj-tree-view>
