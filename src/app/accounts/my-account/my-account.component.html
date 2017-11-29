@@ -6,10 +6,7 @@
       </div>
       <div class="card-content">
         <h4 class="card-title">My Account</h4>
-        <wj-tree-view #tv [itemsSource]="items" [displayMemberPath]="'header'" [childItemsPath]="'items'" [isAnimated]="isAnimated"
-          [autoCollapse]="autoCollapse" [expandOnClick]="expandOnClick">
-        </wj-tree-view>
-        <wj-tree-view #tvImg [itemsSource]="items" [displayMemberPath]="'header'" [childItemsPath]="'items'" [imageMemberPath]="'img'">
+        <wj-tree-view #tvImg [ngClass]="'custom-tree'" [itemsSource]="items" [displayMemberPath]="'header'" [childItemsPath]="'items'" [imageMemberPath]="'img'">
         </wj-tree-view>
       </div>
       <div class="card-footer row">

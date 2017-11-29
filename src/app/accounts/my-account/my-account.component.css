@@ -2,6 +2,9 @@
 .custom-tree.wj-treeview  {
   color: #80044d;
 }
+.wj-treeview .wj-node img {
+  width: 17px !important;
+}
 
 /* level 0 and deeper nodes */
 .custom-tree.wj-treeview .wj-nodelist > .wj-node  {
@@ -39,8 +42,9 @@
   transition: all .3s cubic-bezier(.4,0,.2,1);
 }
 
-.wj-nodelist .wj-node img {
-  width: 17px;
+.wj-nodelist .wj-node img,
+.card img {
+  width: 17px !important;
   border-radius: 50%;
   box-shadow: 1px 1px 2px;
   height: 17px;

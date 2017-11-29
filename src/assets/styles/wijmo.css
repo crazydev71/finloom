@@ -1924,6 +1924,12 @@ div.wj-sheet > div {
         }
         .wj-treeview .wj-node img {
             padding-right: 4px;
+            width: 17px !important;
+            border-radius: 50%;
+            box-shadow: 1px 1px 2px;
+            height: 17px;
+            margin-right: 8px;
+            padding: 0 !important;
         }
         .wj-treeview .wj-node .wj-node-check {
             margin-right: 4px;
