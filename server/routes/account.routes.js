@@ -77,11 +77,11 @@ router.put('/update/:id', async (req, res) => {
         id: data[emailPrimaryTypes[i]],
         name: data[param]
       }
-      await Domain[emailTypes[i]].upsert(postData);
+      domains[emailTypes[i]] = await Domain[emailTypes[i]].upsert(postData);
     }
     
-    await item.update(data);
-    return res.json(item.toJSON());
+    item = await item.update(data);
+    return res.json({item, domains});
   } else {
     return res.status(404).json({msg: "Invalid request"});
   }

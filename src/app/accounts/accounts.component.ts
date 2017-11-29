@@ -183,9 +183,6 @@ export class AccountsComponent implements OnInit, AfterViewInit {
   }
 
   private onSave () {
-    // delete this.selected.account.isChecked;
-    // delete this.selected.account.emailDomain;
-    // delete this.selected.account.webDomain;
     if (this.selected) {
       this.dataService.putData('/api/account/update/' + this.selected.account.id, this.selected.account)
       .subscribe((resp: any) => {
@@ -194,6 +191,22 @@ export class AccountsComponent implements OnInit, AfterViewInit {
         })[0];
         for (let key in this.selected.accountRef) {
           this.selected.accountRef[key] = this.selected.account[key];
+        }
+        const types = ['email', 'web'];
+        let typeDomans = [{
+          id: this.selected.account.primaryEmailDomain,
+          name: this.selected.account.emailDomain
+        }, {
+          id: this.selected.account.primaryWebDomain,
+          name: this.selected.account.webDomain
+        }];
+        for (let i = 0; i < types.length; i++) {
+          let typeDomain = this.tableData.domains[types[i]].filter(domain => {
+            return domain.id == typeDomans[i].id
+          });
+          if (typeDomain.length) {
+            typeDomain[0].name = typeDomans[i].name
+          }
         }
         this.isEdit = false;
         this.matchEmails();
