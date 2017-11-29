@@ -98,6 +98,12 @@ export const ROUTES: RouteInfo[] = [
     icontype: 'contacts',
     nextTabs: [
       {
+        path: '/my-account',
+        title: 'My Account',
+        type: 'link',
+        icontype: 'account_circle'
+      },
+      {
         path: '/browser',
         title: 'Browser',
         type: 'link',
