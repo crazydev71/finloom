@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, EventEmitter, Inject } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { DataService } from '../../../_services/data.services';
 
 import * as wjcCore from 'wijmo/wijmo';
 import * as wjcNav from 'wijmo/wijmo.nav';
+
+declare const $: any;
 
 @Component({
   selector: 'app-flm-tree-view',
@@ -13,6 +15,7 @@ import * as wjcNav from 'wijmo/wijmo.nav';
 export class FlmTreeViewComponent implements OnInit {
   @Input() api: string;
   @Input() keys: any = {parent: 'parentId', name: 'aka'};
+  // @Output() itemClickedEvent: EventEmitter<any> = new EventEmitter<any>();
 
   items = [];
   isAnimated = true;
@@ -36,6 +39,7 @@ export class FlmTreeViewComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.api);
+    console.log($('#tvCmp'));
   }
 
   buildTree (data, items, id) {
@@ -52,5 +56,9 @@ export class FlmTreeViewComponent implements OnInit {
         this.buildTree(data, child.items, matches[i].id);
       }
     }
+  }
+
+  itemClicked (event) {
+    console.log(event);
   }
 }

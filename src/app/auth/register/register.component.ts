@@ -69,8 +69,8 @@ export class RegisterComponent implements OnInit {
             this.isValidConfirm = true;
         }
 
-        if (this.modelForm.controls['password'].value.length < 8) {
-            this.errorMsg = "Password length must be 8 characters at least";
+        if (this.modelForm.controls['password'].value.length < 3) {
+            this.errorMsg = "Password length must be 3 characters at least";
             this.isValidConfirm = false;
             return;
         } else {
