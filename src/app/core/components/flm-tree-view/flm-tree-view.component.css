@@ -3,6 +3,7 @@
   color: #80044d;
   overflow: auto;
   max-height: 62vh;
+  min-height: 62vh;
 }
 .wj-treeview .wj-node img {
   width: 17px !important;

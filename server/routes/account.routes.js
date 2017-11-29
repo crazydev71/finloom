@@ -47,16 +47,23 @@ router.get('/get/hierarchy/:id', async(req, res) => {
   items = items.map(item => {
     return item.toJSON();
   })
-  
+
   let base = items.filter(item => {
     return item.id == id;
   })
+  
+  while (base.length && base[0].parentId != 0) {
+    base = items.filter(item => {
+      return item.id == base[0].parentId;
+    })
+  }
+  
   items = items.filter(item => {
     return item.id != id;
   })
   
   let hierachy = buildHierachy(items, base, base);
-  res.json({hierachy});
+  res.json({data: hierachy});
 });
 
 router.post('/create', async (req, res) => {
