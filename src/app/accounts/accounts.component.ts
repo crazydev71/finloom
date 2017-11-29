@@ -170,7 +170,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       confirmButtonText: 'Yes Delete it'
     }).then(function (result) {
       _.tableData.dataRows.splice(rowNum, 1);
-      _.dataService.deleteData('/api/account/' + id)
+      _.dataService.deleteData('/api/account/delete/' + id)
         .subscribe((resp: any) => {
           _.toastrService.showNotification('Account successfully deleted', 'success');
         },
