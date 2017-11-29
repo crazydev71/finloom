@@ -50,6 +50,12 @@ export const ROUTES: RouteInfo[] = [
     breadComb: ['Home'],
     nextTabs: [
       {
+        path: '/my-account',
+        title: 'My Account',
+        type: 'link',
+        icontype: 'account_circle'
+      },
+      {
         path: '/browser',
         title: 'Browser',
         type: 'link',
@@ -97,12 +103,6 @@ export const ROUTES: RouteInfo[] = [
     type: 'link',
     icontype: 'contacts',
     nextTabs: [
-      {
-        path: '/my-account',
-        title: 'My Account',
-        type: 'link',
-        icontype: 'account_circle'
-      },
       {
         path: '/browser',
         title: 'Browser',
