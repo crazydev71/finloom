@@ -39,6 +39,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
     dataRows: [],
     domains: []
   };
+  accountStatuses: string [] = ['active', 'pending', 'inactive'];
 
   constructor(private router: Router, private dataService: DataService, private toastrService: ToastrService) {
     this.router.navigateByUrl('/accounts/browser');
