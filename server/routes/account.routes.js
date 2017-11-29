@@ -41,7 +41,7 @@ var buildHierachy = function (items, base, hierachy, key = 'parentId') {
   return buildHierachy(newItems, newBase, newHierachy, key);
 }
 
-router.get('/get/hierachy/:id', async(req, res) => {
+router.get('/get/hierarchy/:id', async(req, res) => {
   const {id} = req.params;
   let items = await Account.findAll();
   items = items.map(item => {

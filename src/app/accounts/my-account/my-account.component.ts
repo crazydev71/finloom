@@ -33,7 +33,7 @@ export class MyAccountComponent implements OnInit {
         ]
       },
     ];
-    // this.dataservice.getData('/api/account/')
+    // this.dataservice.getData('/api/account/hierarchy/')
   }
 
   ngOnInit() {
