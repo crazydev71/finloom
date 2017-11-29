@@ -23,16 +23,16 @@ export class LoginComponent implements OnInit {
   private isValidConfirm: boolean = true;
   private errorMsg: string;
   private fields = [
-      {
-          name: 'Email Address',
-          id: 'emailAddr',
-          ele: 'input',
-      },
-      {
-          name: 'Password',
-          id: 'password',
-          ele: 'input'
-      }
+    {
+        name: 'Email Address',
+        id: 'emailAddr',
+        ele: 'input',
+    },
+    {
+        name: 'Password',
+        id: 'password',
+        ele: 'input'
+    }
   ];
 
   constructor(private element: ElementRef,

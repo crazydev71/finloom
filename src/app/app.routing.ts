@@ -6,6 +6,7 @@ import { AuthGuard } from './_guards/auth.guard';
 
 export const AppRoutes: Routes = [
   {
+    canActivate: [AuthGuard],
     path: '',
     redirectTo: 'auth/login',
     pathMatch: 'full'

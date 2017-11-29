@@ -17,8 +17,9 @@ export class CreateMultipleComponent implements OnInit {
 
   private dataSource: any = [];
   data: wjcCore.CollectionView;
-  
+  private accounts = [{ id: 1, name: 'master', title: 'Master Account' }, { id: 2, name: 'lob', title: 'Line of business' }, { id: 3, name: 'sub', title: 'Sub Account' }]; 
   private isValid: boolean = false;
+  private dataMapAccounts: wjcGrid.DataMap;
 
   constructor(private dataService: DataService) {
     this.dataSource = this.initTable(3);
@@ -28,7 +29,7 @@ export class CreateMultipleComponent implements OnInit {
   
   
   ngOnInit() {
-            
+    this.dataMapAccounts = new wjcGrid.DataMap(this.accounts, 'id', 'name');            
   }
   getCollectionViewData(data: any) {
     this.data = new wjcCore.CollectionView(data);

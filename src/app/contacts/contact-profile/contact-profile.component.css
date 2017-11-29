@@ -1,3 +1,21 @@
 h4 {
   color: darkgray;
 }
+.profile {
+  text-align: right;
+}
+.mat-form-field {
+  font-size: 20px !important;
+}
+.dropdown {
+  margin-bottom: 20px;
+}
+.dropdown-menu {
+  width: 100%;
+}
+.togglebutton {
+  margin-bottom: 15px;
+}
+.row {
+
+}
