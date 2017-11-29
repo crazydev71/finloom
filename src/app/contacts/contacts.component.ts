@@ -109,31 +109,33 @@ export class ContactsComponent implements OnInit {
     console.log(row);
     this.selected.contact = Object.assign({}, row);
   }
-
+  onSave() {
+    if(!this.validateEmail(this.selected.contact.primaryEmail)) {
+      alert("Email format is not correct");
+      return;
+    }
+    this.dataService.putData('/api/contact/' + this.selected.contact.id, this.selected.contact)
+      .subscribe((resp: any) => {
+        this.selected.contactRef = this.tableData.dataRows.filter(row => {
+          return row.id == this.selected.contact.id;
+        })[0];
+        for (let key in this.selected.contactRef) {
+          this.selected.contactRef[key] = this.selected.contact[key];
+        }
+        this.isEdit = false;
+        this.toastrService.showNotification('Contact successfully updated', 'success');
+      },
+      function (error) {
+        this.toastrService.showNotification('Server error', 'danger');
+      });
+  }
   private detailStatus(status: string): void {
     if (status == 'edit')
       this.isEdit = !this.isEdit;
     else if (status == 'cancel')
       this.isEdit = false;
     else {      
-      if(!this.validateEmail(this.selected.contact.primaryEmail)) {
-        alert("Email format is not correct");
-        return;
-      }
-      this.dataService.putData('/api/contact/' + this.selected.contact.id, this.selected.contact)
-        .subscribe((resp: any) => {
-          this.selected.contactRef = this.tableData.dataRows.filter(row => {
-            return row.id == this.selected.contact.id;
-          })[0];
-          for (let key in this.selected.contactRef) {
-            this.selected.contactRef[key] = this.selected.contact[key];
-          }
-          this.isEdit = false;
-          this.toastrService.showNotification('Contact successfully updated', 'success');
-        },
-        function (error) {
-          this.toastrService.showNotification('Server error', 'danger');
-        });
+      this.onSave();
     }
   }
   public validateEmail(email) {

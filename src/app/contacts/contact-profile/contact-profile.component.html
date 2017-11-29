@@ -1,5 +1,5 @@
 <div class="main-content">
-  <div class="container-fluid row">
+  <div class="container-fluid">
     <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
       <div class="card">
         <div class="card-header card-header-icon" data-background-color="orange">
@@ -8,10 +8,89 @@
         <div class="card-content">
           <h4 class="card-title">My Profile</h4>
           <div class="card-content">
-            <div *ngFor="let f of contactFields" class="row">
-              <h4 *ngIf="currentUser[f.name] != null" class="col-md-6 col-sm-6">{{f.title}}</h4>
-              <h4 *ngIf="currentUser[f.name] != null" class="col-md-6 col-sm-6">{{currentUser[f.name]}}</h4>        
+            <div class="profile">
+              <button *ngIf="!isEdit" class="btn btn-primary btn-just-icon" (click)="profileStatus('edit')">
+                <i class="fa fa-edit  mr-1"></i>
+              </button>
+              <button *ngIf="isEdit" class="btn btn-success btn-just-icon" (click)="profileStatus('save')">
+                <i class="fa fa-save  mr-1"></i>
+              </button>
+              <button *ngIf="isEdit" class="btn btn-danger btn-just-icon" (click)="profileStatus('cancel')">
+                <i class="fa fa-close  mr-1"></i>
+              </button>
             </div>
+            <div *ngFor="let f of contactFields" class="row">
+              <h4 *ngIf="currentUser[f.name] != null && !isEdit" class="col-md-6 col-sm-6">{{f.title}}</h4>
+              <h4 *ngIf="currentUser[f.name] != null && !isEdit" class="col-md-6 col-sm-6">{{currentUser[f.name]}}</h4>
+              <mat-form-field *ngIf="isEdit" class="col-md-12 col-sm-12">
+                <input *ngIf="f.name=='primaryEmail'" type="email" matInput [(ngModel)]="currentUser[f.name]" placeholder="{{f.title}}">
+                <input *ngIf="f.name!='primaryEmail'" matInput [(ngModel)]="currentUser[f.name]" placeholder="{{f.title}}">
+              </mat-form-field>
+            </div>
+            <div class="row" *ngIf="isEdit">
+              <div class="col-md-7 col-sm-6 col-xs-12 col-lg-7">
+                <div class="dropdown">
+                  <button class="dropdown-toggle btn btn-primary btn-block" data-toggle="dropdown">{{sel_account.title}}
+                    <b class="caret"></b>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-left">
+                    <li *ngFor="let list of accounts; index as i" (click)="onChange('account',i)">
+                      <a> {{ list.name }} </a>
+                    </li>
+                    <li *ngIf="!accounts || accounts.length==0"  [class.disabled]="true">
+                      <a>No data</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="isEdit">
+              <div class="togglebutton col-md-6 col-sm-6 col-xs-12 col-lg-7">
+                <label>
+                  <input type="checkbox" [(ngModel)]="isAdminRole">Admin Role
+                </label>
+              </div>
+            </div>
+            <div class="row" *ngIf="isEdit">
+              <div class="col-md-7 col-sm-6 col-xs-12 col-lg-7">
+                <div class="dropdown">
+                  <button class="dropdown-toggle btn btn-primary btn-block" data-toggle="dropdown">{{sel_flm.title}}
+                    <b class="caret"></b>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-left">
+                    <li *ngFor="let list of flmRoles; index as i" (click)="onChange('flm', i)">
+                      <a> {{ list.name }} </a>
+                    </li>
+                    <li *ngIf="!flmRoles || flmRoles.length==0"  [class.disabled]="true">
+                      <a>No data</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="isEdit">
+              <div class="col-md-7 col-sm-6 col-xs-12 col-lg-7">
+                <div class="dropdown">
+                  <button class="dropdown-toggle btn btn-primary btn-block" data-toggle="dropdown">{{sel_pp.title}}
+                    <b class="caret"></b>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-left">
+                    <li *ngFor="let list of ppField; index as i" (click)="onChange('pp',i)">
+                      <a> {{ list.name }} </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="row" *ngIf="isEdit">
+              <h4 class="col-md-12 col-sm-12 col-xs-12 col-lg-12">Default Contact</h4>
+              <div class="togglebutton col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                <label>
+                  <input type="checkbox" [(ngModel)]="isDefaultInviate">Invitations
+                </label>
+              </div>
+            </div>  
           </div>
         </div>
       </div>
