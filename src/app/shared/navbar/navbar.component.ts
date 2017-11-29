@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { DataService } from '../../_services/data.services';
 import { AuthenticationService } from '../../_services/authentication.service';
+
 const misc: any = {
   navbar_menu_visible: 0,
   active_collapse: true,

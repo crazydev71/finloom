@@ -7,6 +7,7 @@ import { MenuService } from '../_services/menu.service';
 import { checkAndUpdateElementDynamic } from '@angular/core/src/view/element';
 import { fadeInContent } from '@angular/material';
 import { ConfirmModalComponent } from '../_component/confirm-modal/confirm-modal.component'
+import { AuthenticationService } from '../_services/authentication.service';
 
 declare const $: any;
 
@@ -49,6 +50,12 @@ export const ROUTES: RouteInfo[] = [
     icontype: 'people',
     breadComb: ['Home'],
     nextTabs: [
+      {
+        path: '/my-account',
+        title: 'My Account',
+        type: 'link',
+        icontype: 'account_circle'
+      },
       {
         path: '/browser',
         title: 'Browser',
@@ -306,7 +313,7 @@ export class SidebarComponent implements OnInit {
   public selection: any = {edit: {}, delete: {}};
   public currentUser: any = {primaryEmail: null,firstName: null,lastName: null};
 
-  constructor(private router: Router, private dataservice: DataService, private menuservice: MenuService) {
+  constructor(private router: Router, private dataservice: DataService, private menuservice: MenuService, private authService: AuthenticationService) {
     this.observe = false;
     this.menuservice.handleUpdate().subscribe(handle => {
       this.updateMenu(true);
@@ -441,5 +448,9 @@ export class SidebarComponent implements OnInit {
         this.menuservice.subject.next({menu: 'update'});
       });
     }
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
