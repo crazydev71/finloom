@@ -9,7 +9,7 @@ passport.serializeUser(function(contact, done) {
 
 passport.deserializeUser(function(id, done) {
   Contact.findById(id).then(contact => {
-    contact.password = null;
+    contact.password = '';
     done(null, contact);
   }).catch(err => {
     done(err);
