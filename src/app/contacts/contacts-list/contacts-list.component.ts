@@ -24,7 +24,6 @@ export class ContactsListComponent implements OnInit {
     let vm = this;
     this.route.params.subscribe(params => {
       vm.listId = params['id'];
-      
       // this.dataservice.getData('/api/account-list/detail/' + vm.listId).subscribe((resp: any) => {
       //   vm.list = resp.accountList;
       //   vm.tableData.dataRows = resp.accounts.map(account => {

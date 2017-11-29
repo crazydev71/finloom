@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import PerfectScrollbar from 'perfect-scrollbar';
-
 import { DataService } from '../_services/data.services';
 import { MenuService } from '../_services/menu.service';
 import { checkAndUpdateElementDynamic } from '@angular/core/src/view/element';
 import { fadeInContent } from '@angular/material';
-
 import { ConfirmModalComponent } from '../_component/confirm-modal/confirm-modal.component'
 
 declare const $: any;
@@ -305,12 +304,13 @@ export class SidebarComponent implements OnInit {
   public menuItems: any[];
   public observe: boolean;
   public selection: any = {edit: {}, delete: {}};
+  public currentUser: any = {primaryEmail: null,firstName: null,lastName: null};
 
   constructor(private router: Router, private dataservice: DataService, private menuservice: MenuService) {
     this.observe = false;
     this.menuservice.handleUpdate().subscribe(handle => {
       this.updateMenu(true);
-    })
+    });    
   }
 
   isMobileMenu() {
@@ -321,7 +321,16 @@ export class SidebarComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.updateMenu ();
+    this.updateMenu();
+    this.getCurrentUser();
+  }
+  getCurrentUser(){
+    let _ = this;
+    _.dataservice.getData('/api/auth')
+    .subscribe(resp => {
+      _.currentUser = resp;
+      console.log(_.currentUser);
+    });
   }
   updateMenu (observe: boolean = false) {
     this.observe = observe;

@@ -181,6 +181,29 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       
     });
   }
+
+  private onSave () {
+    // delete this.selected.account.isChecked;
+    // delete this.selected.account.emailDomain;
+    // delete this.selected.account.webDomain;
+    if (this.selected) {
+      this.dataService.putData('/api/account/update/' + this.selected.account.id, this.selected.account)
+      .subscribe((resp: any) => {
+        this.selected.accountRef = this.tableData.dataRows.filter(row => {
+          return row.id == this.selected.account.id;
+        })[0];
+        for (let key in this.selected.accountRef) {
+          this.selected.accountRef[key] = this.selected.account[key];
+        }
+        this.isEdit = false;
+        this.matchEmails();
+        this.toastrService.showNotification('Account successfully updated', 'success');
+      },
+      function (error) {
+        this.toastrService.showNotification('Server error', 'danger');
+      });
+    }
+  }
   
   private detailStatus(status: string): void {
     if (status == 'edit')
@@ -188,24 +211,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
     else if (status == 'cancel')
       this.isEdit = false;
     else {
-      // delete this.selected.account.isChecked;
-      // delete this.selected.account.emailDomain;
-      // delete this.selected.account.webDomain;
-      this.dataService.putData('/api/account/' + this.selected.account.id, this.selected.account)
-        .subscribe((resp: any) => {
-          this.selected.accountRef = this.tableData.dataRows.filter(row => {
-            return row.id == this.selected.account.id;
-          })[0];
-          for (let key in this.selected.accountRef) {
-            this.selected.accountRef[key] = this.selected.account[key];
-          }
-          this.isEdit = false;
-          this.matchEmails();
-          this.toastrService.showNotification('Account successfully updated', 'success');
-        },
-        function (error) {
-          this.toastrService.showNotification('Server error', 'danger');
-        });
+      this.onSave();
     }
   }
 }
