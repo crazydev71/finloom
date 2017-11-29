@@ -17,7 +17,7 @@ export class ContactProfileComponent implements OnInit {
 
   getCurrentUser(){
     let _ = this;
-    _.dataservice.getData('/api/auth')
+    _.dataservice.getData('/api/contact/profile')
     .subscribe(resp => {
       _.currentUser = resp;
       console.log(_.currentUser);
