@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { enableProdMode, NgModule } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +16,8 @@ import { CreateMultipleComponent } from './create-multiple/create-multiple.compo
 import { AccountsListComponent } from './accounts-list/accounts-list.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 
+import { WjNavModule } from 'wijmo/wijmo.angular2.nav';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -24,7 +27,8 @@ import { MyAccountComponent } from './my-account/my-account.component';
     MdModule,
     MaterialModule,
     WjGridModule,
-    WjInputModule
+    WjInputModule,
+    WjNavModule
   ],
   exports: [
     FormsModule
@@ -34,3 +38,4 @@ import { MyAccountComponent } from './my-account/my-account.component';
 })
 
 export class AccountsModule { }
+// platformBrowserDynamic().bootstrapModule(AccountsModule);
