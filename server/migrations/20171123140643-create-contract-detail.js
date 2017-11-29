@@ -76,16 +76,10 @@ module.exports = {
       lastRolloverDate: Sequelize.DATE,
       nextRolloverDate: Sequelize.DATE,
       createdBy: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'flm_accounts',
-        }
+        type: Sequelize.INTEGER
       },
       updatedBy: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'flm_accounts',
-        }
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
