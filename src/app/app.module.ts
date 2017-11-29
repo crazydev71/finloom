@@ -42,6 +42,7 @@ import {
 import { AppComponent } from './app.component';
 import { AuthGuard } from './_guards/auth.guard';
 
+import { CoreModule } from './core/core.module';
 import { SidebarModule } from './sidebar/sidebar.module';
 import { FooterModule } from './shared/footer/footer.module';
 import { NavbarModule } from './shared/navbar/navbar.module';
@@ -100,6 +101,7 @@ export class MaterialModule { }
     HttpModule,
     MaterialModule,
     MatNativeDateModule,
+    CoreModule,
     SidebarModule,
     NavbarModule,
     FooterModule
