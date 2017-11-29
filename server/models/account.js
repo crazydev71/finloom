@@ -3,6 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   var Account = sequelize.define('Account', {
     aka: DataTypes.STRING,  // aka of account
     legalName: DataTypes.STRING,  // legal name
+    primaryEmailDomain: DataTypes.INTEGER,
+    primaryWebDomain: DataTypes.INTEGER,
     shortCode: DataTypes.STRING,  // short code
     legalAddress: DataTypes.STRING, // address
     accountStatus: { // status, should be verified by admin

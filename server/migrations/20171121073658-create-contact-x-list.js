@@ -9,16 +9,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       contactId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'flm_contacts'
-        }
+        type: Sequelize.INTEGER
       },
       contactListId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'flm_contact_lists'
-        }
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
