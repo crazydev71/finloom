@@ -23,6 +23,42 @@ router.get('/get/all', async (req, res) => {
   res.json({items, domains});
 });
 
+var buildHierachy = function (items, base, hierachy, key = 'parentId') {
+  if (items.length == 0 || base.length == 0)
+    return hierachy;
+  let newBase = [];
+  let newItems = items.concat([]);
+  for (let i = 0; i < base.length; i++) {
+    let ary = newItems.filter(item => {
+      return base[i].id == item[key];
+    })
+    newItems = newItems.filter(item => {
+      return base[i].id != item[key];
+    })
+    newBase = newBase.concat(ary);
+  }
+  let newHierachy = hierachy.concat(newBase);
+  return buildHierachy(newItems, newBase, newHierachy, key);
+}
+
+router.get('/get/hierachy/:id', async(req, res) => {
+  const {id} = req.params;
+  let items = await Account.findAll();
+  items = items.map(item => {
+    return item.toJSON();
+  })
+  
+  let base = items.filter(item => {
+    return item.id == id;
+  })
+  items = items.filter(item => {
+    return item.id != id;
+  })
+  
+  let hierachy = buildHierachy(items, base, base);
+  res.json({hierachy});
+});
+
 router.post('/create', async (req, res) => {
   const data = req.body;
   let domainData = data.domains;
