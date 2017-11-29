@@ -12,7 +12,7 @@ export const AccountsRoutes: Routes = [
     children: [
       {
         path: '',
-        component: AccountsComponent
+        redirectTo: 'my-account'
       },
       {
         path: 'my-account',
