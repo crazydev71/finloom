@@ -1,8 +1,10 @@
 import * as wjcCore from 'wijmo/wijmo';
 import * as wjcNav from 'wijmo/wijmo.nav';
 
-import { Component, OnInit, EventEmitter, Input, Inject } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Inject, ViewChild } from '@angular/core';
 import { DataService } from '../../_services/data.services';
+
+import { FlmTreeViewComponent } from '../../core/components/flm-tree-view/flm-tree-view.component';
 
 @Component({
   selector: 'app-my-account',
@@ -11,6 +13,8 @@ import { DataService } from '../../_services/data.services';
 })
 
 export class MyAccountComponent implements OnInit {
+  @ViewChild(FlmTreeViewComponent) flm_tree_view: FlmTreeViewComponent;
+  
   items = [];
   isAnimated = true;
   autoCollapse = true;

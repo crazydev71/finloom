@@ -6,6 +6,14 @@ import { FlmTreeViewComponent } from './flm-tree-view/flm-tree-view.component';
   imports: [
     CommonModule
   ],
-  declarations: [FlmTreeViewComponent]
+  exports: [
+    FlmTreeViewComponent
+  ],
+  declarations: [
+    FlmTreeViewComponent
+  ],
+  providers: [
+
+  ]
 })
 export class ComponentsModule { }

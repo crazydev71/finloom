@@ -7,6 +7,9 @@ import { ComponentsModule } from './components/components.module'
     CommonModule,
     ComponentsModule
   ],
+  exports: [
+    ComponentsModule
+  ],
   declarations: []
 })
 export class CoreModule { }

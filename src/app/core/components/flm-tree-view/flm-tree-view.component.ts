@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-flm-tree-view',
@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./flm-tree-view.component.css']
 })
 export class FlmTreeViewComponent implements OnInit {
+  @Input() api: string;
 
   constructor() { }
 
   ngOnInit() {
+    console.log(this.api);
   }
 
 }

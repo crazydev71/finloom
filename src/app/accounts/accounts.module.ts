@@ -3,10 +3,14 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+
+import { CoreModule } from '../core/core.module'
+
 import { MdModule } from '../creative/md/md.module';
 import { MaterialModule } from '../app.module';
 import { WjGridModule } from 'wijmo/wijmo.angular2.grid';
 import { WjInputModule } from 'wijmo/wijmo.angular2.input';
+import { WjNavModule } from 'wijmo/wijmo.angular2.nav';
 
 import { AccountsComponent } from './accounts.component';
 import { AccountsRoutes } from './accounts.routing';
@@ -16,7 +20,7 @@ import { CreateMultipleComponent } from './create-multiple/create-multiple.compo
 import { AccountsListComponent } from './accounts-list/accounts-list.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 
-import { WjNavModule } from 'wijmo/wijmo.angular2.nav';
+
 
 @NgModule({
   imports: [
@@ -28,7 +32,8 @@ import { WjNavModule } from 'wijmo/wijmo.angular2.nav';
     MaterialModule,
     WjGridModule,
     WjInputModule,
-    WjNavModule
+    WjNavModule,
+    CoreModule
   ],
   exports: [
     FormsModule
