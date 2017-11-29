@@ -1916,7 +1916,7 @@ div.wj-sheet > div {
         cursor: pointer;
         white-space: nowrap;
         box-sizing: border-box;
-        padding: 3px 10px; /* as in .wj-listbox-item */
+        padding: 10px 10px; /* as in .wj-listbox-item */
     }
         .wj-treeview .wj-node.wj-state-selected {
             color: inherit;
