@@ -30,7 +30,7 @@
                     <li *ngFor="let list of accountList" (click)="onChange(list.id, list.name)">
                       <a> {{ list.name }} </a>
                     </li>
-                    <li *ngIf="accountList && accountList.length==0"  [class.disabled]="true">
+                    <li *ngIf="accountList && accountList.length==0" [class.disabled]="true">
                       <a>No data</a>
                     </li>
                   </ul>
@@ -142,8 +142,15 @@
                 </div>
               </div>
               <div class="col-md-5 col-sm-5">
-                <h4 class="col-md-6 col-sm-6">Status</h4>
-                <h4 class="col-md-6 col-sm-6 account-active">Active</h4>
+                <h4 *ngIf="!isEdit" class="col-md-6 col-sm-6">Status</h4>
+                <h4 *ngIf="!isEdit" class="col-md-6 col-sm-6 account-{{selected.account.accountStatus}}">{{dataService.getCamelCase(selected.account.accountStatus)}}</h4>
+                <mat-form-field *ngIf="isEdit" class="col-md-6 col-sm-6">
+                  <mat-select placeholder="Account Status" name="accountStatus" [(ngModel)]="selected.account.accountStatus" [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let status of accountStatuses" [value]="status">
+                      {{dataService.getCamelCase(status)}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
             </div>
           </div>

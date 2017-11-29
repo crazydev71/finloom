@@ -29,6 +29,12 @@ label {
 .account-active {
   color: lightgreen;
 }
+.account-pending {
+  color: orange;
+}
+.account-inactive {
+  color: red;
+}
 .account-board {
 }
 #theGrid {

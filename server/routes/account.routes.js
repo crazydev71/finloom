@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Account = require('../models').Account;
+const AccountListEntry = require('../models').AccountListEntry;
 const AccountBankType = require('../models').AccountBankType;
 const Domain = {
   email: require('../models').EmailDomain,
@@ -15,12 +16,47 @@ router.use(baseAPI('Account'));
 
 router.get('/get/all', async (req, res) => {
   const items = await Account.findAll();
-  const emailTypes = ['email', 'web'];
   let domains = {};
   for (let i = 0; i < emailTypes.length; i++) {
     domains[emailTypes[i]] = await Domain[emailTypes[i]].findAll();
   }
   res.json({items, domains});
+});
+
+var buildHierachy = function (items, base, hierachy, key = 'parentId') {
+  if (items.length == 0 || base.length == 0)
+    return hierachy;
+  let newBase = [];
+  let newItems = items.concat([]);
+  for (let i = 0; i < base.length; i++) {
+    let ary = newItems.filter(item => {
+      return base[i].id == item[key];
+    })
+    newItems = newItems.filter(item => {
+      return base[i].id != item[key];
+    })
+    newBase = newBase.concat(ary);
+  }
+  let newHierachy = hierachy.concat(newBase);
+  return buildHierachy(newItems, newBase, newHierachy, key);
+}
+
+router.get('/get/hierachy/:id', async(req, res) => {
+  const {id} = req.params;
+  let items = await Account.findAll();
+  items = items.map(item => {
+    return item.toJSON();
+  })
+  
+  let base = items.filter(item => {
+    return item.id == id;
+  })
+  items = items.filter(item => {
+    return item.id != id;
+  })
+  
+  let hierachy = buildHierachy(items, base, base);
+  res.json({hierachy});
 });
 
 router.post('/create', async (req, res) => {
@@ -82,6 +118,26 @@ router.put('/update/:id', async (req, res) => {
     
     item = await item.update(data);
     return res.json({item, domains});
+  } else {
+    return res.status(404).json({msg: "Invalid request"});
+  }
+});
+
+router.delete('/delete/:id', async (req, res) => {
+  const {id} = req.params;
+
+  let item = await Account.findById(id);
+
+  if (item) {
+    let where = {accountId: id};
+    for (let i = 0; i < emailTypes.length; i++) {
+      await Domain[emailTypes[i]].destroy({where});
+    }
+    await AccountBankType.destroy({where});
+    await AccountListEntry.destroy({where});
+
+    await Account.destroy({where: {id}});
+    res.json({item});
   } else {
     return res.status(404).json({msg: "Invalid request"});
   }

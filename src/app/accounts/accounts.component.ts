@@ -39,6 +39,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
     dataRows: [],
     domains: []
   };
+  accountStatuses: string [] = ['active', 'pending', 'inactive'];
 
   constructor(private router: Router, private dataService: DataService, private toastrService: ToastrService) {
     this.router.navigateByUrl('/accounts/browser');
@@ -169,7 +170,8 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes Delete it'
     }).then(function (result) {
-      _.dataService.deleteData('/api/account/' + id)
+      _.tableData.dataRows.splice(rowNum, 1);
+      _.dataService.deleteData('/api/account/delete/' + id)
         .subscribe((resp: any) => {
           _.tableData.dataRows.splice(rowNum, 1);
           _.toastrService.showNotification('Account successfully deleted', 'success');
@@ -182,8 +184,6 @@ export class AccountsComponent implements OnInit, AfterViewInit {
     });
   }
 
-<<<<<<< HEAD
-=======
   private onSave () {
     if (this.selected) {
       this.dataService.putData('/api/account/update/' + this.selected.account.id, this.selected.account)
@@ -220,7 +220,6 @@ export class AccountsComponent implements OnInit, AfterViewInit {
     }
   }
   
->>>>>>> 56f507ba331947948a6d5b5306c983b8b999bd92
   private detailStatus(status: string): void {
     if (status == 'edit')
       this.isEdit = !this.isEdit;
