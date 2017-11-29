@@ -1,4 +1,5 @@
 const express = require('express');
+const unless = require('express-unless');
 const router = express.Router();
 const passport = require('../config/passport');
 
@@ -23,9 +24,11 @@ const isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated) {
     next();
   } else {
-    res.status(413).json({msg: 'Authentication Error'});
+    return res.status(413).json({msg: 'Authentication Error'});
   }
 };
+
+isAuthenticated.unless = unless;
 
 /**
  * @description User login
@@ -78,5 +81,12 @@ router.get('/logout', (req, res) => {
   req.logout();
   res.json({msg: 'Logout success'});
 });
+
+router.use(isAuthenticated.unless({
+  path: [
+    '/api/login',
+    '/api/signup',
+  ]
+}));
 
 module.exports = router;

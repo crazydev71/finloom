@@ -20,7 +20,12 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(session({ secret: process.env.SECRET || 'finloom', resave: true, saveUninitialized: true }));
+app.use(session({ 
+  secret: process.env.SECRET || 'finloom',
+  resave: true, 
+  saveUninitialized: true ,
+  cookie: { maxAge : 3600000 * 2 }
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 

@@ -37,8 +37,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Contact.associate = function(models) {
-    models['Contact'].belongsTo(models['Role'], {foreignKey: 'accountId'});
-    models['Contact'].belongsTo(models['Account'], {foreignKey: 'accountId'});
+    models['Contact'].belongsTo(models['Role'], {foreignKey: 'roleId'});
+    models['Contact'].belongsTo(models['Account'], {as: 'accountId'});
     models['Contact'].belongsToMany(models['ContactList'], {through: models['ContactXList']});
     models['Contact'].hasMany(models['ContactEmail'], {as: 'contactEmails', onDelete: 'CASCADE'});
   };
