@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild, Injectable } from '@angular/core';
 import { WjGridModule, WjFlexGrid } from 'wijmo/wijmo.angular2.grid';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as wjcCore from 'wijmo/wijmo';
 import * as wjcGrid from 'wijmo/wijmo.grid';
 import * as wjInput from "wijmo/wijmo.input";
@@ -27,8 +28,8 @@ export class CreateMultipleComponent implements OnInit {
   private dataMapParentAcc: wjcGrid.DataMap;
   private isValid: boolean = false;
 
-  constructor(private dataService: DataService) {
-    this.dataSource = this.initTable(3);
+  constructor(private dataService: DataService, private router: Router) {
+    this.dataSource = this.initTable(2);
     this.getCollectionViewData(this.dataSource);
     this.checkValidation();
   }
@@ -85,7 +86,7 @@ export class CreateMultipleComponent implements OnInit {
         primaryWebDomain: '',
         accountType: 1,
         parentId: '',
-        bankType:''
+        bankType: ''
       });
     }
     return data;
@@ -100,12 +101,13 @@ export class CreateMultipleComponent implements OnInit {
       swal({
         title: 'Do you want to save these accounts?',
         text: "",
-        type: 'warning',
+        type: 'success',
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Save all'
       }).then(function (result) {
+        let count = 0;
         for (var i = 0; i < _.dataSource.length; i++) {
           _.dataSource[i].domains = {};
           _.dataSource[i].domains.email = { domains: [] };
@@ -118,33 +120,46 @@ export class CreateMultipleComponent implements OnInit {
             _.dataSource[i].domains.web.primary = _.dataSource[i].primaryWebDomain;
           }
 
-          if (_.dataSource[i].accountType != undefined)
-            _.dataSource[i]['accountType'] = _.accountTypes[_.dataSource[i].accountType - 1].name;
-          
-          if (_.dataSource[i].bankType != undefined)
-            _.dataSource[i]['bankTypes'] = [_.bankTypes[_.dataSource[i].bankType].id];
-          else {
-            _.dataSource[i]['bankTypes'] = [];
+          if (_.dataSource[i].accountType != undefined) {
+            if (isNaN(_.dataSource[i].accountType))
+              _.dataSource[i]['accountType'] = _.dataSource[i].accountType
+            else
+              _.dataSource[i]['accountType'] = _.accountTypes[_.dataSource[i].accountType - 1].name;
+          }
+
+          _.dataSource[i]['bankTypes'] = [];
+          if (_.dataSource[i].bankType != '') {
+            if (!isNaN(_.dataSource[i].bankType))
+              _.dataSource[i]['bankTypes'].push(_.bankTypes[_.dataSource[i].bankType].id);
+            else {
+              for (let i = 0; i < _.bankTypes.length; i++) {
+                if (_.bankTypes[i].name == _.dataSource[i].bankType) {
+                  _.dataSource[i]['bankTypes'].push(i);
+                }
+              }
+            }
           }
 
           _.dataService.postData('/api/account/create', _.dataSource[i])
             .subscribe((resp: any) => {
-              //this.router.navigateByUrl('/accounts/browser');
+              count++;
               console.log(resp);
+              if (count == _.dataSource.length)
+                _.router.navigateByUrl('/accounts/browser');
             },
             function (error) {
               console.log(error)
-            }); 
+            });
         }
         _.showNotification('top', 'right', "Accounts are saved successfully.");
       }).catch(function (err) {
-        
+
       });
     }
   }
 
   private onReset() {
-    this.dataSource = this.initTable(3);
+    this.dataSource = this.initTable(2);
     this.getCollectionViewData(this.dataSource);
     this.checkValidation();
   }
