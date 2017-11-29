@@ -3,6 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   var Account = sequelize.define('Account', {
     aka: DataTypes.STRING,  // aka of account
     legalName: DataTypes.STRING,  // legal name
+    primaryEmailDomain: DataTypes.INTEGER,
+    primaryWebDomain: DataTypes.INTEGER,
     shortCode: DataTypes.STRING,  // short code
     legalAddress: DataTypes.STRING, // address
     accountStatus: { // status, should be verified by admin
@@ -23,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Account.associate = function (models) {
-    models['Account'].belongsToMany(models['BankType'], {through: models['AccountBankType']});
+    // models['Account'].belongsToMany(models['BankType'], {through: models['AccountBankType']});
     models['Account'].belongsToMany(models['AccountList'], {through: models['AccountListEntry']});
     models['Account'].belongsToMany(models['Industry'], {through: models['AccountIndustry']});
     models['Account'].hasMany(models['Contact'], {as: 'contacts', onDelete: 'CASCADE'});
@@ -33,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     models['Account'].belongsTo(models['WebDomain'], {foreignKey: 'primaryWebDomain'});
     
     models['Account'].hasMany(models['EmailDomain'], {as: 'emailDomains', onDelete: 'CASCADE'});
-    models['Account'].belongsTo(models['EmailDomain'], {foreignKey: 'primaryWebDomain'});
+    models['Account'].belongsTo(models['EmailDomain'], {foreignKey: 'primaryEmailDomain'});
   };
 
   return Account;

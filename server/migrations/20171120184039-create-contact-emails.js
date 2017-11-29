@@ -12,10 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       contactId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'flm_contacts'
-        }
+        type: Sequelize.INTEGER
       },
       isVerified: {
         type: Sequelize.INTEGER(1),

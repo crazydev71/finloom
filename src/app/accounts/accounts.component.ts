@@ -182,30 +182,52 @@ export class AccountsComponent implements OnInit, AfterViewInit {
     });
   }
 
+<<<<<<< HEAD
+=======
+  private onSave () {
+    if (this.selected) {
+      this.dataService.putData('/api/account/update/' + this.selected.account.id, this.selected.account)
+      .subscribe((resp: any) => {
+        this.selected.accountRef = this.tableData.dataRows.filter(row => {
+          return row.id == this.selected.account.id;
+        })[0];
+        for (let key in this.selected.accountRef) {
+          this.selected.accountRef[key] = this.selected.account[key];
+        }
+        const types = ['email', 'web'];
+        let typeDomans = [{
+          id: this.selected.account.primaryEmailDomain,
+          name: this.selected.account.emailDomain
+        }, {
+          id: this.selected.account.primaryWebDomain,
+          name: this.selected.account.webDomain
+        }];
+        for (let i = 0; i < types.length; i++) {
+          let typeDomain = this.tableData.domains[types[i]].filter(domain => {
+            return domain.id == typeDomans[i].id
+          });
+          if (typeDomain.length) {
+            typeDomain[0].name = typeDomans[i].name
+          }
+        }
+        this.isEdit = false;
+        this.matchEmails();
+        this.toastrService.showNotification('Account successfully updated', 'success');
+      },
+      function (error) {
+        this.toastrService.showNotification('Server error', 'danger');
+      });
+    }
+  }
+  
+>>>>>>> 56f507ba331947948a6d5b5306c983b8b999bd92
   private detailStatus(status: string): void {
     if (status == 'edit')
       this.isEdit = !this.isEdit;
     else if (status == 'cancel')
       this.isEdit = false;
     else {
-      // delete this.selected.account.isChecked;
-      // delete this.selected.account.emailDomain;
-      // delete this.selected.account.webDomain;
-      this.dataService.putData('/api/account/' + this.selected.account.id, this.selected.account)
-        .subscribe((resp: any) => {
-          this.selected.accountRef = this.tableData.dataRows.filter(row => {
-            return row.id == this.selected.account.id;
-          })[0];
-          for (let key in this.selected.accountRef) {
-            this.selected.accountRef[key] = this.selected.account[key];
-          }
-          this.isEdit = false;
-          this.matchEmails();
-          this.toastrService.showNotification('Account successfully updated', 'success');
-        },
-        function (error) {
-          this.toastrService.showNotification('Server error', 'danger');
-        });
+      this.onSave();
     }
   }
 }

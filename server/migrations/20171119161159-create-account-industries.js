@@ -9,16 +9,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       accountId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'flm_accounts',
-        }
+        type: Sequelize.INTEGER
       },
       industryId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'flm_industries',
-        }
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
