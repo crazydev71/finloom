@@ -169,9 +169,9 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes Delete it'
     }).then(function (result) {
-      _.tableData.dataRows.splice(rowNum, 1);
       _.dataService.deleteData('/api/account/' + id)
         .subscribe((resp: any) => {
+          _.tableData.dataRows.splice(rowNum, 1);
           _.toastrService.showNotification('Account successfully deleted', 'success');
         },
         function (error) {
@@ -181,7 +181,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       
     });
   }
-  
+
   private detailStatus(status: string): void {
     if (status == 'edit')
       this.isEdit = !this.isEdit;
