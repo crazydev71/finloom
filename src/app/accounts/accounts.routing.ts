@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AccountsComponent } from './accounts.component';
+import { MyAccountComponent } from './my-account/my-account.component';
 import { CreateSingleComponent } from './create-single/create-single.component';
 import { CreateListComponent } from './create-list/create-list.component';
 import { CreateMultipleComponent } from './create-multiple/create-multiple.component';
@@ -12,6 +13,10 @@ export const AccountsRoutes: Routes = [
       {
         path: '',
         component: AccountsComponent
+      },
+      {
+        path: 'my-account',
+        component: MyAccountComponent
       },
       {
         path: 'browser',

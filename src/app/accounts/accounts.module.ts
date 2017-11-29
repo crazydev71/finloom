@@ -13,6 +13,7 @@ import { CreateSingleComponent } from './create-single/create-single.component';
 import { CreateListComponent } from './create-list/create-list.component';
 import { CreateMultipleComponent } from './create-multiple/create-multiple.component';
 import { AccountsListComponent } from './accounts-list/accounts-list.component';
+import { MyAccountComponent } from './my-account/my-account.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,7 @@ import { AccountsListComponent } from './accounts-list/accounts-list.component';
   exports: [
     FormsModule
   ],
-  declarations: [AccountsComponent, CreateSingleComponent, CreateListComponent, CreateMultipleComponent, AccountsListComponent],
+  declarations: [AccountsComponent, CreateSingleComponent, CreateListComponent, CreateMultipleComponent, AccountsListComponent, MyAccountComponent],
   providers: []
 })
 
