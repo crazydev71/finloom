@@ -97,4 +97,8 @@ export class DataService {
     }
     return Observable.throw(error || 'Node.js server error');
   }
+  
+  getCamelCase (str: string) {
+    return str[0].toUpperCase() + str.substr(1);
+  }
 }
