@@ -173,6 +173,7 @@ export class AccountsComponent implements OnInit, AfterViewInit {
       _.tableData.dataRows.splice(rowNum, 1);
       _.dataService.deleteData('/api/account/delete/' + id)
         .subscribe((resp: any) => {
+          _.tableData.dataRows.splice(rowNum, 1);
           _.toastrService.showNotification('Account successfully deleted', 'success');
         },
         function (error) {
