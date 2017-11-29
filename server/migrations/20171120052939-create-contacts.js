@@ -21,16 +21,10 @@ module.exports = {
         defaultValue: 0
       },
       roleId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'flm_roles',
-        }
+        type: Sequelize.INTEGER
       },
       accountId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'flm_accounts',
-        }
+        type: Sequelize.INTEGER
       },
       defaultInvitee: {
         type: Sequelize.INTEGER(1),

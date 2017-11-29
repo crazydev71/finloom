@@ -4,11 +4,6 @@ module.exports = (sequelize, DataTypes) => {
     accountId: DataTypes.INTEGER,
     industryId: DataTypes.INTEGER,
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    },
     tableName: 'flm_account_industries'
   });
   return AccountIndustry;
