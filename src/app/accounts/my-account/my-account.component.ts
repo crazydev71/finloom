@@ -3,6 +3,7 @@ import { Component, OnInit, EventEmitter, Input, Inject, ViewChild } from '@angu
 import { DataService } from '../../_services/data.services';
 
 import { FlmTreeViewComponent } from '../../core/components/flm-tree-view/flm-tree-view.component';
+import { FlmTableComponent } from '../../core/components/flm-table/flm-table.component';
 
 @Component({
   selector: 'app-my-account',
@@ -12,6 +13,7 @@ import { FlmTreeViewComponent } from '../../core/components/flm-tree-view/flm-tr
 
 export class MyAccountComponent implements OnInit {
   @ViewChild(FlmTreeViewComponent) flm_tree_view: FlmTreeViewComponent;
+  @ViewChild(FlmTableComponent) flm_table: FlmTableComponent;
   
   constructor(private dataservice: DataService) {
     
