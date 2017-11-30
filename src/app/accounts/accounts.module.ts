@@ -20,8 +20,6 @@ import { CreateMultipleComponent } from './create-multiple/create-multiple.compo
 import { AccountsListComponent } from './accounts-list/accounts-list.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 
-
-
 @NgModule({
   imports: [
     CommonModule,
