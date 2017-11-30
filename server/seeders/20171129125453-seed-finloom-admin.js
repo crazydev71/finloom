@@ -40,7 +40,7 @@ module.exports = {
         isAdminAccount: 1,
         isRegistered: 1,
         hasProfile: 1,
-        password: '$2a$08$IYsDZS9WZxJBblL1D9dM/urjlVRDeT9JiCCz2Q1jkkOZkvjP0Gqwa',
+        password: '$2a$08$oahxcnHGMlnPKoc0OZRIXeSoHurGF8P1GW6ZJPkXIffneBcjVEbwW',
         accountId: account.id
       })
       
