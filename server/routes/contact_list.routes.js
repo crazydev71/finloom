@@ -10,6 +10,9 @@ router.post('/:id', async (req, res) => {
   for (var i = 0; i < data.contactIds.length; i++)
   {
     const idata = {contactId: data.contactIds[i], contactListId: id};
+    const contacts = await ContactXListModel.findAll({where:idata});
+    if (contacts.length > 0)
+    	continue;
     await ContactXListModel.create(idata, {include: [{all: true, nested: true}]});
   }
   return res.status(200).json({msg: "Success"});
@@ -50,7 +53,8 @@ router.delete('/:id/contacts', async (req, res) => {
   for(var i = 0; i < contactIds.length; i++)
   {
     let contact = await ContactXListModel.findById(contactIds[i]);
-    await contact.destroy();
+    if (contact)
+      await contact.destroy();
   }
 
   return res.status(200).json({msg: "Success"});
