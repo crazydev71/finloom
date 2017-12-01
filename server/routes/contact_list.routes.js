@@ -25,6 +25,7 @@ router.get('/:id', async (req, res) => {
   const contactxs = await ContactXListModel.findAll({where:{contactListId: id}});
   const contacts = [];
 
+  // check this
   for(var i = 0; i < contactxs.length; i++)
   {
     const contact = await ContactModel.findById(contactxs[i].contactId);
