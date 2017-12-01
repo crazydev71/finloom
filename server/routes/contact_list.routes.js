@@ -3,6 +3,7 @@ const router = express.Router();
 const ContactList = require('../models').ContactList;
 const baseAPI = require('./base');
 const ContactXListModel = require('../models')['ContactXList'];
+const ContactModel = require('../models')['Contact'];
 
 router.post('/:id', async (req, res) => {
   const {id} = req.params;
@@ -21,7 +22,14 @@ router.post('/:id', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const {id} = req.params;
   const item = await ContactList.findById(id);
-  const contacts = await ContactXListModel.findAll({where:{contactListId: id}});
+  const contactxs = await ContactXListModel.findAll({where:{contactListId: id}});
+  const contacts = [];
+
+  for(var i = 0; i < contactxs.length; i++)
+  {
+    const contact = await ContactModel.findById(contactxs[i].contactId);
+    contacts.push(contact.toJSON());
+  }
 
   var ret = item.toJSON();
   ret.contacts = contacts;
