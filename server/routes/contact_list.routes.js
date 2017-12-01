@@ -32,12 +32,7 @@ router.delete('/:id', async (req, res) => {
   const {id} = req.params;
   let item = await ContactList.findById(id);
 
-  const contacts = await ContactXListModel.findAll({where:{contactListId: id}});
-  for(var i = 0; i < contacts.length; i++)
-  {
-    let contact = await ContactXListModel.findById(contacts[i].id);
-    await contact.destroy();
-  }
+  await ContactXListModel.delete({where:{contactListId: id}});
 
   if (item) {
     await item.destroy();
@@ -45,6 +40,20 @@ router.delete('/:id', async (req, res) => {
   } else {
     res.status(404).json({msg: "Invalid request"});
   }
+});
+
+router.delete('/:id/contacts', async (req, res) => {
+  const {id} = req.params;
+  const data = req.body;
+  let contactIds = data.contactIds;
+
+  for(var i = 0; i < contactIds.length; i++)
+  {
+    let contact = await ContactXListModel.findById(contactIds[i]);
+    await contact.destroy();
+  }
+
+  return res.status(200).json({msg: "Success"});
 });
 
 router.use(baseAPI('ContactList'));
